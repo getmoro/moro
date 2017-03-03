@@ -1,0 +1,19 @@
+{
+  "name": "timo",
+  "version": "0.0.1",
+  "description": "A simple time tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omidfi/timo.git"
+  },
+  "author": "Omid Hezaveh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omidfi/timo/issues"
+  },
+  "homepage": "https://github.com/omidfi/timo#readme"
+}
