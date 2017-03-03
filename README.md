@@ -1,5 +1,5 @@
 # Timo
-CLI tool for registering hours 
+CLI tool for simple time tracking, very simple, you know? dead simple I mean. 
 
 ```
 $: timo hi
