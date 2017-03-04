@@ -1,6 +1,10 @@
 # Timo
 CLI tool for simple time tracking, very simple, you know? dead simple I mean. 
 
+Or 
+
+Telegram bot? I don't know yet :D 
+
 ```
 $: timo hi
 good morning! start working I got the time
