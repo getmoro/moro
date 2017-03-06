@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/omidfi/timo#readme",
   "dependencies": {
-    "moment": "^2.17.1",
-    "yargs": "^6.6.0"
+    "caporal": "^0.3.0",
+    "moment": "^2.17.1"
   }
 }
