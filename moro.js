@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-// good name for this? 9 to 5
-// no numbers are hard. oho ? or niin?
-// or moro
 const moment = require('moment')
 const prog = require('caporal')
 const VERSION = require('./package.json').version
@@ -19,7 +16,8 @@ const BREAK_DEFAULT = 30
 // ./index.js bye 17:30
 // ./index.js break 32
 // ./index.js break -32
-//
+// ./index.js report
+// ./index.js report --all
 
 const setEnd = (args, options, logger) => {
   const end = args.end || moment().format('HH:mm')
@@ -86,7 +84,7 @@ const nextUndoneAction = (args, options, logger) => {
 // First one hi, next one bye
 prog
   .version(VERSION)
-  .description('record your work hours')
+  .description('Record your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!')
   .action(nextUndoneAction)
   .command('hi', 'Set your start of the day, default time is now!')
   .argument('[start]', 'Specify start time if not now', /^\d\d:\d\d$/)

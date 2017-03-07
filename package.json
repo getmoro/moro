@@ -1,5 +1,5 @@
 {
-  "name": "timo",
+  "name": "moro",
   "version": "0.0.1",
   "description": "A simple time tracker",
   "main": "index.js",
@@ -8,18 +8,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omidfi/timo.git"
+    "url": "git+https://github.com/omidfi/moro.git"
+  },
+  "bin": {
+    "moro": "./moro"
   },
   "author": "Omid Hezaveh",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/omidfi/timo/issues"
+    "url": "https://github.com/omidfi/moro/issues"
   },
-  "homepage": "https://github.com/omidfi/timo#readme",
+  "homepage": "https://github.com/omidfi/moro#readme",
   "dependencies": {
     "caporal": "^0.3.0",
+    "global": "^4.3.1",
     "knex": "^0.12.7",
     "moment": "^2.17.1",
+    "moro": "^0.0.1",
     "sqlite3": "^3.1.8"
   }
 }
