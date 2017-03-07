@@ -1,20 +1,24 @@
-# Timo
-CLI tool for simple time tracking, very simple, you know? dead simple I mean. 
+# moro
+CLI tool for simple time tracking, very simple.
 
-Or 
-
-Telegram bot? I don't know yet :D 
+## install
 
 ```
-$: timo hi
-good morning! start working I got the time
-
-$ timo lunch 30m
-Good, I hope you enjoyed it. 
-
-$ timo bye
-Well done! You did seven hours of billable work today. 
-
-$ timo export
-Done! I updated your time accounting info
+npm install -g moro
 ```
+It works best for 9 to 5 jobs, as there's no start/stop task feature.
+
+
+```
+$: moro
+your start of the day is set at 9:00
+
+$ moro
+your end of the day is set to 17:00
+
+$ moro
+you worked for 7:30
+
+```
+
+It removes half an hour for the lunch time.
