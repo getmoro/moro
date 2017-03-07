@@ -24,7 +24,7 @@ your end of the day is set to 17:00
 
 # Just say moro one more time to see how much you have worked:
 $ moro
-You have worked 3 Hours and -28 Minutes today
+You have worked 7 Hours and 30 Minutes today
 
 # moro removes half an hour for the lunch time.
 ```

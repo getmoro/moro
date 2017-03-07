@@ -1,6 +1,6 @@
 {
   "name": "moro",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A simple time tracker",
   "main": "index.js",
   "scripts": {
