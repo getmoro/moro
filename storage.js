@@ -1,9 +1,11 @@
 const moment = require('moment')
+const path = require('path')
+const osHomedir = require('os-homedir')
 
 const knex = require('knex')({
   dialect: 'sqlite3',
   connection: {
-    filename: './data.db'
+    filename: path.join(osHomedir(), '.moro-data.db')
   },
   useNullAsDefault: true
 })
