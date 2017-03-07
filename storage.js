@@ -8,13 +8,16 @@ const knex = require('knex')({
   useNullAsDefault: true
 })
 
+const destroyKnex = () => {
+  knex.destroy()
+}
+
 // Create a table
 const createTable = knex.schema.createTableIfNotExists('records', (table) => {
   table.increments('id')
   table.date('date')
   table.time('start')
   table.time('end')
-  table.text('report')
   table.integer('breakDuration')
 })
   .catch((e) => console.log('Errors in createTable', e))
@@ -67,9 +70,6 @@ const getDateReport = (date) => (
     console.log(err)
   })
 )
-const destroyKnex = () => {
-  knex.destroy()
-}
 
 // if start / end is not yet marked, yell at the user
 const getUndoneWarnings = (dayRecord) => {
@@ -116,12 +116,44 @@ const calculateWorkHours = (date) => (
 
       const hours = workHours.get('hours')
       const minutes = workHours.get('minutes')
-      const message = `You have worked ${workHoursIsNegative ? 'minus' : ''} ${hours} hours : ${minutes} minutes today `
-      return message
+      // to add negative sign
+      const formattedWorkHours = `${workHoursIsNegative ? '(minus)' : ''} ${hours} Hours and ${minutes} Minutes`
+
+      const message = `You have worked ${formattedWorkHours} today`
+      return {message, workHours: formattedWorkHours}
     })
     .catch((err) => {
       console.log(err)
     })
 )
 
-module.exports = { getDateReport, updateDatabase, calculateWorkHours, destroyKnex }
+const getFullReport = () => {
+  createTable
+    .then(() => {
+      return knex.select('date')
+        .from('records')
+        .whereNotNull('start')
+        .whereNotNull('end')
+        .then((rows) => {
+          rows.forEach((row) => {
+            calculateWorkHours(row.date)
+              .then((data) => {
+                console.log('Date', ' - ', 'Work hours')
+                console.log(row.date, ' - ', data.workHours)
+              })
+          })
+        })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(destroyKnex)
+}
+
+module.exports = {
+  getDateReport,
+  updateDatabase,
+  calculateWorkHours,
+  destroyKnex,
+  getFullReport
+}
