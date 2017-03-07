@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
 // good name for this? 9 to 5
+// no numbers are hard. oho ? or niin?
+// or moro
 const moment = require('moment')
 const prog = require('caporal')
 const VERSION = require('./package.json').version
@@ -38,10 +40,14 @@ const setDuration = (args, options, logger) => {
 }
 
 const report = (args, options, logger, date = TODAY) => {
+  if (options.all) {
+    db.getFullReport()
+    return
+  }
   db
     .calculateWorkHours(date)
     .then((result) => {
-      logger.info(result)
+      result && logger.info(result.message)
     })
     .then(() => {
       db.getDateReport(TODAY)
@@ -92,6 +98,7 @@ prog
   .argument('[duration]', 'Specify the duration of break in minutes ', /^[\d]+$/)
   .action(setDuration)
   .command('report', 'See what you have done today!')
+  .option('--all', 'shows reports for all days')
   .action(report)
 
 prog.parse(process.argv)
