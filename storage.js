@@ -14,6 +14,7 @@ const createTable = knex.schema.createTableIfNotExists('records', (table) => {
   table.date('date')
   table.time('start')
   table.time('end')
+  table.text('report')
   table.integer('breakDuration')
 })
   .catch((e) => console.log('Errors in createTable', e))
@@ -45,16 +46,11 @@ const updateDatabase = (
         return knex.insert({date, start, end, breakDuration}).into('records')
       }
     })
-    .then((row) => {
-      console.log(row)
-    })
-  // Finally, add a .catch handler for the promise chain
+    // Finally, add a .catch handler for the promise chain
     .catch(function (e) {
       console.error(e)
     })
-    .then(() => {
-      knex.destroy()
-    })
+    .finally(destroyKnex)
 }
 
 const getDateReport = (date) => (
@@ -71,42 +67,61 @@ const getDateReport = (date) => (
     console.log(err)
   })
 )
+const destroyKnex = () => {
+  knex.destroy()
+}
 
+// if start / end is not yet marked, yell at the user
+const getUndoneWarnings = (dayRecord) => {
+  if (!dayRecord.start) {
+    return 'start of your work day is not marked!'
+  }
+  if (!dayRecord.end) {
+    return 'end of your work day is not marked!'
+  }
+  return undefined
+}
 const calculateWorkHours = (date) => (
   getDateReport(date)
     .then((data) => {
+      if (getUndoneWarnings(data)) {
+        console.log(getUndoneWarnings(data))
+        return
+      }
       let workHoursIsNegative = false
       // console.log('data is: ', data)
-      const getStartHour = (data) => data.start.split(':')[0]
-      const getStartMinute = (data) => data.start.split(':')[1]
-      const getEndHour = (data) => data.end.split(':')[0]
-      const getEndMinute = (data) => data.end.split(':')[1]
+      const getStartHour = (data) => data.start && data.start.split(':')[0]
+      const getStartMinute = (data) => data.start && data.start.split(':')[1]
+      const getEndHour = (data) => data.end && data.end.split(':')[0]
+      const getEndMinute = (data) => data.end && data.end.split(':')[1]
       const getBreak = (data) => data.breakDuration
 
       // to assign hours to moment objects, we need the diff so current moment is fine
       const start = moment({
         hour: getStartHour(data), minute: getStartMinute(data)
       })
+
       const end = moment({
         hour: getEndHour(data), minute: getEndMinute(data)
       })
-      const workHours = moment.duration(end.diff(start)).subtract(getBreak(data))
+      // substract break time
+      .subtract({minutes: getBreak(data)})
+
+      const workHours = moment.duration(end.diff(start))
 
       // to show negative work hours
       if (start.isAfter(end)) {
         workHoursIsNegative = true
       }
 
-      const workHoursHumanized = `${workHoursIsNegative ? '- (minus)' : ''} ${workHours.humanize()}`
-      console.log('You have worked: ', workHoursHumanized, '')
-      return workHoursHumanized
+      const hours = workHours.get('hours')
+      const minutes = workHours.get('minutes')
+      const message = `You have worked ${workHoursIsNegative ? 'minus' : ''} ${hours} hours : ${minutes} minutes today `
+      return message
     })
     .catch((err) => {
       console.log(err)
     })
-    .finally(() => {
-      knex.destroy()
-    })
 )
 
-module.exports = { updateDatabase, calculateWorkHours }
+module.exports = { getDateReport, updateDatabase, calculateWorkHours, destroyKnex }
