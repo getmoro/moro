@@ -21,19 +21,33 @@ const BREAK_DEFAULT = 30
 
 const setEnd = (args, options, logger) => {
   const end = args.end || moment().format('HH:mm')
-  console.log('Your end of the day registered as: ', end)
+  logger.info('Your end of the day registered as: ', end)
   db.updateDatabase(TODAY, null, end, BREAK_DEFAULT, 'setEnd')
 }
 
+// input 'HH:mm', output moment object
+const composeDateObject = (timeString) => {
+  const hour = timeString.split(':')[0]
+  const minutes = timeString.split(':')[1]
+  return moment({ hour, minutes })
+}
 const setStart = (args, options, logger) => {
   const start = args.start || moment().format('HH:mm')
-  console.log('Your start of the day registered as ', start)
+  logger.info('Your start of the day registered as ', start)
+
+  // to tell users when they can go home!
+  const shouldWorkUntil = composeDateObject(start)
+    .add({hour: 7.5})
+    .add({minutes: BREAK_DEFAULT})
+    .format('HH:mm')
+
+  logger.info('\n Working until ', shouldWorkUntil, 'makes it a full day')
   db.updateDatabase(TODAY, start, null, BREAK_DEFAULT, 'setStart')
 }
 
 const setDuration = (args, options, logger) => {
   const duration = args.duration || 30
-  console.log('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
+  logger.info('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
   db.updateDatabase(TODAY, null, null, duration, 'setBreakDuration')
 }
 
@@ -80,8 +94,7 @@ const nextUndoneAction = (args, options, logger) => {
       setStart(args, options, logger)
     })
 }
-// Todo: would be smarter by to set hi, bye without any hassle.
-// First one hi, next one bye
+
 prog
   .version(VERSION)
   .description('Record your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!')
