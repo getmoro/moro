@@ -1,6 +1,6 @@
 // packages
 const moment = require('moment')
-const Table = require('cli-table')
+const Table = require('cli-table2')
 
 // input 'HH:mm', output moment object
 const composeDateObject = (timeString) => {
@@ -38,7 +38,7 @@ const printAllDaysReport = (records) => {
     table.push(formattedRecord)
   })
 
-  console.log('\n Full report of all days you used more\n')
+  console.log('\n Full report of all days you used moro\n')
   console.log(table.toString())
 }
 
