@@ -3,6 +3,7 @@
 // packages
 const moment = require('moment')
 const prog = require('caporal')
+const jsonfile = require('jsonfile')
 
 // ours
 const db = require('./storage.js')
@@ -10,11 +11,10 @@ const helpers = require('./utils/helpers.js')
 
 // constants
 
-// default break time in minutes
-const BREAK_DEFAULT = 30
 const TODAY = moment().format('YYYY-MM-DD')
 const VERSION = require('./package.json').version
-const HOURS_IN_A_WORK_DAY = 7.5
+
+const CONFIG = jsonfile.readFileSync('./config.json')
 
 // set end of the work day
 const setEnd = (args, options, logger) => {
@@ -22,17 +22,17 @@ const setEnd = (args, options, logger) => {
   logger.info('Your end of the day registered as: ', end)
 
   db
-    .updateDatabase(TODAY, null, end, BREAK_DEFAULT, 'setEnd')
+    .updateDatabase(TODAY, null, end, CONFIG.BREAK_DEFAULT, 'setEnd')
     .then(() => { report() })
 }
 
 // to tell users when they can go home!
 const shouldWorkUntil = (start, logger) => {
   const goHomeTime = helpers.composeDateObject(start)
-    .add({hour: HOURS_IN_A_WORK_DAY})
-    .add({minutes: BREAK_DEFAULT})
+    .add({hour: CONFIG.HOURS_IN_A_WORK_DAY})
+    .add({minutes: CONFIG.BREAK_DEFAULT})
     .format('HH:mm')
-  logger.info('\n Working until ', goHomeTime, 'will make it a full (7.5h) day')
+  logger.info('\n Working until ', goHomeTime, `will make it a full (${CONFIG.HOURS_IN_A_WORK_DAY}) day`)
 }
 
 const setStart = (args, options, logger) => {
@@ -43,7 +43,7 @@ const setStart = (args, options, logger) => {
 
   // update database
   db
-    .updateDatabase(TODAY, start, null, BREAK_DEFAULT, 'setStart')
+    .updateDatabase(TODAY, start, null, CONFIG.BREAK_DEFAULT, 'setStart')
     .catch((err) => { logger.error(err) })
     .finally(() => { db.destroyKnex() })
 
