@@ -131,7 +131,7 @@ const clearData = (args, options, logger) => {
 // moro report --all
 prog
   .version(VERSION)
-  .description('Record your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!')
+  .description('Track your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!')
   .action(nextUndoneAction)
   .command('hi', 'Set your start of the day, default time is now!')
   .argument('[start]', 'Specify start time if not now', /^\d\d:\d\d$/)
