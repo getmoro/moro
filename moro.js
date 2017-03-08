@@ -7,6 +7,7 @@ const prog = require('caporal')
 // ours
 const customLogger = require('./utils/logger')
 const db = require('./storage.js')
+const helpers = require('./utils/helpers.js')
 
 // consts
 // default break time in minutes
@@ -22,18 +23,12 @@ const setEnd = (args, options, logger) => {
     .then(() => { report() })
 }
 
-// input 'HH:mm', output moment object
-const composeDateObject = (timeString) => {
-  const hour = timeString.split(':')[0]
-  const minutes = timeString.split(':')[1]
-  return moment({ hour, minutes })
-}
 const setStart = (args, options, logger) => {
   const start = args.start || moment().format('HH:mm')
   logger.info('\n Your start of the day registered as ', start)
 
   // to tell users when they can go home!
-  const shouldWorkUntil = composeDateObject(start)
+  const shouldWorkUntil = helpers.composeDateObject(start)
     .add({hour: 7.5})
     .add({minutes: BREAK_DEFAULT})
     .format('HH:mm')
@@ -71,8 +66,9 @@ const report = (args, options, logger = customLogger, date = TODAY) => {
     .then(() => {
       db.getDateReport(TODAY)
         .then((data) => {
-          logger.info(data)
-          logger.info(' minutes')
+          if (data) {
+            helpers.printSingleDayReport(data)
+          }
         })
         .catch((err) => { logger.error(err) })
     })
