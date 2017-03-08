@@ -85,6 +85,12 @@ to see all your registered hours:
 ```bash
 $ moro report --all
 ```
+## Why not do it by a one liner?
+Well I hear you. My colleague, Henri, gave me this:
+
+```bash
+echo 'You have worked:' $(echo 'scale=2;(' $(date -d 'now' +%s) - $(date -d "$(journalctl -t systemd-logind -b | grep 'Lid opened' | tail -n1 | awk '{print $1, $2, $3}')" +%s) ')' / 3600 | bc) 'hours'
+```
 
 ## Contributing
 Yes please!
