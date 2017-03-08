@@ -1,6 +1,7 @@
 # moro
 CLI tool for tracking work hours, with only one command. Without any arguments or stop/start buttons. No headaches. Very fast :D
 
+## Demo
 [![asciicast](https://asciinema.org/a/f0vb5tlseh1aqyo5xspn4e4qs.png)](https://asciinema.org/a/f0vb5tlseh1aqyo5xspn4e4qs)
 
 ## install
