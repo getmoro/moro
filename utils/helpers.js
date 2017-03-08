@@ -14,11 +14,11 @@ const printSingleDayReport = (record) => {
   var table = new Table()
 
   table.push(
-    { 'Today ': record.dayReport },
-    { 'Start ': record.start },
-    { 'End': record.end },
-    { 'Break duration': record.breakDuration + ' minutes' },
-    { 'Date': record.date }
+    { 'Today you worekd:': record.dayReport },
+    { 'Start:': record.start },
+    { 'End:': record.end },
+    { 'Break duration:': record.breakDuration + ' minutes' },
+    { 'Date:': record.date }
   )
 
   console.log('\n Today looks like this:\n')
