@@ -26,18 +26,22 @@ const setEnd = (args, options, logger) => {
     .then(() => { report() })
 }
 
+// to tell users when they can go home!
+const shouldWorkUntil = (start, logger) => {
+  const goHomeTime = helpers.composeDateObject(start)
+    .add({hour: HOURS_IN_A_WORK_DAY})
+    .add({minutes: BREAK_DEFAULT})
+    .format('HH:mm')
+  logger.info('\n Working until ', goHomeTime, 'will make it a full (7.5h) day')
+}
+
 const setStart = (args, options, logger) => {
   const start = args.start || moment().format('HH:mm')
   logger.info('\n Your start of the day registered as ', start)
 
-  // to tell users when they can go home!
-  const shouldWorkUntil = helpers.composeDateObject(start)
-    .add({hour: HOURS_IN_A_WORK_DAY})
-    .add({minutes: BREAK_DEFAULT})
-    .format('HH:mm')
+  shouldWorkUntil(start, logger)
 
-  logger.info('\n Working until ', shouldWorkUntil, 'will make it a full (7.5h) day')
-
+  // update database
   db
     .updateDatabase(TODAY, start, null, BREAK_DEFAULT, 'setStart')
     .catch((err) => { logger.error(err) })
@@ -53,6 +57,7 @@ const setBreak = (args, options, logger) => {
   db.updateDatabase(TODAY, null, null, duration, 'setBreakDuration')
 }
 
+// report functionality for both single and batch reporting
 const report = (args, options, logger = console.log, date = TODAY) => {
   if (options && options.all) {
     db
@@ -83,6 +88,8 @@ const report = (args, options, logger = console.log, date = TODAY) => {
     })
 }
 
+// determine whether to setStart | setEnd | report
+// based on entered information in database
 const nextUndoneAction = (args, options, logger) => {
   db.getDateReport(TODAY)
     .then((data) => {
@@ -99,6 +106,7 @@ const nextUndoneAction = (args, options, logger) => {
         return
       }
 
+      // this one is for when we don't even have the database
       setStart(args, options, logger)
     })
 }
