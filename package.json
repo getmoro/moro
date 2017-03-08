@@ -1,6 +1,6 @@
 {
   "name": "moro",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "index.js",
   "scripts": {
