@@ -1,9 +1,13 @@
 // native
 const path = require('path')
+const fs = require('fs')
 
 // packages
 const moment = require('moment')
 const osHomedir = require('os-homedir')
+
+// constants
+const DB_FILE = '.moro-data.db'
 
 // ours
 const helpers = require('./utils/helpers.js')
@@ -11,13 +15,25 @@ const helpers = require('./utils/helpers.js')
 const knex = require('knex')({
   dialect: 'sqlite3',
   connection: {
-    filename: path.join(osHomedir(), '.moro-data.db')
+    filename: path.join(osHomedir(), DB_FILE)
   },
   useNullAsDefault: true
 })
 
+// just cut the connection so that cli exits
 const destroyKnex = () => {
   knex.destroy()
+}
+
+const removeDatabase = () => {
+  const databaseFile = path.join(osHomedir(), DB_FILE)
+  fs.unlink(databaseFile, (err) => {
+    if (err) {
+      console.log('problem in deleting the file ', err)
+    }
+    console.log('database file deleted successfully')
+    console.log('press ctrl-c to exit')
+  })
 }
 
 // Create a table
@@ -140,5 +156,6 @@ module.exports = {
   updateDatabase,
   calculateWorkHours,
   destroyKnex,
-  getFullReport
+  getFullReport,
+  removeDatabase
 }
