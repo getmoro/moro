@@ -5,7 +5,6 @@ const moment = require('moment')
 const prog = require('caporal')
 
 // ours
-const customLogger = require('./utils/logger')
 const db = require('./storage.js')
 const helpers = require('./utils/helpers.js')
 
@@ -49,7 +48,7 @@ const setBreak = (args, options, logger) => {
   db.updateDatabase(TODAY, null, null, duration, 'setBreakDuration')
 }
 
-const report = (args, options, logger = customLogger, date = TODAY) => {
+const report = (args, options, logger = console.log, date = TODAY) => {
   if (options && options.all) {
     db
       .getFullReport()
@@ -61,12 +60,13 @@ const report = (args, options, logger = customLogger, date = TODAY) => {
   db
     .calculateWorkHours(date)
     .then((result) => {
-      result && logger.info(result.message)
+      return result
     })
-    .then(() => {
+    .then((result) => {
       db.getDateReport(TODAY)
         .then((data) => {
           if (data) {
+            data.dayReport = result
             helpers.printSingleDayReport(data)
           }
         })

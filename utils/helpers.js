@@ -1,8 +1,6 @@
 // packages
 const moment = require('moment')
-
-// ours
-const logger = require('./logger.js')
+const Table = require('cli-table')
 
 // input 'HH:mm', output moment object
 const composeDateObject = (timeString) => {
@@ -12,12 +10,20 @@ const composeDateObject = (timeString) => {
 }
 
 const printSingleDayReport = (record) => {
-  logger.info(` \n
-  Start:        ${record.start}
-  End:          ${record.end}
-  Total break: ${record.breakDuration}(minutes)
-  Date:         ${record.date}
-  `)
+// instantiate
+  var table = new Table()
+
+// table is an Array, so you can `push`, `unshift`, `splice` and friends
+  table.push(
+    { 'Today ': record.dayReport },
+    { 'Start ': record.start },
+    { 'End': record.end },
+    { 'Break duration': record.breakDuration + ' minutes' },
+    { 'Date': record.date }
+  )
+
+  console.log('\n Today looks like this. Run moro --help if you need to edit your start, end or break duration for today \n')
+  console.log(table.toString())
 }
 
 module.exports = {

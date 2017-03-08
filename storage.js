@@ -95,7 +95,6 @@ const calculateWorkHours = (date) => (
         console.log(getUndoneWarnings(data))
         return
       }
-      let workHoursIsNegative = false
       // console.log('data is: ', data)
       const getBreak = (data) => data.breakDuration
 
@@ -106,18 +105,12 @@ const calculateWorkHours = (date) => (
       const workHours = moment
         .duration(end.diff(start.add({minutes: getBreak(data)})))
 
-      // to show negative work hours
-      if (start.isAfter(end)) {
-        workHoursIsNegative = true
-      }
-
       const hours = workHours.get('hours')
       const minutes = workHours.get('minutes')
       // to add negative sign
-      const formattedWorkHours = `${workHoursIsNegative ? '(minus)' : ''} ${hours} Hours and ${minutes} Minutes`
+      const formattedWorkHours = `${hours} Hours and ${minutes} Minutes`
 
-      const message = `You have worked ${formattedWorkHours} today`
-      return {message, workHours: formattedWorkHours}
+      return formattedWorkHours
     })
     .catch((err) => {
       console.log(err)
