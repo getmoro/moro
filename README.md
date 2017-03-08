@@ -20,7 +20,7 @@ Short version:
 It's simple. When you start your work, you run moro. And when you are leaving, run moro again. And it tells you how long you have worked.
 
 Long version:
-1. when you com to work you say moro:
+1. when you come to work you say moro:
 ```bash
 $: moro
 your start of the day is set at 9:00
