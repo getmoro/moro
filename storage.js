@@ -63,6 +63,7 @@ const updateDatabase = (
     })
 }
 
+// gets data for a single day
 const getDateReport = (date) => (
   // Then query the table...
   createTable
@@ -109,8 +110,7 @@ const calculateWorkHours = (date) => (
       const minutes = workHours.get('minutes')
       // to add negative sign
       const formattedWorkHours = `${hours} Hours and ${minutes} Minutes`
-
-      return formattedWorkHours
+      return { date, formattedWorkHours }
     })
     .catch((err) => {
       console.log(err)
@@ -124,15 +124,11 @@ const getFullReport = () => {
         .from('records')
         .whereNotNull('start')
         .whereNotNull('end')
-        .then((rows) => {
-          rows.forEach((row) => {
-            calculateWorkHours(row.date)
-              .then((data) => {
-                console.log('Date', ' - ', 'Work hours')
-                console.log(row.date, ' - ', data.workHours)
-              })
-          })
+        .map((row) => calculateWorkHours(row.date))
+        .then((results) => {
+          helpers.printAllDaysReport(results)
         })
+        .catch((err) => { console.error(err) })
     })
     .catch((err) => {
       console.log(err)

@@ -8,15 +8,19 @@ const prog = require('caporal')
 const db = require('./storage.js')
 const helpers = require('./utils/helpers.js')
 
-// consts
+// constants
+
 // default break time in minutes
 const BREAK_DEFAULT = 30
 const TODAY = moment().format('YYYY-MM-DD')
 const VERSION = require('./package.json').version
+const HOURS_IN_A_WORK_DAY = 7.5
 
+// set end of the work day
 const setEnd = (args, options, logger) => {
   const end = args.end || moment().format('HH:mm')
   logger.info('Your end of the day registered as: ', end)
+
   db
     .updateDatabase(TODAY, null, end, BREAK_DEFAULT, 'setEnd')
     .then(() => { report() })
@@ -28,7 +32,7 @@ const setStart = (args, options, logger) => {
 
   // to tell users when they can go home!
   const shouldWorkUntil = helpers.composeDateObject(start)
-    .add({hour: 7.5})
+    .add({hour: HOURS_IN_A_WORK_DAY})
     .add({minutes: BREAK_DEFAULT})
     .format('HH:mm')
 
@@ -36,12 +40,13 @@ const setStart = (args, options, logger) => {
 
   db
     .updateDatabase(TODAY, start, null, BREAK_DEFAULT, 'setStart')
-    .then(() => { db.destroyKnex() })
     .catch((err) => { logger.error(err) })
+    .finally(() => { db.destroyKnex() })
 
   logger.info('\n TIP: next time you run moro the end of your day will be set')
 }
 
+// set total duration of break for today
 const setBreak = (args, options, logger) => {
   const duration = args.duration || 30
   logger.info('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
@@ -52,8 +57,8 @@ const report = (args, options, logger = console.log, date = TODAY) => {
   if (options && options.all) {
     db
       .getFullReport()
-      .then(() => { db.destroyKnex() })
       .catch((error) => { console.log(error) })
+      .finally(() => { db.destroyKnex() })
 
     return
   }
@@ -66,7 +71,7 @@ const report = (args, options, logger = console.log, date = TODAY) => {
       db.getDateReport(TODAY)
         .then((data) => {
           if (data) {
-            data.dayReport = result
+            data.dayReport = result.formattedWorkHours
             helpers.printSingleDayReport(data)
           }
         })
