@@ -13,7 +13,6 @@ const printSingleDayReport = (record) => {
 // instantiate
   var table = new Table()
 
-// table is an Array, so you can `push`, `unshift`, `splice` and friends
   table.push(
     { 'Today ': record.dayReport },
     { 'Start ': record.start },
@@ -22,11 +21,29 @@ const printSingleDayReport = (record) => {
     { 'Date': record.date }
   )
 
-  console.log('\n Today looks like this. Run moro --help if you need to edit your start, end or break duration for today \n')
+  console.log('\n Today looks like this:\n')
+  // renders the table
+  console.log(table.toString())
+  console.log('Run moro --help if you need to edit your start, end or break duration for today \n')
+}
+
+// full report of all days
+const printAllDaysReport = (records) => {
+  // instantiate beautiful table
+  const table = new Table()
+  records.forEach((record) => {
+    const report = record.formattedWorkHours
+    const formattedRecord = {}
+    formattedRecord[record.date] = report
+    table.push(formattedRecord)
+  })
+
+  console.log('\n Full report of all days you used more\n')
   console.log(table.toString())
 }
 
 module.exports = {
   composeDateObject,
-  printSingleDayReport
+  printSingleDayReport,
+  printAllDaysReport
 }
