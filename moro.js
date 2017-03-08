@@ -116,7 +116,7 @@ const clearData = (args, options, logger) => {
     db.removeDatabase()
     return
   }
-  logger.info('If you are sure say: moro clear --yes')
+  logger.info('If you surely want to clear all data in moro run: moro clear --yes')
   process.exit()
 }
 
