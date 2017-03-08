@@ -28,7 +28,7 @@ const updateDatabase = (
   date, start, end, breakDuration, action
 ) => {
   // Then query the table...
-  createTable
+  return createTable
     .then(() => {
       return knex
         .select('*')
@@ -55,7 +55,6 @@ const updateDatabase = (
     .catch(function (e) {
       console.error(e)
     })
-    .finally(destroyKnex)
 }
 
 const getDateReport = (date) => (
@@ -130,7 +129,7 @@ const calculateWorkHours = (date) => (
 )
 
 const getFullReport = () => {
-  createTable
+  return createTable
     .then(() => {
       return knex.select('date')
         .from('records')
@@ -149,7 +148,6 @@ const getFullReport = () => {
     .catch((err) => {
       console.log(err)
     })
-    .finally(destroyKnex)
 }
 
 module.exports = {

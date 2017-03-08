@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 
+// packages
 const moment = require('moment')
 const prog = require('caporal')
-const VERSION = require('./package.json').version
-const db = require('./storage.js')
-const TODAY = moment().format('YYYY-MM-DD')
 
+// ours
+const customLogger = require('./utils/logger')
+const db = require('./storage.js')
+
+// consts
 // default break time in minutes
 const BREAK_DEFAULT = 30
+const TODAY = moment().format('YYYY-MM-DD')
+const VERSION = require('./package.json').version
 
 // Commands
 // ./index.js hi
@@ -22,7 +27,9 @@ const BREAK_DEFAULT = 30
 const setEnd = (args, options, logger) => {
   const end = args.end || moment().format('HH:mm')
   logger.info('Your end of the day registered as: ', end)
-  db.updateDatabase(TODAY, null, end, BREAK_DEFAULT, 'setEnd')
+  db
+    .updateDatabase(TODAY, null, end, BREAK_DEFAULT, 'setEnd')
+    .then(() => { report() })
 }
 
 // input 'HH:mm', output moment object
@@ -33,7 +40,7 @@ const composeDateObject = (timeString) => {
 }
 const setStart = (args, options, logger) => {
   const start = args.start || moment().format('HH:mm')
-  logger.info('Your start of the day registered as ', start)
+  logger.info('\n Your start of the day registered as ', start)
 
   // to tell users when they can go home!
   const shouldWorkUntil = composeDateObject(start)
@@ -41,19 +48,29 @@ const setStart = (args, options, logger) => {
     .add({minutes: BREAK_DEFAULT})
     .format('HH:mm')
 
-  logger.info('\n Working until ', shouldWorkUntil, 'makes it a full day')
-  db.updateDatabase(TODAY, start, null, BREAK_DEFAULT, 'setStart')
+  logger.info('\n Working until ', shouldWorkUntil, 'will make it a full (7.5h) day')
+
+  db
+    .updateDatabase(TODAY, start, null, BREAK_DEFAULT, 'setStart')
+    .then(() => { db.destroyKnex() })
+    .catch((err) => { logger.error(err) })
+
+  logger.info('\n TIP: next time you run moro the end of your day will be set')
 }
 
-const setDuration = (args, options, logger) => {
+const setBreak = (args, options, logger) => {
   const duration = args.duration || 30
   logger.info('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
   db.updateDatabase(TODAY, null, null, duration, 'setBreakDuration')
 }
 
-const report = (args, options, logger, date = TODAY) => {
-  if (options.all) {
-    db.getFullReport()
+const report = (args, options, logger = customLogger, date = TODAY) => {
+  if (options && options.all) {
+    db
+      .getFullReport()
+      .then(() => { db.destroyKnex() })
+      .catch((error) => { console.log(error) })
+
     return
   }
   db
@@ -107,7 +124,7 @@ prog
   .action(setEnd)
   .command('break', 'Set the amount of unpaid break in minute. 30 minutes is added by default for lunch. Use this command to enter the correct amount')
   .argument('[duration]', 'Specify the duration of break in minutes ', /^[\d]+$/)
-  .action(setDuration)
+  .action(setBreak)
   .command('report', 'See what you have done today!')
   .option('--all', 'shows reports for all days')
   .action(report)
