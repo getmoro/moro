@@ -14,16 +14,6 @@ const BREAK_DEFAULT = 30
 const TODAY = moment().format('YYYY-MM-DD')
 const VERSION = require('./package.json').version
 
-// Commands
-// ./index.js hi
-// ./index.js hi 08:23
-// ./index.js bye
-// ./index.js bye 17:30
-// ./index.js break 32
-// ./index.js break -32
-// ./index.js report
-// ./index.js report --all
-
 const setEnd = (args, options, logger) => {
   const end = args.end || moment().format('HH:mm')
   logger.info('Your end of the day registered as: ', end)
@@ -112,6 +102,15 @@ const nextUndoneAction = (args, options, logger) => {
     })
 }
 
+// Commands
+// moro
+// moro hi 08:23
+// moro bye
+// moro bye 17:30
+// moro break 32
+// moro break -32
+// moro report
+// moro report --all
 prog
   .version(VERSION)
   .description('Record your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!')

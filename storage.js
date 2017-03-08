@@ -1,6 +1,12 @@
-const moment = require('moment')
+// native
 const path = require('path')
+
+// packages
+const moment = require('moment')
 const osHomedir = require('os-homedir')
+
+// ours
+const helpers = require('./utils/helpers.js')
 
 const knex = require('knex')({
   dialect: 'sqlite3',
@@ -91,24 +97,14 @@ const calculateWorkHours = (date) => (
       }
       let workHoursIsNegative = false
       // console.log('data is: ', data)
-      const getStartHour = (data) => data.start && data.start.split(':')[0]
-      const getStartMinute = (data) => data.start && data.start.split(':')[1]
-      const getEndHour = (data) => data.end && data.end.split(':')[0]
-      const getEndMinute = (data) => data.end && data.end.split(':')[1]
       const getBreak = (data) => data.breakDuration
 
       // to assign hours to moment objects, we need the diff so current moment is fine
-      const start = moment({
-        hour: getStartHour(data), minute: getStartMinute(data)
-      })
+      const start = helpers.composeDateObject(data.start)
+      const end = helpers.composeDateObject(data.end)
 
-      const end = moment({
-        hour: getEndHour(data), minute: getEndMinute(data)
-      })
-      // substract break time
-      .subtract({minutes: getBreak(data)})
-
-      const workHours = moment.duration(end.diff(start))
+      const workHours = moment
+        .duration(end.diff(start.add({minutes: getBreak(data)})))
 
       // to show negative work hours
       if (start.isAfter(end)) {
