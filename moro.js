@@ -111,6 +111,15 @@ const nextUndoneAction = (args, options, logger) => {
     })
 }
 
+const clearData = (args, options, logger) => {
+  if (options && options.yes) {
+    db.removeDatabase()
+    return
+  }
+  logger.info('If you are sure say: moro clear --yes')
+  process.exit()
+}
+
 // Commands
 // moro
 // moro hi 08:23
@@ -136,5 +145,8 @@ prog
   .command('report', 'See what you have done today!')
   .option('--all', 'shows reports for all days')
   .action(report)
+  .command('clear', 'remove the database! Be careful :) ')
+  .option('--yes', 'you need to confirm before I remove everything')
+  .action(clearData)
 
 prog.parse(process.argv)
