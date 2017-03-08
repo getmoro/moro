@@ -13,7 +13,8 @@ It works best for 9 to 5 jobs, as there's no start/stop task feature.
 
 ## How it works?
 Short version:
-It's simple. When you start your work, you run the program. When you are leaving you run the program. And it tells you how long you have worked.
+
+It's simple. When you start your work, you run moro. And when you are leaving, run moro again. And it tells you how long you have worked.
 
 Long version:
 1. when you com to work you say moro:
@@ -22,12 +23,9 @@ $: moro
 your start of the day is set at 9:00
 ...
 ```
-1. When you are about to leave work you say moro once more, and you find out how long you have worked!
+2. When you are about to leave work you say moro once more, and you find out how long you have worked!
 ```
 $ moro
-Your end of the day registered as:  17:15
-
- Today looks like this:
 
 Your end of the day registered as:  17:15
 
