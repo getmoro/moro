@@ -20,6 +20,11 @@ Short version:
 It's simple. When you start your work, you run moro. And when you are leaving, run moro again. And it tells you how long you have worked.
 
 Long version:
+
+The formula to calculate work hours is simple: time works end - time work starts - breaks = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
+
+Moro just saves the three for each day and at the end of the day tells you how much you have worked. All data is saved on your computer and doesn't leave it.
+
 1. when you come to work you say moro:
 ```bash
 $: moro
@@ -30,7 +35,7 @@ your start of the day is set at 9:00
 ```
 $ moro
 
-Your end of the day registered as:  17:15
+Your end of the day registered as  17:15
 
  Today looks like this:
 
@@ -54,7 +59,7 @@ That's it! You know you have worked 7 hours and 30 minutes!
 ### What if you forgot to say moro when you start or finish your day?
 If you forget to say moro in the morning, or when you're leaving, don't worry. You can do that later on the same day, but not tomorrow for example.
 
-To specify the start and end of your workday afterwards moro has two commands: hi and bye
+To specify the start and end of your workday afterward moro has two commands: hi and bye
 
 hi is for setting the start of the day, check the format of time HH:mm
 
@@ -68,7 +73,7 @@ bye is to set the end of your work day
 $ moro bye 15:56
 ```
 
-You can also use break to set the total minutes of break. The default is 30 minutes. So if you just have a 30 minutes break on the day, don't touch this one.
+You can also use break to set the total minutes of break. The default is 30 minutes. So if you just have 30 minutes break on the day, don't touch this one.
 
 ```bash
 # Imagine you notice you had 45 minutes of break instead of 30, do this to set it
@@ -85,4 +90,4 @@ $ moro report --all
 Yes please!
 
 ## what does moro mean?
-moro means hello in Finland and  and in some areas specially in Tampere I've heard it a lot.
+moro means hello in Finland and in some areas especially in Tampere I've heard it a lot.
