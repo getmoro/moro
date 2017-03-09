@@ -21,10 +21,18 @@ const printSingleDayReport = (record) => {
     { 'Date:': record.date }
   )
 
+  record.notes.forEach((note) => {
+    if (!note) {
+      return
+    }
+    table.push({'Note': note.createdat + ' ' + note.note})
+  })
+
   console.log('\n Today looks like this:\n')
   // renders the table
   console.log(table.toString())
   console.log('Run moro --help if you need to edit your start, end or break duration for today \n')
+  process.exit(0)
 }
 
 // full report of all days

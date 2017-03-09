@@ -35,8 +35,13 @@ const setEnd = (args, options, logger) => {
   const end = args.end || moment().format('HH:mm')
   logger.info('Your end of the day registered as: ', end)
 
+  const payload = {
+    date: TODAY,
+    end,
+    action: 'setEnd'
+  }
   db
-    .updateDatabase(TODAY, null, end, CONFIG.BREAK_DEFAULT, 'setEnd')
+    .updateDatabase(payload)
     .then(() => { report() })
 }
 
@@ -55,8 +60,15 @@ const setStart = (args, options, logger) => {
 
   shouldWorkUntil(start, logger)
 
+  const payload = {
+    date: TODAY,
+    start,
+    breakDuration: CONFIG.BREAK_DEFAULT,
+    action: 'setStart'
+  }
+
   // update database
-  db.updateDatabase(TODAY, start, null, CONFIG.BREAK_DEFAULT, 'setStart')
+  db.updateDatabase(payload)
     .catch((err) => { logger.error(err) })
     .finally(() => { db.destroyKnex() })
 
@@ -67,9 +79,15 @@ const setStart = (args, options, logger) => {
 const setBreak = (args, options, logger) => {
   const duration = args.duration || CONFIG.BREAK_DEFAULT
   logger.info('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
-  db.updateDatabase(TODAY, null, null, duration, 'setBreakDuration')
+
+  const payload = {
+    date: TODAY,
+    breakDuration: duration,
+    action: 'setBreakDuration'
+  }
+  db.updateDatabase(payload)
     .catch((err) => { logger.error(err) })
-    .finally(() => { db.destroyKnex() })
+    .then(() => { report() })
 }
 
 // report functionality for both single and batch reporting
@@ -98,9 +116,6 @@ const report = (args, options, logger = console.log, date = TODAY) => {
         .catch((err) => { logger.error(err) })
     })
     .catch((err) => { logger.error(err) })
-    .finally(() => {
-      db.destroyKnex()
-    })
 }
 
 // determine whether to setStart | setEnd | report
@@ -136,8 +151,20 @@ const clearData = (args, options, logger) => {
 }
 
 const addNote = (args, options, logger) => {
-  const note = args.note || 'notes'
-  db.updateDatabase(TODAY, null, null, null, note, 'addNote')
+  let note = args.note || '...'
+  note = note.join(' ')
+  const createdat = moment().format('HH:mm')
+  const payload = {
+    date: TODAY,
+    note,
+    createdat,
+    action: 'addNote'
+  }
+  db.updateDatabase(payload)
+    .catch((err) => { logger.error(err) })
+    .finally(() => {
+      db.destroyKnex()
+    })
 }
 
 // Commands
@@ -173,6 +200,6 @@ prog
   .option('--break <duration>', 'Set your proffered default break time in minutes. e.g 45', prog.INT)
   .action(setConfig)
   .command('note', 'optionally add notes about the task at hand')
-  .argument('[note]', 'free form text about taks at hand')
+  .argument('[note...]', 'free form text about taks at hand')
   .action(addNote)
 prog.parse(process.argv)
