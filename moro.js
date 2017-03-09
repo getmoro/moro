@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// native
+const path = require('path')
 
 // packages
 const moment = require('moment')
@@ -13,7 +15,7 @@ const helpers = require('./utils/helpers.js')
 
 const TODAY = moment().format('YYYY-MM-DD')
 const VERSION = require('./package.json').version
-const CONFIG_FILE = './config.json'
+const CONFIG_FILE = path.join(__dirname, 'config.json')
 const CONFIG = jsonfile.readFileSync(CONFIG_FILE)
 
 const setConfig = (args, options, logger) => {
