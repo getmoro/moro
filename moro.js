@@ -13,9 +13,21 @@ const helpers = require('./utils/helpers.js')
 
 const TODAY = moment().format('YYYY-MM-DD')
 const VERSION = require('./package.json').version
+const CONFIG_FILE = './config.json'
+const CONFIG = jsonfile.readFileSync(CONFIG_FILE)
 
-const CONFIG = jsonfile.readFileSync('./config.json')
+const setConfig = (args, options, logger) => {
+  if (options.day) {
+    CONFIG.HOURS_IN_A_WORK_DAY = options.day
+  }
 
+  if (options.break) {
+    CONFIG.BREAK_DEFAULT = options.break
+  }
+  jsonfile.writeFileSync(CONFIG_FILE, CONFIG)
+  console.log(CONFIG)
+  process.exit(0)
+}
 // set end of the work day
 const setEnd = (args, options, logger) => {
   const end = args.end || moment().format('HH:mm')
@@ -52,7 +64,7 @@ const setStart = (args, options, logger) => {
 
 // set total duration of break for today
 const setBreak = (args, options, logger) => {
-  const duration = args.duration || 30
+  const duration = args.duration || CONFIG.BREAK_DEFAULT
   logger.info('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
   db.updateDatabase(TODAY, null, null, duration, 'setBreakDuration')
 }
@@ -134,13 +146,13 @@ prog
   .description('Track your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!')
   .action(nextUndoneAction)
   .command('hi', 'Set your start of the day, default time is now!')
-  .argument('[start]', 'Specify start time if not now', /^\d\d:\d\d$/)
+  .argument('<start>', 'Specify start time if not now', /^\d\d:\d\d$/)
   .action(setStart)
   .command('bye', 'Sets your end of the day time')
-  .argument('[end]', 'Specify the end of working hours if not now', /^\d\d:\d\d$/)
+  .argument('<end>', 'Specify the end of working hours if not now. e.g 17:45 ', /^\d\d:\d\d$/)
   .action(setEnd)
   .command('break', 'Set the amount of unpaid break in minute. 30 minutes is added by default for lunch. Use this command to enter the correct amount')
-  .argument('[duration]', 'Specify the duration of break in minutes ', /^[\d]+$/)
+  .argument('<duration>', 'Specify the duration of break in minutes. e.g 45 ', /^[\d]+$/)
   .action(setBreak)
   .command('report', 'See what you have done today!')
   .option('--all', 'shows reports for all days')
@@ -148,5 +160,9 @@ prog
   .command('clear', 'remove the database! Be careful :) ')
   .option('--yes', 'you need to confirm before I remove everything')
   .action(clearData)
+  .command('config', 'Set duration of day, and default break duration')
+  .option('--day <duration>', 'How many hours make a full day e.g 7.5', prog.FLOAT)
+  .option('--break <duration>', 'Set your proffered default break time in minutes. e.g 45', prog.INT)
+  .action(setConfig)
 
 prog.parse(process.argv)
