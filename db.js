@@ -113,10 +113,10 @@ const getDateReport = (date) => (
 // if start / end is not yet marked, yell at the user
 const getUndoneWarnings = (dayRecord) => {
   if (!dayRecord.start) {
-    return 'start of your work day is not marked!'
+    return 'Start of your work day is not marked yet!'
   }
   if (!dayRecord.end) {
-    return 'end of your work day is not marked!'
+    return 'The end of your work day is not marked! run moro with no arguments to set it'
   }
   return undefined
 }
@@ -125,7 +125,7 @@ const calculateWorkHours = (date) => (
   .then((data) => {
     if (getUndoneWarnings(data)) {
       console.log(getUndoneWarnings(data))
-      return
+      process.exit(0)
     }
     // console.log('data is: ', data)
     const getBreak = (data) => data.breakDuration
