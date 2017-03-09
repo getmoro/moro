@@ -20,11 +20,6 @@ const knex = require('knex')({
   useNullAsDefault: true
 })
 
-// just cut the connection so that cli exits
-const destroyKnex = () => {
-  knex.destroy()
-}
-
 const removeDatabase = () => {
   const databaseFile = path.join(osHomedir(), DB_FILE)
 
@@ -175,7 +170,6 @@ module.exports = {
   getDateReport,
   updateDatabase,
   calculateWorkHours,
-  destroyKnex,
   getFullReport,
   removeDatabase
 }
