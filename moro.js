@@ -56,8 +56,7 @@ const setStart = (args, options, logger) => {
   shouldWorkUntil(start, logger)
 
   // update database
-  db
-    .updateDatabase(TODAY, start, null, CONFIG.BREAK_DEFAULT, 'setStart')
+  db.updateDatabase(TODAY, start, null, CONFIG.BREAK_DEFAULT, 'setStart')
     .catch((err) => { logger.error(err) })
     .finally(() => { db.destroyKnex() })
 
@@ -69,6 +68,8 @@ const setBreak = (args, options, logger) => {
   const duration = args.duration || CONFIG.BREAK_DEFAULT
   logger.info('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
   db.updateDatabase(TODAY, null, null, duration, 'setBreakDuration')
+    .catch((err) => { logger.error(err) })
+    .finally(() => { db.destroyKnex() })
 }
 
 // report functionality for both single and batch reporting
