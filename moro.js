@@ -8,7 +8,7 @@ const prog = require('caporal')
 const jsonfile = require('jsonfile')
 
 // ours
-const db = require('./storage.js')
+const db = require('./db.js')
 const helpers = require('./utils/helpers.js')
 
 // constants
@@ -135,6 +135,11 @@ const clearData = (args, options, logger) => {
   process.exit()
 }
 
+const addNote = (args, options, logger) => {
+  const note = args.note || 'notes'
+  db.updateDatabase(TODAY, null, null, null, note, 'addNote')
+}
+
 // Commands
 // moro
 // moro hi 08:23
@@ -167,5 +172,7 @@ prog
   .option('--day <duration>', 'How many hours make a full day e.g 7.5', prog.FLOAT)
   .option('--break <duration>', 'Set your proffered default break time in minutes. e.g 45', prog.INT)
   .action(setConfig)
-
+  .command('note', 'optionally add notes about the task at hand')
+  .argument('[note]', 'free form text about taks at hand')
+  .action(addNote)
 prog.parse(process.argv)

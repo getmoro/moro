@@ -50,6 +50,7 @@ const createTable = knex.schema.createTableIfNotExists('records', (table) => {
 })
   .catch((e) => console.log('Errors in createTable', e))
 
+// Add note field if it doesn't exist
 const updateDatabase = (
   date, start, end, breakDuration, action
 ) => {
