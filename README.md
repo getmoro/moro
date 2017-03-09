@@ -92,6 +92,21 @@ Well I hear you. My colleague, Henri, gave me this:
 echo 'You have worked:' $(echo 'scale=2;(' $(date -d 'now' +%s) - $(date -d "$(journalctl -t systemd-logind -b | grep 'Lid opened' | tail -n1 | awk '{print $1, $2, $3}')" +%s) ')' / 3600 | bc) 'hours'
 ```
 
+## Setting work day duration and break time default
+In Finland a full work day is 7.5 hours, which is the default in moro. To change it use this:
+
+```
+# for example to make it 6.5 hours
+moro config --day 6.5
+```
+
+Also the default break time can be changed from 30 minutes
+
+```
+# to make default break 45 minutes
+moro config --break 45
+```
+
 ## Contributing
 Yes please!
 
