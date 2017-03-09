@@ -27,8 +27,6 @@ const destroyKnex = () => {
 
 const removeDatabase = () => {
   const databaseFile = path.join(osHomedir(), DB_FILE)
-  // close any connections
-  destroyKnex()
 
   // delete the database file
   fs.unlink(databaseFile, (err) => {
@@ -48,13 +46,17 @@ const createTable = knex.schema.createTableIfNotExists('records', (table) => {
   table.time('end')
   table.integer('breakDuration')
 })
+  .createTableIfNotExists('notes', (table) => {
+    table.increments('id')
+    table.date('date')
+    table.string('createdat')
+    table.text('note')
+  })
   .catch((e) => console.log('Errors in createTable', e))
+// input is an object,  {date, start[optional], end[optional], breakDuration, action}
+const updateDatabase = (options) => {
+  const {date, start, end, breakDuration, action, note, createdat} = options
 
-// Add note field if it doesn't exist
-const updateDatabase = (
-  date, start, end, breakDuration, action
-) => {
-  // Then query the table...
   return createTable
     .then(() => {
       return knex
@@ -72,6 +74,8 @@ const updateDatabase = (
             return knex('records').update({end}).where({date})
           case 'setBreakDuration':
             return knex('records').update({breakDuration}).where({date})
+          case 'addNote':
+            return knex.insert({date, note, createdat}).into('notes')
         }
       } else {
         // date doesn't exist, insert it
@@ -94,7 +98,18 @@ const getDateReport = (date) => (
       .from('records')
       .where({date})
   })
-  .then((row) => row[0])
+  .then((row) => {
+    return knex
+      .select('*')
+      .from('notes')
+      .where({date})
+      .then((notes) => {
+        if (row[0]) {
+          row[0].notes = notes
+        }
+        return row[0]
+      })
+  })
   .catch(err => {
     console.log(err)
   })
@@ -112,30 +127,30 @@ const getUndoneWarnings = (dayRecord) => {
 }
 const calculateWorkHours = (date) => (
   getDateReport(date)
-    .then((data) => {
-      if (getUndoneWarnings(data)) {
-        console.log(getUndoneWarnings(data))
-        return
-      }
-      // console.log('data is: ', data)
-      const getBreak = (data) => data.breakDuration
+  .then((data) => {
+    if (getUndoneWarnings(data)) {
+      console.log(getUndoneWarnings(data))
+      return
+    }
+    // console.log('data is: ', data)
+    const getBreak = (data) => data.breakDuration
 
-      // to assign hours to moment objects, we need the diff so current moment is fine
-      const start = helpers.composeDateObject(data.start)
-      const end = helpers.composeDateObject(data.end)
+    // to assign hours to moment objects, we need the diff so current moment is fine
+    const start = helpers.composeDateObject(data.start)
+    const end = helpers.composeDateObject(data.end)
 
-      const workHours = moment
-        .duration(end.diff(start.add({minutes: getBreak(data)})))
+    const workHours = moment
+      .duration(end.diff(start.add({minutes: getBreak(data)})))
 
-      const hours = workHours.get('hours')
-      const minutes = workHours.get('minutes')
-      // to add negative sign
-      const formattedWorkHours = `${hours} Hours and ${minutes} Minutes`
-      return { date, formattedWorkHours }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+    const hours = workHours.get('hours')
+    const minutes = workHours.get('minutes')
+    // to add negative sign
+    const formattedWorkHours = `${hours} Hours and ${minutes} Minutes`
+    return { date, formattedWorkHours }
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 )
 
 const getFullReport = () => {
