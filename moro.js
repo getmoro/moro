@@ -103,12 +103,9 @@ const report = (args, options, logger = console.log, date = TODAY) => {
   db
     .calculateWorkHours(date)
     .then((result) => {
-      return result
-    })
-    .then((result) => {
       db.getDateReport(TODAY)
         .then((data) => {
-          if (data) {
+          if (data && result) {
             data.dayReport = result.formattedWorkHours
             helpers.printSingleDayReport(data)
           }
