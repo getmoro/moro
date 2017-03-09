@@ -160,6 +160,7 @@ const addNote = (args, options, logger) => {
   db.updateDatabase(payload)
     .catch((err) => { logger.error(err) })
     .finally(() => {
+      console.log('Your note is added. Run moro to see the report')
       process.exit(0)
     })
 }
