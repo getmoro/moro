@@ -70,7 +70,7 @@ const setStart = (args, options, logger) => {
   // update database
   db.updateDatabase(payload)
     .catch((err) => { logger.error(err) })
-    .finally(() => { db.destroyKnex() })
+    .finally(() => { process.exit(0) })
 
   logger.info('\n TIP: next time you run moro the end of your day will be set')
 }
@@ -96,7 +96,7 @@ const report = (args, options, logger = console.log, date = TODAY) => {
     db
       .getFullReport()
       .catch((error) => { console.log(error) })
-      .finally(() => { db.destroyKnex() })
+      .finally(() => { process.exit(0) })
 
     return
   }
@@ -163,7 +163,7 @@ const addNote = (args, options, logger) => {
   db.updateDatabase(payload)
     .catch((err) => { logger.error(err) })
     .finally(() => {
-      db.destroyKnex()
+      process.exit(0)
     })
 }
 
@@ -181,9 +181,11 @@ prog
   .description('Track your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!')
   .action(nextUndoneAction)
   .command('hi', 'Set your start of the day, default time is now!')
+  .alias('start')
   .argument('<start>', 'Specify start time if not now', /^\d\d:\d\d$/)
   .action(setStart)
   .command('bye', 'Sets your end of the day time')
+  .alias('stop')
   .argument('<end>', 'Specify the end of working hours if not now. e.g 17:45 ', /^\d\d:\d\d$/)
   .action(setEnd)
   .command('break', 'Set the amount of unpaid break in minute. 30 minutes is added by default for lunch. Use this command to enter the correct amount')
