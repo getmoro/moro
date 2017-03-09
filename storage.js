@@ -27,12 +27,16 @@ const destroyKnex = () => {
 
 const removeDatabase = () => {
   const databaseFile = path.join(osHomedir(), DB_FILE)
+  // close any connections
+  destroyKnex()
+
+  // delete the database file
   fs.unlink(databaseFile, (err) => {
     if (err) {
       console.log('problem in deleting the file ', err)
     }
     console.log('database file deleted successfully')
-    console.log('press ctrl-c to exit')
+    console.log('press ctrl - c to exit')
   })
 }
 
