@@ -4,7 +4,7 @@
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "test": "standard && ava"
   },
   "repository": {
     "type": "git",
@@ -29,5 +29,8 @@
     "os-homedir": "^1.0.2",
     "sqlite3": "^3.1.8",
     "standard": "^9.0.1"
+  },
+  "devDependencies": {
+    "ava": "^0.18.2"
   }
 }

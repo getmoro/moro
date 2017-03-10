@@ -27,7 +27,6 @@ const setConfig = (args, options, logger) => {
     CONFIG.BREAK_DEFAULT = options.break
   }
   jsonfile.writeFileSync(CONFIG_FILE, CONFIG)
-  console.log(CONFIG)
   process.exit(0)
 }
 // set end of the work day
@@ -107,7 +106,12 @@ const report = (args, options, logger = console.log, date = TODAY) => {
         .then((data) => {
           if (data && result) {
             data.dayReport = result.formattedWorkHours
-            helpers.printSingleDayReport(data)
+            const table = helpers.printSingleDayReport(data)
+            console.log('\n Today looks like this:\n')
+            // renders the table
+            console.log(table)
+            console.log('Run moro --help if you need to edit your start, end or break duration for today \n')
+            process.exit(0)
           }
         })
         .catch((err) => { logger.error(err) })
