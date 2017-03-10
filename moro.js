@@ -24,7 +24,7 @@ const {
 // determine whether to setStart | setEnd | report
 // based on entered information in database
 const nextUndoneAction = (args, options, logger) => {
-  db.getDateReport(TODAY)
+  db.getDateReport(TODAY, db.knex)
     .then((data) => {
       if (data && !data.start) {
         setStart(args, options, logger)
