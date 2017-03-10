@@ -1,13 +1,13 @@
 // native
 const path = require('path')
-const fs = require('fs')
+const fs = require('mz/fs')
 
 // packages
 const moment = require('moment')
 const osHomedir = require('os-homedir')
 
 // constants
-const DB_FILE = '.moro-data.db'
+const { DB_FILE_MAIN } = require('./constants.json')
 
 // ours
 const helpers = require('./utils/helpers.js')
@@ -15,32 +15,32 @@ const helpers = require('./utils/helpers.js')
 const knex = require('knex')({
   dialect: 'sqlite3',
   connection: {
-    filename: path.join(osHomedir(), DB_FILE)
+    filename: path.join(osHomedir(), DB_FILE_MAIN)
   },
   useNullAsDefault: true
 })
 
-const removeDatabase = () => {
-  const databaseFile = path.join(osHomedir(), DB_FILE)
-
-  // delete the database file
-  fs.unlink(databaseFile, (err) => {
-    if (err) {
-      console.log('problem in deleting the file ', err)
-    }
-    console.log('database file deleted successfully')
-    console.log('press ctrl - c to exit')
-  })
+const removeDatabase = (dbFileName) => {
+  const databaseFile = path.join(osHomedir(), dbFileName)
+  return fs.unlink(databaseFile)
+    .then(() => {
+      console.log('database file deleted successfully')
+      console.log('press ctrl - c to exit')
+    })
+    .catch((e) => {
+      console.log('Run: moro report --all to make sure data is cleared', e)
+    })
 }
 
 // Create a table
-const createTable = knex.schema.createTableIfNotExists('records', (table) => {
-  table.increments('id')
-  table.date('date')
-  table.time('start')
-  table.time('end')
-  table.integer('breakDuration')
-})
+const createTable = (knex) => (
+  knex.schema.createTableIfNotExists('records', (table) => {
+    table.increments('id')
+    table.date('date')
+    table.time('start')
+    table.time('end')
+    table.integer('breakDuration')
+  })
   .createTableIfNotExists('notes', (table) => {
     table.increments('id')
     table.date('date')
@@ -49,10 +49,12 @@ const createTable = knex.schema.createTableIfNotExists('records', (table) => {
   })
   .catch((e) => console.log('Errors in createTable', e))
 // input is an object,  {date, start[optional], end[optional], breakDuration, action}
-const updateDatabase = (options) => {
+)
+
+const updateDatabase = (options, knex) => {
   const {date, start, end, breakDuration, action, note, createdat} = options
 
-  return createTable
+  return createTable(knex)
     .then(() => {
       return knex
         .select('*')
@@ -84,9 +86,9 @@ const updateDatabase = (options) => {
 }
 
 // gets data for a single day
-const getDateReport = (date) => (
+const getDateReport = (date, knex) => (
   // Then query the table...
-  createTable
+  createTable(knex)
   .then(() => {
     return knex
       .select('*')
@@ -120,8 +122,8 @@ const getUndoneWarnings = (dayRecord) => {
   }
   return undefined
 }
-const calculateWorkHours = (date) => (
-  getDateReport(date)
+const calculateWorkHours = (date, knex) => (
+  getDateReport(date, knex)
   .then((data) => {
     if (getUndoneWarnings(data)) {
       console.log(getUndoneWarnings(data))
@@ -149,7 +151,7 @@ const calculateWorkHours = (date) => (
 )
 
 const getFullReport = () => {
-  return createTable
+  return createTable(knex)
     .then(() => {
       return knex.select('date')
         .from('records')
@@ -172,5 +174,6 @@ module.exports = {
   updateDatabase,
   calculateWorkHours,
   getFullReport,
-  removeDatabase
+  removeDatabase,
+  knex
 }

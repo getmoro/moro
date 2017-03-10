@@ -11,11 +11,16 @@ const {shouldWorkUntil, printSingleDayReport} = require('./utils/helpers.js')
 
 // constants
 const TODAY = moment().format('YYYY-MM-DD')
+const NOW = moment().format('HH:mm')
 const CONFIG_FILE = path.join(__dirname, 'config.json')
+// CONFIG has stuff that can be changed in runtime, so
 const CONFIG = jsonfile.readFileSync(CONFIG_FILE)
 
+// constants has real un-changable stuff, they are readonly
+const { DB_FILE_MAIN } = require('./constants.json')
+
 const setStart = (args, options, logger) => {
-  const start = args.start || moment().format('HH:mm')
+  const start = args.start || NOW
   logger.info('\n Your start of the day registered as ', start)
 
   shouldWorkUntil(start, logger, CONFIG)
@@ -28,7 +33,7 @@ const setStart = (args, options, logger) => {
   }
 
   // update database
-  db.updateDatabase(payload)
+  db.updateDatabase(payload, db.knex)
     .catch((err) => { logger.error(err) })
     .finally(() => { process.exit(0) })
 
@@ -45,7 +50,7 @@ const setBreak = (args, options, logger, CONFIG) => {
     breakDuration: duration,
     action: 'setBreakDuration'
   }
-  db.updateDatabase(payload)
+  db.updateDatabase(payload, db.knex)
     .catch((err) => { logger.error(err) })
     .then(() => { report() })
 }
@@ -61,9 +66,9 @@ const report = (args, options, logger = console.log, date = TODAY) => {
     return
   }
   db
-    .calculateWorkHours(date)
+    .calculateWorkHours(date, db.knex)
     .then((result) => {
-      db.getDateReport(TODAY)
+      db.getDateReport(TODAY, db.knex)
         .then((data) => {
           if (data && result) {
             data.dayReport = result.formattedWorkHours
@@ -92,8 +97,8 @@ const setConfig = (args, options, logger, CONFIG) => {
 }
 // set end of the work day
 const setEnd = (args, options, logger, CONFIG) => {
-  const end = args.end || moment().format('HH:mm')
-  logger.info('Your end of the day registered as: ', end)
+  const end = args.end || NOW
+  logger.info('Your end of the work day is set at: ', end)
 
   const payload = {
     date: TODAY,
@@ -101,13 +106,13 @@ const setEnd = (args, options, logger, CONFIG) => {
     action: 'setEnd'
   }
   db
-    .updateDatabase(payload)
+    .updateDatabase(payload, db.knex)
     .then(() => { report() })
 }
 
 const clearData = (args, options, logger) => {
   if (options && options.yes) {
-    db.removeDatabase()
+    db.removeDatabase(DB_FILE_MAIN)
     return
   }
   logger.info('If you surely want to clear all data in moro run: moro clear --yes')
@@ -117,14 +122,14 @@ const clearData = (args, options, logger) => {
 const addNote = (args, options, logger) => {
   let note = args.note || '...'
   note = note.join(' ')
-  const createdat = moment().format('HH:mm')
+  const createdat = NOW
   const payload = {
     date: TODAY,
     note,
     createdat,
     action: 'addNote'
   }
-  db.updateDatabase(payload)
+  db.updateDatabase(payload, db.knex)
     .catch((err) => { logger.error(err) })
     .finally(() => {
       console.log('Your note is added. Run moro to see the report')

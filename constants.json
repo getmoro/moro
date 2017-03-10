@@ -1,0 +1,4 @@
+{
+  "DB_FILE_MAIN" : ".moro-data.db",
+  "DB_FILE_FOR_TESTS" : ".moro-tests.db"
+}

@@ -23,9 +23,3 @@ test('singleDayReport runs without crashing', t => {
 test('printAllDaysReport runs without crashing', t => {
   t.pass(printAllDaysReport(sampleFullReprotRecord))
 })
-
-test('bar', async t => {
-  const bar = Promise.resolve('bar')
-
-  t.is(await bar, 'bar')
-})
