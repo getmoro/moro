@@ -167,6 +167,7 @@ const getFullReport = () => {
 }
 
 module.exports = {
+  createTable,
   getDateReport,
   updateDatabase,
   calculateWorkHours,
