@@ -9,6 +9,15 @@ const composeDateObject = (timeString) => {
   return moment({ hour, minutes })
 }
 
+// to tell users when they can go home!
+const shouldWorkUntil = (start, logger, CONFIG) => {
+  const goHomeTime = composeDateObject(start)
+    .add({hour: CONFIG.HOURS_IN_A_WORK_DAY})
+    .add({minutes: CONFIG.BREAK_DEFAULT})
+    .format('HH:mm')
+  logger.info('\n Working until ', goHomeTime, `will make it a full (${CONFIG.HOURS_IN_A_WORK_DAY}) day`)
+}
+
 // input obj. record
 // output console.loggable table
 const printSingleDayReport = (record) => {
@@ -49,5 +58,6 @@ const printAllDaysReport = (records) => {
 module.exports = {
   composeDateObject,
   printSingleDayReport,
-  printAllDaysReport
+  printAllDaysReport,
+  shouldWorkUntil
 }
