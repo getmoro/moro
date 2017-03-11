@@ -5,6 +5,9 @@ CLI tool for tracking work hours, with only one command. Without any arguments o
 ## Demo
 ![alt tag](https://media.giphy.com/media/3oKIPvntQ5Zk3SIYow/source.gif)
 
+## Screen recorded video tutorial
+Watch this screen recording to see moro at work: [link](https://asciinema.org/a/106792)
+
 ## install
 
 ```bash
@@ -17,8 +20,7 @@ It works best for 9 to 5 jobs, as there's no start/stop task feature.
 
 ## How it works?
 Short version:
-
-It's simple. When you start your work, you run moro. And when you are leaving, run moro again. And it tells you how long you have worked.
+When you start your work, you run $: moro. And when you are leaving, you run moro again. And it tells you how long you have worked.
 
 Long version:
 
