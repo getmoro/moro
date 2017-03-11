@@ -1,5 +1,5 @@
 import test from 'ava'
-import {printSingleDayReport, printAllDaysReport} from './utils/helpers.js'
+import {printSingleDayReport, printAllDaysReport} from '../utils/helpers.js'
 
 const sampleDayRecord = {
   id: 1,
