@@ -3,6 +3,7 @@ import {
   createTable,
   updateDatabase,
   getDateReport,
+  getFullReport,
   removeDatabase,
   calculateWorkHours
 } from '../db.js'
@@ -82,9 +83,26 @@ test('calculateWorkHours works', async t => {
     notes: [],
     start: '09:15'
   }
-  const correctResult = { date: '2017-03-11',
+  const okResult = { date: '2017-03-11',
     formattedWorkHours: '7 Hours and 55 Minutes' }
   await updateDatabase(options, knexForTestsInMemory)
   const calculatedWorkHours = await calculateWorkHours(options.date, knexForTestsInMemory)
-  t.deepEqual(calculatedWorkHours, correctResult)
+  t.deepEqual(calculatedWorkHours, okResult)
+})
+
+test.serial('getFullReport runs without crashing', async t => {
+  const options = {
+    breakDuration: 25,
+    date: '2017-03-11',
+    end: '17:35',
+    id: 1,
+    notes: [],
+    start: '09:15'
+  }
+  const okResults = [ { date: '2017-03-11',
+    formattedWorkHours: '7 Hours and 55 Minutes' } ]
+
+  await updateDatabase(options, knexForTestsInMemory)
+  const results = await getFullReport(knexForTestsInMemory)
+  t.deepEqual(results, okResults)
 })
