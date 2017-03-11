@@ -109,7 +109,24 @@ moro config --break 45
 ```
 
 ## Contributing
-Yes please!
+Yes please! Open an issue, or make a pull request!
+
+### To run tests
+
+```
+yarn run test
+```
+
+### Automated run script
+
+Ther's a shell script that runs all the features and you can see the results in terminal, to make sure things work
+
+```
+./tests/automated-script.sh
+```
+
+
+
 
 ## what does moro mean?
 moro means hello in Finland and in some areas especially in Tampere I've heard it a lot.

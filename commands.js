@@ -59,7 +59,7 @@ const setBreak = (args, options, logger, CONFIG) => {
 const report = (args, options, logger = console.log, date = TODAY) => {
   if (options && options.all) {
     db
-      .getFullReport()
+      .getFullReport(db.knex)
       .catch((error) => { console.log(error) })
       .finally(() => { process.exit(0) })
 
@@ -84,13 +84,15 @@ const report = (args, options, logger = console.log, date = TODAY) => {
     })
     .catch((err) => { logger.error(err) })
 }
-const setConfig = (args, options, logger, CONFIG) => {
+const setConfig = (args, options, logger) => {
   if (options.day) {
     CONFIG.HOURS_IN_A_WORK_DAY = options.day
+    console.log('Duration of full work day is set to ', options.day)
   }
 
   if (options.break) {
     CONFIG.BREAK_DEFAULT = options.break
+    console.log('Default break duration is set to', options.break)
   }
   jsonfile.writeFileSync(CONFIG_FILE, CONFIG)
   process.exit(0)

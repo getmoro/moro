@@ -7,20 +7,33 @@ const moment = require('moment')
 const osHomedir = require('os-homedir')
 
 // constants
-const { DB_FILE_MAIN } = require('./constants.json')
+const {
+  DB_FILE_MAIN,
+  DB_FILE_FOR_TESTS
+} = require('./constants.json')
 
 // ours
 const helpers = require('./utils/helpers.js')
 
+let dbFileName = DB_FILE_MAIN
+
+if (process.env.AUTOMATED_SCRIPT === 'true') {
+  dbFileName = DB_FILE_FOR_TESTS
+  console.log('automated env set')
+}
 const knex = require('knex')({
   dialect: 'sqlite3',
   connection: {
-    filename: path.join(osHomedir(), DB_FILE_MAIN)
+    filename: path.join(osHomedir(), dbFileName)
   },
   useNullAsDefault: true
 })
 
 const removeDatabase = (dbFileName) => {
+  if (process.env.AUTOMATED_SCRIPT === 'true') {
+    dbFileName = DB_FILE_FOR_TESTS
+    console.log('automated env set')
+  }
   const databaseFile = path.join(osHomedir(), dbFileName)
   return fs.unlink(databaseFile)
     .then(() => {
@@ -150,16 +163,17 @@ const calculateWorkHours = (date, knex) => (
   })
 )
 
-const getFullReport = () => {
+const getFullReport = (knex) => {
   return createTable(knex)
     .then(() => {
       return knex.select('date')
         .from('records')
         .whereNotNull('start')
         .whereNotNull('end')
-        .map((row) => calculateWorkHours(row.date))
+        .map((row) => calculateWorkHours(row.date, knex))
         .then((results) => {
           helpers.printAllDaysReport(results)
+          return (results)
         })
         .catch((err) => { console.error(err) })
     })
