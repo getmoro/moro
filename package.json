@@ -6,6 +6,15 @@
   "scripts": {
     "test": "standard && ava"
   },
+  "ava": {
+    "files": [
+      "tests/*.js"
+    ],
+    "concurrency": 5,
+    "failFast": true,
+    "tap": true,
+    "powerAssert": false
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/omidfi/moro.git"
