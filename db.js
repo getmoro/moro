@@ -145,6 +145,7 @@ const calculateWorkHours = (date, knex) => (
     }
     // console.log('data is: ', data)
     const getBreak = (data) => data.breakDuration
+    const notes = data.notes
 
     // to assign hours to moment objects, we need the diff so current moment is fine
     const start = helpers.composeDateObject(data.start)
@@ -157,7 +158,7 @@ const calculateWorkHours = (date, knex) => (
     const minutes = workHours.get('minutes')
     // to add negative sign
     const formattedWorkHours = `${hours} Hours and ${minutes} Minutes`
-    return { date, formattedWorkHours }
+    return { date, formattedWorkHours, notes }
   })
   .catch((err) => {
     console.log(err)
