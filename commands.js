@@ -19,6 +19,29 @@ const CONFIG = jsonfile.readFileSync(CONFIG_FILE)
 // constants has real un-changable stuff, they are readonly
 const { DB_FILE_MAIN } = require('./constants.json')
 
+// determine whether to setStart | setEnd | report
+// based on entered information in database
+const nextUndoneAction = (args, options, logger) => {
+  db.getDateReport(TODAY, db.knex)
+    .then((data) => {
+      if (data && !data.start) {
+        setStart(args, options, logger)
+        return
+      }
+      if (data && !data.end) {
+        setEnd(args, options, logger)
+        return
+      }
+      if (data && data.start && data.end) {
+        report(args, options, logger)
+        return
+      }
+
+      // this one is for when we don't even have the database
+      setStart(args, options, logger)
+    })
+}
+
 const setStart = (args, options, logger) => {
   const start = args.start || NOW
   logger.info('\n Your start of the day registered as ', start)
@@ -140,6 +163,7 @@ const addNote = (args, options, logger) => {
 }
 
 module.exports = {
+  nextUndoneAction,
   setConfig,
   setEnd,
   setStart,
