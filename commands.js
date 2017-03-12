@@ -155,10 +155,12 @@ const addNote = (args, options, logger) => {
     action: 'addNote'
   }
   db.updateDatabase(payload, db.knex)
+    .then(() => {
+      report()
+    })
     .catch((err) => { logger.error(err) })
     .finally(() => {
-      console.log('Your note is added. Run moro to see the report')
-      process.exit(0)
+      console.log('Your note is added! You can see it in report \\O/ ')
     })
 }
 

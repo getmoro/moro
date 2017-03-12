@@ -129,7 +129,7 @@ const getDateReport = (date, knex) => (
 // if starte / end is not yet marked, yell at the user
 const getUndoneWarnings = (dayRecord) => {
   if (!dayRecord || !dayRecord.start) {
-    return 'Start of your work day is not marked yet!'
+    return 'Start of your work day is not marked yet! run moro to set it. Start needs to be set before I can give you the report'
   }
   if (!dayRecord.end) {
     return 'The end of your work day is not marked! run moro with no arguments to set it'
