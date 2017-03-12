@@ -2,6 +2,8 @@
 
 CLI tool for tracking work hours, with only one command. Without any arguments or stop/start buttons. No headaches. Very fast :D
 
+[![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro)
+
 ## Demo
 ![alt tag](https://media.giphy.com/media/3oKIPvntQ5Zk3SIYow/source.gif)
 
@@ -9,14 +11,9 @@ CLI tool for tracking work hours, with only one command. Without any arguments o
 Watch this screen recording to see moro at work: [link](https://asciinema.org/a/106792)
 
 ## install
-
 ```bash
 npm install -g moro
-
-# or
-yarn global add moro
 ```
-It works best for 9 to 5 jobs, as there's no start/stop task feature.
 
 ## How it works?
 Short version:
