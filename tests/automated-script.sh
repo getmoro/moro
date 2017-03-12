@@ -2,6 +2,11 @@
 echo 'Moro tester! \O/ starts'
 echo 'I set MORO_TEST_MODE on so that your original database stays untouched'
 export MORO_TEST_MODE='true'
+
+echo 'Let us clear the database if it exists'
+moro clear --yes
+echo 'ended'
+
 # run moro
 echo 'Now testing: Running moro with no argument'
 moro

@@ -43,7 +43,7 @@ prog
 // hi
 //
   .command('hi', COMMAND_DESCRIPTIONS.hi)
-  .alias('start')
+  .alias('h')
   .argument('<start>', COMMAND_DESCRIPTIONS.hiStart, /^\d\d:\d\d$/)
   .action(setStart)
 //
@@ -51,7 +51,7 @@ prog
 // bye
 //
   .command('bye', COMMAND_DESCRIPTIONS.bye)
-  .alias('stop')
+  .alias('b')
   .argument('<end>', COMMAND_DESCRIPTIONS.byeEnd, /^\d\d:\d\d$/)
   .action(setEnd)
 //
@@ -66,6 +66,7 @@ prog
 // // report
 //
   .command('report', COMMAND_DESCRIPTIONS.report)
+  .alias('r')
   .option('--all', COMMAND_DESCRIPTIONS.reportAll)
   .action(report)
 //
@@ -80,6 +81,7 @@ prog
 // config
 //
   .command('config', COMMAND_DESCRIPTIONS.config)
+  .alias('c')
   .option('--day <duration>', COMMAND_DESCRIPTIONS.configDay, prog.FLOAT)
   .option('--break <duration>', COMMAND_DESCRIPTIONS.breakDuration, prog.INT)
   .action(setConfig)
@@ -88,6 +90,7 @@ prog
 // note
 //
   .command('note', COMMAND_DESCRIPTIONS.note)
+  .alias('n')
   .argument('[note...]', COMMAND_DESCRIPTIONS.noteNote)
   .action(addNote)
 
