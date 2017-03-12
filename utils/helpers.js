@@ -46,9 +46,17 @@ const printAllDaysReport = (records) => {
   const table = new Table()
   records.forEach((record) => {
     const report = record.formattedWorkHours
+
     const formattedRecord = {}
     formattedRecord[record.date] = report
+
     table.push(formattedRecord)
+
+    record.notes && record.notes.forEach((note) => {
+      const noteRecord = {}
+      noteRecord[note.createdat] = note.note
+      table.push(noteRecord)
+    })
   })
 
   console.log('\n Full report of all days you used moro\n')

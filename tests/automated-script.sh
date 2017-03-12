@@ -1,6 +1,7 @@
 #!/bin/bash
 echo 'Moro tester! \O/ starts'
-export AUTOMATED_SCRIPT='true'
+echo 'I set MORO_TEST_MODE on so that your original database stays untouched'
+export MORO_TEST_MODE='true'
 # run moro
 echo 'Now testing: Running moro with no argument'
 moro
@@ -51,5 +52,6 @@ echo 'ended'
 echo 'Now testing: moro clear --yes'
 moro clear --yes
 echo 'ended'
-export AUTOMATED_SCRIPT='false'
+export MORO_TEST_MODE='false'
+echo 'I set MORO_TEST_MODE off, now using your normal database again'
 echo 'Moro tester! /O\ completed all tests'
