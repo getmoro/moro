@@ -83,14 +83,17 @@ test('calculateWorkHours works', async t => {
     notes: [],
     start: '09:15'
   }
-  const okResult = { date: '2017-03-11',
-    formattedWorkHours: '7 Hours and 55 Minutes' }
+  const okResult = {
+    date: '2017-03-11',
+    formattedWorkHours: '7 Hours and 55 Minutes',
+    notes: []
+  }
   await updateDatabase(options, knexForTestsInMemory)
   const calculatedWorkHours = await calculateWorkHours(options.date, knexForTestsInMemory)
   t.deepEqual(calculatedWorkHours, okResult)
 })
 
-test.serial('getFullReport runs without crashing', async t => {
+test.serial('getFullReport outputs ok results', async t => {
   const options = {
     breakDuration: 25,
     date: '2017-03-11',
@@ -100,7 +103,8 @@ test.serial('getFullReport runs without crashing', async t => {
     start: '09:15'
   }
   const okResults = [ { date: '2017-03-11',
-    formattedWorkHours: '7 Hours and 55 Minutes' } ]
+    formattedWorkHours: '7 Hours and 55 Minutes',
+    notes: [] } ]
 
   await updateDatabase(options, knexForTestsInMemory)
   const results = await getFullReport(knexForTestsInMemory)

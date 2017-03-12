@@ -17,9 +17,10 @@ const helpers = require('./utils/helpers.js')
 
 let dbFileName = DB_FILE_MAIN
 
-if (process.env.AUTOMATED_SCRIPT === 'true') {
+// use a temporary db if in test mode
+if (process.env.MORO_TEST_MODE === 'true') {
   dbFileName = DB_FILE_FOR_TESTS
-  console.log('automated env set')
+  console.log('[info] moro running in test mode, a temporary db will be used')
 }
 const knex = require('knex')({
   dialect: 'sqlite3',
@@ -30,9 +31,9 @@ const knex = require('knex')({
 })
 
 const removeDatabase = (dbFileName) => {
-  if (process.env.AUTOMATED_SCRIPT === 'true') {
+  if (process.env.MORO_TEST_MODE === 'true') {
     dbFileName = DB_FILE_FOR_TESTS
-    console.log('automated env set')
+    console.log('[info] moro running in test mode, a temporary db will be used')
   }
   const databaseFile = path.join(osHomedir(), dbFileName)
   return fs.unlink(databaseFile)
@@ -125,9 +126,9 @@ const getDateReport = (date, knex) => (
   })
 )
 
-// if start / end is not yet marked, yell at the user
+// if starte / end is not yet marked, yell at the user
 const getUndoneWarnings = (dayRecord) => {
-  if (!dayRecord.start) {
+  if (!dayRecord || !dayRecord.start) {
     return 'Start of your work day is not marked yet!'
   }
   if (!dayRecord.end) {
@@ -144,6 +145,7 @@ const calculateWorkHours = (date, knex) => (
     }
     // console.log('data is: ', data)
     const getBreak = (data) => data.breakDuration
+    const notes = data.notes
 
     // to assign hours to moment objects, we need the diff so current moment is fine
     const start = helpers.composeDateObject(data.start)
@@ -156,7 +158,7 @@ const calculateWorkHours = (date, knex) => (
     const minutes = workHours.get('minutes')
     // to add negative sign
     const formattedWorkHours = `${hours} Hours and ${minutes} Minutes`
-    return { date, formattedWorkHours }
+    return { date, formattedWorkHours, notes }
   })
   .catch((err) => {
     console.log(err)
