@@ -129,5 +129,5 @@ moro means hello in Finnish and in some areas especially in Tampere I've heard i
 
 ## Supporters
 
-[![Supported by Chilicorn fundation](https://github.com/futurice/spiceprogram/raw/gh-pages/assets/img/logo/chilicorn_with_text-180.png)](https://spiceprogram.org/chilicorn-fund/)
+[![Supported by the Spice Program](https://github.com/futurice/spiceprogram/raw/gh-pages/assets/img/logo/chilicorn_with_text-180.png)](https://spiceprogram.org)
 
