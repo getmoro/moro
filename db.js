@@ -126,9 +126,9 @@ const getDateReport = (date, knex) => (
   })
 )
 
-// if start / end is not yet marked, yell at the user
+// if starte / end is not yet marked, yell at the user
 const getUndoneWarnings = (dayRecord) => {
-  if (!dayRecord.start) {
+  if (!dayRecord || !dayRecord.start) {
     return 'Start of your work day is not marked yet!'
   }
   if (!dayRecord.end) {
