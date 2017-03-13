@@ -15,6 +15,11 @@ Watch this screen recording to see moro at work: [link](https://asciinema.org/a/
 npm install -g moro
 ```
 
+## update
+```bash
+npm update -g moro
+```
+
 ## How it works?
 Short version:
 When you start your work, you run $: moro. And when you are leaving, you run moro again. And it tells you how long you have worked.
@@ -130,4 +135,3 @@ moro means hello in Finnish and in some areas especially in Tampere I've heard i
 ## Supporters
 
 [![Supported by the Spice Program](https://github.com/futurice/spiceprogram/raw/gh-pages/assets/img/logo/chilicorn_with_text-180.png)](https://spiceprogram.org)
-
