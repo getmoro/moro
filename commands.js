@@ -1,3 +1,5 @@
+'use strict'
+
 // natives
 const path = require('path')
 
@@ -7,7 +9,7 @@ const jsonfile = require('jsonfile')
 
 // ours
 const db = require('./db.js')
-const {shouldWorkUntil, printSingleDayReport} = require('./utils/helpers.js')
+const helpers = require('./utils/helpers.js')
 
 // constants
 const TODAY = moment().format('YYYY-MM-DD')
@@ -17,7 +19,7 @@ const CONFIG_FILE = path.join(__dirname, 'config.json')
 const CONFIG = jsonfile.readFileSync(CONFIG_FILE)
 
 // constants has real un-changeable stuff, they are read-only
-const { DB_FILE_MAIN } = require('./constants.json')
+const constants = require('./constants.json')
 
 // determine whether to setStart | setEnd | report
 // based on entered information in database
@@ -46,7 +48,7 @@ const setStart = (args, options, logger) => {
   const start = args.start || NOW
   logger.info('\n Your start of the day registered as ', start)
 
-  shouldWorkUntil(start, logger, CONFIG)
+  helpers.shouldWorkUntil(start, logger, CONFIG)
 
   const payload = {
     date: TODAY,
@@ -95,7 +97,7 @@ const report = (args, options, logger = console.log, date = TODAY) => {
         .then((data) => {
           if (data && result) {
             data.dayReport = result.formattedWorkHours
-            const table = printSingleDayReport(data)
+            const table = helpers.printSingleDayReport(data)
             console.log('\n Today looks like this:\n')
             // renders the table
             console.log(table)
@@ -137,7 +139,7 @@ const setEnd = (args, options, logger, CONFIG) => {
 
 const clearData = (args, options, logger) => {
   if (options && options.yes) {
-    db.removeDatabase(DB_FILE_MAIN)
+    db.removeDatabase(constants.DB_FILE_MAIN)
     return
   }
   logger.info('If you surely want to clear all data in moro run: moro clear --yes')
