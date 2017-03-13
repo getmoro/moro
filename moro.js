@@ -44,7 +44,7 @@ prog
 //
   .command('hi', COMMAND_DESCRIPTIONS.hi)
   .alias('h')
-  .argument('<start>', COMMAND_DESCRIPTIONS.hiStart, /^\d\d:\d\d$/)
+  .argument('[start]', COMMAND_DESCRIPTIONS.hiStart, /^\d\d:\d\d$/)
   .action(setStart)
 //
 // ////////////////////
@@ -52,7 +52,7 @@ prog
 //
   .command('bye', COMMAND_DESCRIPTIONS.bye)
   .alias('b')
-  .argument('<end>', COMMAND_DESCRIPTIONS.byeEnd, /^\d\d:\d\d$/)
+  .argument('[end]', COMMAND_DESCRIPTIONS.byeEnd, /^\d\d:\d\d$/)
   .action(setEnd)
 //
 // ////////////////////
