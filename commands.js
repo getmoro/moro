@@ -1,3 +1,5 @@
+'use strict'
+
 // natives
 const path = require('path')
 

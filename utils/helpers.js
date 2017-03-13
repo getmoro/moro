@@ -1,3 +1,5 @@
+'use strict'
+
 // packages
 const moment = require('moment')
 const Table = require('cli-table2')
