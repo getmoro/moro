@@ -16,7 +16,7 @@ const CONFIG_FILE = path.join(__dirname, 'config.json')
 // CONFIG has stuff that can be changed in runtime, so
 const CONFIG = jsonfile.readFileSync(CONFIG_FILE)
 
-// constants has real un-changable stuff, they are readonly
+// constants has real un-changeable stuff, they are read-only
 const { DB_FILE_MAIN } = require('./constants.json')
 
 // determine whether to setStart | setEnd | report
