@@ -1,3 +1,5 @@
+'use strict'
+
 // native
 const path = require('path')
 const fs = require('mz/fs')
