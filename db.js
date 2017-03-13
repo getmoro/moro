@@ -6,20 +6,17 @@ const fs = require('mz/fs')
 const moment = require('moment')
 const osHomedir = require('os-homedir')
 
-// constants
-const {
-  DB_FILE_MAIN,
-  DB_FILE_FOR_TESTS
-} = require('./constants.json')
-
 // ours
+// constants
+const constants = require('./constants.json')
+
 const helpers = require('./utils/helpers.js')
 
-let dbFileName = DB_FILE_MAIN
+let dbFileName = constants.DB_FILE_MAIN
 
 // use a temporary db if in test mode
 if (process.env.MORO_TEST_MODE === 'true') {
-  dbFileName = DB_FILE_FOR_TESTS
+  dbFileName = constants.DB_FILE_FOR_TESTS
   console.log('[info] moro running in test mode, a temporary db will be used')
 }
 const knex = require('knex')({
@@ -32,7 +29,7 @@ const knex = require('knex')({
 
 const removeDatabase = (dbFileName) => {
   if (process.env.MORO_TEST_MODE === 'true') {
-    dbFileName = DB_FILE_FOR_TESTS
+    dbFileName = constants.DB_FILE_FOR_TESTS
     console.log('[info] moro running in test mode, a temporary db will be used')
   }
   const databaseFile = path.join(osHomedir(), dbFileName)
@@ -66,7 +63,13 @@ const createTable = (knex) => (
 )
 
 const updateDatabase = (options, knex) => {
-  const {date, start, end, breakDuration, action, note, createdat} = options
+  const date = options.date
+  const start = options.start
+  const end = options.end
+  const breakDuration = options.breakDuration
+  const action = options.action
+  const note = options.note
+  const createdat = options.createdat
 
   return createTable(knex)
     .then(() => {
