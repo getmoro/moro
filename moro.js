@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+'use strict'
+
 // packages
 const prog = require('caporal')
 
@@ -10,16 +12,7 @@ const VERSION = require('./package.json').version
 const COMMAND_DESCRIPTIONS = require('./constants.json').TEXT.commands
 
 // importing all the commands
-const {
-  nextUndoneAction,
-  setStart,
-  setEnd,
-  setBreak,
-  report,
-  clearData,
-  setConfig,
-  addNote
-} = require('./commands.js')
+const commands = require('./commands.js')
 
 // All the possible commands and arguments:
 // moro
@@ -37,7 +30,7 @@ prog
   // default command
   .version(VERSION)
   .description(COMMAND_DESCRIPTIONS.default)
-  .action(nextUndoneAction)
+  .action(commands.nextUndoneAction)
 //
 // ////////////////////
 // hi
@@ -45,7 +38,7 @@ prog
   .command('hi', COMMAND_DESCRIPTIONS.hi)
   .alias('h')
   .argument('[start]', COMMAND_DESCRIPTIONS.hiStart, /^\d\d:\d\d$/)
-  .action(setStart)
+  .action(commands.setStart)
 //
 // ////////////////////
 // bye
@@ -53,14 +46,14 @@ prog
   .command('bye', COMMAND_DESCRIPTIONS.bye)
   .alias('b')
   .argument('[end]', COMMAND_DESCRIPTIONS.byeEnd, /^\d\d:\d\d$/)
-  .action(setEnd)
+  .action(commands.setEnd)
 //
 // ////////////////////
 // break
 //
   .command('break', COMMAND_DESCRIPTIONS.break)
   .argument('<duration>', COMMAND_DESCRIPTIONS.breakDuration, /^[\d]+$/)
-  .action(setBreak)
+  .action(commands.setBreak)
 //
 // ////////////////////
 // // report
@@ -68,14 +61,14 @@ prog
   .command('report', COMMAND_DESCRIPTIONS.report)
   .alias('r')
   .option('--all', COMMAND_DESCRIPTIONS.reportAll)
-  .action(report)
+  .action(commands.report)
 //
 // ////////////////////
 // clear
 //
   .command('clear', '')
   .option('--yes', 'you need to confirm before I remove everything')
-  .action(clearData)
+  .action(commands.clearData)
 //
 // ////////////////////
 // config
@@ -84,7 +77,7 @@ prog
   .alias('c')
   .option('--day <duration>', COMMAND_DESCRIPTIONS.configDay, prog.FLOAT)
   .option('--break <duration>', COMMAND_DESCRIPTIONS.breakDuration, prog.INT)
-  .action(setConfig)
+  .action(commands.setConfig)
 //
 // ////////////////////
 // note
@@ -92,7 +85,7 @@ prog
   .command('note', COMMAND_DESCRIPTIONS.note)
   .alias('n')
   .argument('[note...]', COMMAND_DESCRIPTIONS.noteNote)
-  .action(addNote)
+  .action(commands.addNote)
 
 // let it begin!
 prog.parse(process.argv)
