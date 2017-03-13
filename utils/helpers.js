@@ -25,7 +25,7 @@ const printSingleDayReport = (record) => {
   var table = new Table()
 
   table.push(
-    { 'Today you worekd:': record.dayReport },
+    { 'Today you worked:': record.dayReport },
     { 'Start:': record.start },
     { 'End:': record.end },
     { 'Break duration:': record.breakDuration + ' minutes' },
