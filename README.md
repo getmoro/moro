@@ -90,6 +90,19 @@ to see all your registered hours:
 ```bash
 $ moro report --all
 ```
+
+## Adding a note
+You can add a note to your workday.
+```bash
+$ moro note foo
+```
+
+## Clear data
+To flush your data
+```bash
+$ moro clear --yes
+```
+
 ## Why not do it by a one liner?
 Well I hear you. My colleague, Henri, gave me this:
 
