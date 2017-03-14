@@ -18,6 +18,11 @@ echo 'Now testing: moro hi 09:00'
 moro hi 09:00
 echo 'ended'
 
+echo ''
+echo 'Now testing: moro status'
+moro status
+echo 'ended'
+
 echo 'Now testing: moro bye 17:00'
 moro bye 17:00
 echo 'ended'
