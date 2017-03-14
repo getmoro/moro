@@ -6,6 +6,9 @@ const Table = require('cli-table2')
 
 // input 'HH:mm', output moment object
 const composeDateObject = (timeString) => {
+  if (!timeString || timeString.length < 5) {
+    return
+  }
   const hour = timeString.split(':')[0]
   const minutes = timeString.split(':')[1]
   return moment({ hour, minutes })
@@ -29,7 +32,7 @@ const printSingleDayReport = (record) => {
   table.push(
     { 'Today you worked:': record.dayReport },
     { 'Start:': record.start },
-    { 'End:': record.end },
+    { 'End:': record.end || 'Not set yet' },
     { 'Break duration:': record.breakDuration + ' minutes' },
     { 'Date:': record.date }
   )

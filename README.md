@@ -13,6 +13,8 @@ Watch this screen recording to see moro at work: [link](https://asciinema.org/a/
 ## install
 ```bash
 npm install -g moro
+
+# tested on node >= version 4
 ```
 
 ## How it works?
