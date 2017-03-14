@@ -55,11 +55,8 @@ const nextUndoneAction = (args, options, logger) => {
 
 const setStart = (args, options, logger) => {
   const start = args.start || NOW
-  logger.info('\n ✔ Your start of the day registered as ', start)
   configLoaded
     .then((config) => {
-      helpers.shouldWorkUntil(start, logger, config)
-
       const payload = {
         date: TODAY,
         start,
@@ -69,10 +66,13 @@ const setStart = (args, options, logger) => {
 
       // update database
       db.updateDatabase(payload, db.knex)
+        .then(() => {
+          logger.info('\n ✔ Your start of the day registered as ', start)
+          helpers.shouldWorkUntil(start, logger, config)
+          logger.info('\n TIP: next time you run moro the end of your day will be set')
+        })
         .catch((err) => { logger.error(err) })
         .finally(() => { process.exit(0) })
-
-      logger.info('\n TIP: next time you run moro the end of your day will be set')
     })
     .catch((e) => console.log)
 }
@@ -129,11 +129,11 @@ const setConfig = (args, options, logger) => {
     .then((config) => {
       if (options.day) {
         config.HOURS_IN_A_WORK_DAY = options.day
-        console.log('✔ Duration of full work day is set to ', options.day)
+        console.log('\n ✔ Duration of full work day is set to ', options.day)
       }
       if (options.break) {
         config.BREAK_DEFAULT = options.break
-        console.log('✔ Default break duration is set to', options.break)
+        console.log('\n ✔ Default break duration is set to', options.break)
       }
       jsonfile.writeFileSync(CONFIG_FILE, config)
     })
@@ -157,9 +157,11 @@ const setEnd = (args, options, logger) => {
     .then(() => { report() })
 }
 
-const clearData = (args, options, logger) => {
+const clearData = (args, options, logger, spinner) => {
   if (options && options.yes) {
     db.removeDatabase(constants.DB_FILE_MAIN)
+    spinner.text = 'ok'
+    spinner.succeed()
     return
   }
   logger.info('If you surely want to clear all data in moro run: moro clear --yes')
