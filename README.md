@@ -5,7 +5,7 @@ CLI tool for tracking work hours, with only one command. Without any arguments o
 [![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro)
 
 ## Demo
-![alt tag](https://media.giphy.com/media/3oKIPvntQ5Zk3SIYow/source.gif)
+![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
 
 ## Screen recorded video tutorial
 Watch this screen recording to see moro at work: [link](https://asciinema.org/a/106792)
@@ -95,10 +95,12 @@ $ moro report --all
 ```
 
 ## Adding a note
-You can add a note to your workday.
+You can add one or more notes to your workday. 
 ```bash
 $ moro note foo
 ```
+They'll appear in reports. You can for example use them to devide your time between different tasks. 
+
 
 ## Clear data
 To flush your data
