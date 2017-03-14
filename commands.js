@@ -183,6 +183,11 @@ const addNote = (args, options, logger) => {
     })
 }
 
+const about = (args, options, logger) => {
+  console.log(constants.TEXT.about)
+  process.exit()
+}
+
 module.exports = {
   nextUndoneAction,
   setConfig,
@@ -191,5 +196,6 @@ module.exports = {
   setBreak,
   addNote,
   report,
-  clearData
+  clearData,
+  about
 }
