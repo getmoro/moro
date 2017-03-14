@@ -93,7 +93,10 @@ const setBreak = (args, options, logger) => {
 }
 
 // report functionality for both single and batch reporting
-const report = (args, options, logger = console.log, date = TODAY) => {
+const report = (args, options, logger, date) => {
+  logger = logger || console.log
+  date = date || TODAY
+
   if (options && options.all) {
     db
       .getFullReport(db.knex)
