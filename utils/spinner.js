@@ -1,6 +1,6 @@
 const ora = require('ora')
 const mainSpinner = ora({
-  text: 'Moro',
+  text: 'Moro \\o/ ',
   spinner: 'hearts',
   color: 'red'
 })
