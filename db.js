@@ -11,7 +11,6 @@ const osHomedir = require('os-homedir')
 // ours
 // constants
 const constants = require('./constants.json')
-
 const helpers = require('./utils/helpers.js')
 
 let dbFileName = constants.DB_FILE_MAIN
@@ -39,6 +38,7 @@ const removeDatabase = (dbFileName) => {
     .then((exists) => {
       if (!exists) {
         console.log('database file did not exist nothing to remove')
+        process.exit(0)
         return
       }
       return fs.unlink(databaseFile)
@@ -49,7 +49,11 @@ const removeDatabase = (dbFileName) => {
         .catch((e) => {
           console.log('Run: moro report --all to make sure data is cleared', e)
         })
+        .finally(() => {
+          process.exit(0)
+        })
     })
+    .catch((e) => console.log)
 }
 
 // Create a table
