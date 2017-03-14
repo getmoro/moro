@@ -95,6 +95,13 @@ prog
   .alias('n')
   .argument('[note...]', COMMAND_DESCRIPTIONS.noteNote)
   .action(commands.addNote)
+//
+// ////////////////////
+// about
+//
+  .command('about', COMMAND_DESCRIPTIONS.about)
+  .alias('a')
+  .action(commands.about)
 
 // let it begin!
 prog.parse(process.argv)
