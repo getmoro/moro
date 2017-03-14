@@ -98,7 +98,7 @@ const report = (args, options, logger = console.log, date = TODAY) => {
           if (data && result) {
             data.dayReport = result.formattedWorkHours
             const table = helpers.printSingleDayReport(data)
-            console.log('\n Today looks like this:\n')
+            console.log('\n Today looks like this so far:\n')
             // renders the table
             console.log(table)
             console.log('Run moro --help if you need to edit your start, end or break duration for today \n')

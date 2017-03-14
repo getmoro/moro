@@ -136,9 +136,6 @@ const getUndoneWarnings = (dayRecord) => {
   if (!dayRecord || !dayRecord.start) {
     return 'Start of your work day is not marked yet! run moro to set it. Start needs to be set before I can give you the report'
   }
-  if (!dayRecord.end) {
-    return 'The end of your work day is not marked! run moro with no arguments to set it'
-  }
   return undefined
 }
 const calculateWorkHours = (date, knex) => (
@@ -154,7 +151,7 @@ const calculateWorkHours = (date, knex) => (
 
     // to assign hours to moment objects, we need the diff so current moment is fine
     const start = helpers.composeDateObject(data.start)
-    const end = helpers.composeDateObject(data.end)
+    const end = helpers.composeDateObject(data.end) || moment()
 
     const workHours = moment
       .duration(end.diff(start.add({minutes: getBreak(data)})))
