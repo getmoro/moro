@@ -67,7 +67,7 @@ const setStart = (args, options, logger) => {
       // update database
       db.updateDatabase(payload, db.knex)
         .then(() => {
-          logger.info('\n ✔ Your start of the day registered as ', start)
+          logger.info('\n \n ✔ Your start of the day registered as ', start)
           helpers.shouldWorkUntil(start, logger, config)
           logger.info('\n TIP: next time you run moro the end of your day will be set')
         })
@@ -80,7 +80,7 @@ const setStart = (args, options, logger) => {
 // set total duration of break for today
 const setBreak = (args, options, logger) => {
   const duration = args.duration
-  logger.info('✔ Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
+  logger.info('\n \n ✔ Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
 
   const payload = {
     date: TODAY,
@@ -113,7 +113,7 @@ const report = (args, options, logger, date) => {
           if (data && result) {
             data.dayReport = result.formattedWorkHours
             const table = helpers.printSingleDayReport(data)
-            console.log('\n Today looks like this so far:\n')
+            console.log('\n \n Today looks like this so far:\n')
             // renders the table
             console.log(table)
             console.log('Run moro --help if you need to edit your start, end or break duration for today \n')
@@ -129,11 +129,11 @@ const setConfig = (args, options, logger) => {
     .then((config) => {
       if (options.day) {
         config.HOURS_IN_A_WORK_DAY = options.day
-        console.log('\n ✔ Duration of full work day is set to ', options.day)
+        console.log('\n \n ✔ Duration of full work day is set to ', options.day)
       }
       if (options.break) {
         config.BREAK_DEFAULT = options.break
-        console.log('\n ✔ Default break duration is set to', options.break)
+        console.log('\n \n ✔ Default break duration is set to', options.break)
       }
       jsonfile.writeFileSync(CONFIG_FILE, config)
     })
@@ -145,7 +145,7 @@ const setConfig = (args, options, logger) => {
 // set end of the work day
 const setEnd = (args, options, logger) => {
   const end = args.end || NOW
-  logger.info('✔ Your end of the work day is set at: ', end)
+  logger.info('\n \n ✔ Your end of the work day is set at: ', end)
 
   const payload = {
     date: TODAY,
@@ -164,7 +164,7 @@ const clearData = (args, options, logger, spinner) => {
     spinner.succeed()
     return
   }
-  logger.info('If you surely want to clear all data in moro run: moro clear --yes')
+  logger.info(' \n \n [BE CAREFUL] If you surely want to clear all data in moro run: moro clear --yes')
   process.exit()
 }
 
@@ -184,7 +184,7 @@ const addNote = (args, options, logger) => {
     })
     .catch((err) => { logger.error(err) })
     .finally(() => {
-      console.log('✔ Your note is added! You can see it in report \\O/ ')
+      console.log('\n \n ✔ Your note is added! You can see it in report \\O/ ')
     })
 }
 
