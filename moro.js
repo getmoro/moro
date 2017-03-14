@@ -16,6 +16,7 @@ const commands = require('./commands.js')
 
 // All the possible commands and arguments:
 // moro
+// moro hi
 // moro hi 08:23
 // moro bye
 // moro bye 17:30
@@ -23,6 +24,7 @@ const commands = require('./commands.js')
 // moro break -32
 // moro report
 // moro report --all
+// moro status
 // moro config --day 8.5
 // moro config --break 45
 // moro clear --yes
@@ -64,6 +66,13 @@ prog
   .action(commands.report)
 //
 // ////////////////////
+// // status
+//
+  .command('status', COMMAND_DESCRIPTIONS.status)
+  .alias('st')
+  .action(commands.report)
+//
+// ////////////////////
 // clear
 //
   .command('clear', '')
@@ -86,6 +95,13 @@ prog
   .alias('n')
   .argument('[note...]', COMMAND_DESCRIPTIONS.noteNote)
   .action(commands.addNote)
+//
+// ////////////////////
+// about
+//
+  .command('about', COMMAND_DESCRIPTIONS.about)
+  .alias('a')
+  .action(commands.about)
 
 // let it begin!
 prog.parse(process.argv)
