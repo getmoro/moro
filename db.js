@@ -35,13 +35,20 @@ const removeDatabase = (dbFileName) => {
     console.log('[info] moro running in test mode, a temporary db will be used')
   }
   const databaseFile = path.join(osHomedir(), dbFileName)
-  return fs.unlink(databaseFile)
-    .then(() => {
-      console.log('database file deleted successfully')
-      console.log('press ctrl - c to exit')
-    })
-    .catch((e) => {
-      console.log('Run: moro report --all to make sure data is cleared', e)
+  return fs.exists(databaseFile)
+    .then((exists) => {
+      if (!exists) {
+        console.log('database file did not exist nothing to remove')
+        return
+      }
+      return fs.unlink(databaseFile)
+        .then(() => {
+          console.log('database file deleted successfully')
+          console.log('press ctrl - c to exit')
+        })
+        .catch((e) => {
+          console.log('Run: moro report --all to make sure data is cleared', e)
+        })
     })
 }
 
