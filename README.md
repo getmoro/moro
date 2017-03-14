@@ -18,6 +18,11 @@ npm install -g moro
 ```
 You need node version 4.8.0 or higher (we haven't tested lower versions)
 
+## update
+```bash
+npm update -g moro
+```
+
 ## How it works?
 Short version:
 When you start your work, you run $: moro. And when you are leaving, you run moro again. And it tells you how long you have worked.
@@ -88,6 +93,19 @@ to see all your registered hours:
 ```bash
 $ moro report --all
 ```
+
+## Adding a note
+You can add a note to your workday.
+```bash
+$ moro note foo
+```
+
+## Clear data
+To flush your data
+```bash
+$ moro clear --yes
+```
+
 ## Why not do it by a one liner?
 Well I hear you. My colleague, Henri, gave me this:
 
@@ -133,4 +151,3 @@ moro means hello in Finnish and in some areas especially in Tampere I've heard i
 ## Supporters
 
 [![Supported by the Spice Program](https://github.com/futurice/spiceprogram/raw/gh-pages/assets/img/logo/chilicorn_with_text-180.png)](https://spiceprogram.org)
-
