@@ -55,7 +55,7 @@ const nextUndoneAction = (args, options, logger) => {
 
 const setStart = (args, options, logger) => {
   const start = args.start || NOW
-  logger.info('\n Your start of the day registered as ', start)
+  logger.info('\n ✔ Your start of the day registered as ', start)
   configLoaded
     .then((config) => {
       helpers.shouldWorkUntil(start, logger, config)
@@ -80,7 +80,7 @@ const setStart = (args, options, logger) => {
 // set total duration of break for today
 const setBreak = (args, options, logger) => {
   const duration = args.duration
-  logger.info('Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
+  logger.info('✔ Break took: ', duration, 'Minutes', ' And will be removed from your work hours')
 
   const payload = {
     date: TODAY,
@@ -126,11 +126,11 @@ const setConfig = (args, options, logger) => {
     .then((config) => {
       if (options.day) {
         config.HOURS_IN_A_WORK_DAY = options.day
-        console.log('Duration of full work day is set to ', options.day)
+        console.log('✔ Duration of full work day is set to ', options.day)
       }
       if (options.break) {
         config.BREAK_DEFAULT = options.break
-        console.log('Default break duration is set to', options.break)
+        console.log('✔ Default break duration is set to', options.break)
       }
       jsonfile.writeFileSync(CONFIG_FILE, config)
     })
@@ -142,7 +142,7 @@ const setConfig = (args, options, logger) => {
 // set end of the work day
 const setEnd = (args, options, logger) => {
   const end = args.end || NOW
-  logger.info('Your end of the work day is set at: ', end)
+  logger.info('✔ Your end of the work day is set at: ', end)
 
   const payload = {
     date: TODAY,
@@ -179,7 +179,7 @@ const addNote = (args, options, logger) => {
     })
     .catch((err) => { logger.error(err) })
     .finally(() => {
-      console.log('Your note is added! You can see it in report \\O/ ')
+      console.log('✔ Your note is added! You can see it in report \\O/ ')
     })
 }
 
