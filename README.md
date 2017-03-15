@@ -2,6 +2,7 @@
 Command line tool for tracking work hours, as simple as it can get.  
 
 [![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro)
+
 ## Demo
 ![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
 
