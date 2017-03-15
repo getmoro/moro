@@ -1,9 +1,6 @@
-# moro
-
-CLI tool for tracking work hours, with only one command. Without any arguments or stop/start buttons. No headaches. Very fast :D
-
+# Moro  
+Command line tool for tracking work hours, as simple as it can get.  
 [![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro)
-
 ## Demo
 ![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
 
@@ -95,11 +92,11 @@ $ moro report --all
 ```
 
 ## Adding a note
-You can add one or more notes to your workday. 
+You can add one or more notes to your workday.
 ```bash
 $ moro note foo
 ```
-They'll appear in reports. You can for example use them to devide your time between different tasks. 
+They'll appear in reports. You can for example use them to devide your time between different tasks.
 
 
 ## Clear data
@@ -151,5 +148,5 @@ Ther's a shell script that runs all the features and you can see the results in 
 moro means hello in Finnish and in some areas especially in Tampere I've heard it a lot.
 
 ## Supporters
-
+I thank Futurice [link](https://github.com/futurice/) my employer for sponsoring this project through its Spice Hour program
 [![Supported by the Spice Program](https://github.com/futurice/spiceprogram/raw/gh-pages/assets/img/logo/chilicorn_with_text-180.png)](https://spiceprogram.org)
