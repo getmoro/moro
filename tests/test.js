@@ -4,7 +4,7 @@ import test from 'ava'
 import {
   printSingleDayReport,
   printAllDaysReport
-} from '../utils/helpers.js'
+} from '../lib/utils/helpers.js'
 
 const sampleDayRecord = {
   id: 1,
