@@ -153,6 +153,6 @@ moro means hello in Finnish and in some areas especially in Tampere I've heard i
 It's in CODE_OF_CONDUCT.md
 
 ## Supporters
-I thank Futurice [link](https://github.com/futurice/) my employer for sponsoring this project through its Spice Hour program
+I thank Futurice ([link](https://github.com/futurice/)) my employer for sponsoring this project trough its Spice program
 
 [![Supported by the Spice Program](https://github.com/futurice/spiceprogram/raw/gh-pages/assets/img/logo/chilicorn_with_text-180.png)](https://spiceprogram.org)
