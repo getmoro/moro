@@ -2,18 +2,18 @@
 'use strict'
 
 // ours
-const spinner = require('./utils/spinner.js')
+const spinner = require('../lib/utils/spinner.js')
 spinner.start()
 
 // packages
 const prog = require('caporal')
 
 // constants
-const VERSION = require('./package.json').version
-const COMMAND_DESCRIPTIONS = require('./constants.json').TEXT.commands
+const VERSION = require('../package.json').version
+const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
 
 // importing all the commands
-const commands = require('./commands.js')
+const commands = require('../lib/commands.js')
 
 // All the possible commands and arguments:
 // moro
