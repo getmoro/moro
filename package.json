@@ -20,7 +20,7 @@
     "url": "git+https://github.com/omidfi/moro.git"
   },
   "bin": {
-    "moro": "./moro.js"
+    "moro": "./bin/moro.js"
   },
   "author": "Omid Hezaveh",
   "license": "MIT",
