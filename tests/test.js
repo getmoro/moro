@@ -6,6 +6,8 @@ import {
   printAllDaysReport
 } from '../utils/helpers.js'
 
+const moment = require('moment')
+
 const sampleDayRecord = {
   id: 1,
   date: '2017-03-10',
@@ -18,7 +20,7 @@ const sampleDayRecord = {
 
 const sampleFullReprotRecord = [{
   date: '2017-03-10',
-  formattedWorkHours: '0 Hours and -30 Minutes'
+  workHours: moment('2017-03-10 7:55', 'YYYY-MM-DD HH:mm')
 }]
 
 test('singleDayReport runs without crashing', t => {

@@ -4,11 +4,29 @@
 const moment = require('moment')
 const Table = require('cli-table2')
 
+// input locale, output formated work hours
+const formatWorkHours = (workHours) => {
+  const hours = workHours.get('hours')
+  const minutes = workHours.get('minutes')
+  // to add negative sign
+  return `${hours} Hours and ${minutes} Minutes`
+}
+
 // input 'HH:mm', output moment object
 const composeDateObject = (timeString) => {
   const hour = timeString.split(':')[0]
   const minutes = timeString.split(':')[1]
   return moment({ hour, minutes })
+}
+
+// input start, end, pause, output moment
+const calculateWorkHours = (start, end, pause) => {
+  // to assign hours to moment objects, we need the diff so current moment is fine
+  const startDate = composeDateObject(start)
+  const endDate = composeDateObject(end)
+
+  return moment
+    .duration(endDate.diff(startDate.add({minutes: pause})))
 }
 
 // to tell users when they can go home!
@@ -47,7 +65,7 @@ const printAllDaysReport = (records) => {
   // instantiate beautiful table
   const table = new Table()
   records.forEach((record) => {
-    const report = record.formattedWorkHours
+    const report = formatWorkHours(record.workHours)
 
     const formattedRecord = {}
     formattedRecord[record.date] = report
@@ -69,5 +87,7 @@ module.exports = {
   composeDateObject,
   printSingleDayReport,
   printAllDaysReport,
-  shouldWorkUntil
+  shouldWorkUntil,
+  calculateWorkHours,
+  formatWorkHours
 }

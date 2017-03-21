@@ -96,7 +96,7 @@ const report = (args, options, logger = console.log, date = TODAY) => {
       db.getDateReport(TODAY, db.knex)
         .then((data) => {
           if (data && result) {
-            data.dayReport = result.formattedWorkHours
+            data.dayReport = helpers.formatWorkHours(result.workHours)
             const table = helpers.printSingleDayReport(data)
             console.log('\n Today looks like this:\n')
             // renders the table

@@ -5,7 +5,6 @@ const path = require('path')
 const fs = require('mz/fs')
 
 // packages
-const moment = require('moment')
 const osHomedir = require('os-homedir')
 
 // ours
@@ -152,18 +151,9 @@ const calculateWorkHours = (date, knex) => (
     const getBreak = (data) => data.breakDuration
     const notes = data.notes
 
-    // to assign hours to moment objects, we need the diff so current moment is fine
-    const start = helpers.composeDateObject(data.start)
-    const end = helpers.composeDateObject(data.end)
+    const workHours = helpers.calculateWorkHours(data.start, data.end, getBreak(data))
 
-    const workHours = moment
-      .duration(end.diff(start.add({minutes: getBreak(data)})))
-
-    const hours = workHours.get('hours')
-    const minutes = workHours.get('minutes')
-    // to add negative sign
-    const formattedWorkHours = `${hours} Hours and ${minutes} Minutes`
-    return { date, formattedWorkHours, notes }
+    return { date, workHours, notes }
   })
   .catch((err) => {
     console.log(err)
