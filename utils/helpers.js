@@ -68,10 +68,10 @@ const printAllDaysReport = (records) => {
   // instantiate beautiful table
   const table = new Table()
   records.forEach((record) => {
-    const report = formatWorkHours(record.workHours)
+    const date = moment(record.date)
 
     const formattedRecord = {}
-    formattedRecord[record.date] = report
+    formattedRecord[date.format('dd, YYYY-MM-DD')] = formatWorkHours(record.workHours)
 
     table.push(formattedRecord)
 
