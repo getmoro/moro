@@ -1,6 +1,6 @@
 {
   "name": "moro",
-  "version": "2.6.2",
+  "version": "2.8.0",
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "moro.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "url": "git+https://github.com/omidfi/moro.git"
   },
   "bin": {
-    "moro": "./moro.js"
+    "moro": "./bin/moro.js"
   },
   "author": "Omid Hezaveh",
   "license": "MIT",
@@ -35,6 +35,7 @@
     "knex": "^0.12.7",
     "moment": "^2.17.1",
     "mz": "^2.6.0",
+    "ora": "^1.1.0",
     "os-homedir": "^1.0.2",
     "sqlite3": "^3.1.8",
     "standard": "^9.0.1"

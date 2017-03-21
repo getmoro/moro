@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 'use strict'
 
+// ours
+const spinner = require('../lib/utils/spinner.js')
+spinner.start()
+
 // packages
 const prog = require('caporal')
 
-// ours
-
 // constants
-
-const VERSION = require('./package.json').version
-const COMMAND_DESCRIPTIONS = require('./constants.json').TEXT.commands
+const VERSION = require('../package.json').version
+const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
 
 // importing all the commands
-const commands = require('./commands.js')
+const commands = require('../lib/commands.js')
 
 // All the possible commands and arguments:
 // moro
@@ -77,7 +78,9 @@ prog
 //
   .command('clear', '')
   .option('--yes', 'you need to confirm before I remove everything')
-  .action(commands.clearData)
+  .action((args, options, logger) => {
+    commands.clearData(args, options, logger, spinner)
+  })
 //
 // ////////////////////
 // config

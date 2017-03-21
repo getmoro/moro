@@ -59,9 +59,6 @@ echo 'Report all days'
 moro report --all
 echo 'ended'
 
-echo 'Now testing: moro clear --yes'
-moro clear --yes
-echo 'ended'
 export MORO_TEST_MODE='false'
-echo 'I set MORO_TEST_MODE off, now using your normal database again'
-echo 'Moro tester! /O\ completed all tests'
+echo ' I set MORO_TEST_MODE off, now using your normal database again'
+echo 'SUCCESS \O/ Moro tester! /O\ completed all tests'
