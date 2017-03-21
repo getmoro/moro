@@ -8,7 +8,7 @@ import {
   getFullReport,
   removeDatabase,
   calculateWorkHours
-} from '../db.js'
+} from '../lib/db.js'
 
 // natives
 const path = require('path')
@@ -19,7 +19,7 @@ const moment = require('moment')
 const osHomedir = require('os-homedir')
 
 // constants
-const { DB_FILE_FOR_TESTS } = require('../constants.json')
+const { DB_FILE_FOR_TESTS } = require('../lib/constants.json')
 
 const knexForTestsInMemory = require('knex')({
   dialect: 'sqlite3',
