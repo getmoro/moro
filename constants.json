@@ -19,6 +19,7 @@
       "clearYes" : "you need to confirm before I remove everything",     "config" : "example: 'moro config --day 8' Sets  duration of day to 8, and moro config --break 45 sets the default break duration to 45",
       "configDay": "example: 'moro config --day 8' How many hours make a full day e.g 7.5",
       "configBreak": "example: 'moro config --break 45' Sets your proffered default break time to 45 minutes",
+      "configPattern": "example: moro config --format 'YYYY-MM-DD' Sets the pattern for the date format in a report",
       "note": "optionally add notes about the task at hand",
       "noteNote": "free form text about task at hand"
     }

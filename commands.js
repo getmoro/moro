@@ -96,34 +96,38 @@ const setBreak = (args, options, logger) => {
 const report = (args, options, logger, date) => {
   logger = logger || console.log
   date = date || TODAY
+  configLoaded
+    .then((config) => {
+      if (options && options.all) {
+        db
+          .getFullReport(db.knex, config)
+          .catch((error) => { console.log(error) })
+          .finally(() => { process.exit(0) })
 
-  if (options && options.all) {
-    db
-      .getFullReport(db.knex)
-      .catch((error) => { console.log(error) })
-      .finally(() => { process.exit(0) })
-
-    return
-  }
-  db
-    .calculateWorkHours(date, db.knex)
-    .then((result) => {
-      db.getDateReport(TODAY, db.knex)
-        .then((data) => {
-          if (data && result) {
-            data.dayReport = helpers.formatWorkHours(result.workHours)
-            const table = helpers.printSingleDayReport(data)
-            console.log('\n Today looks like this so far:\n')
-            // renders the table
-            console.log(table)
-            console.log('Run moro --help if you need to edit your start, end or break duration for today \n')
-            process.exit(0)
-          }
+        return
+      }
+      db
+        .calculateWorkHours(date, db.knex)
+        .then((result) => {
+          db.getDateReport(TODAY, db.knex)
+            .then((data) => {
+              if (data && result) {
+                data.dayReport = helpers.formatWorkHours(result.workHours)
+                const table = helpers.printSingleDayReport(data)
+                console.log('\n Today looks like this so far:\n')
+                // renders the table
+                console.log(table)
+                console.log('Run moro --help if you need to edit your start, end or break duration for today \n')
+                process.exit(0)
+              }
+            })
+            .catch((err) => { logger.error(err) })
         })
         .catch((err) => { logger.error(err) })
     })
-    .catch((err) => { logger.error(err) })
 }
+
+// set the configuration in the config file
 const setConfig = (args, options, logger) => {
   configLoaded
     .then((config) => {
@@ -135,6 +139,10 @@ const setConfig = (args, options, logger) => {
         config.BREAK_DEFAULT = options.break
         console.log('✔ Default break duration is set to', options.break)
       }
+      if (options.format) {
+        config.DATE_FORMAT = options.format
+        console.log('✔ Default date format pattern is set to', options.format)
+      }
       jsonfile.writeFileSync(CONFIG_FILE, config)
     })
     .catch((e) => console.log)
@@ -142,6 +150,7 @@ const setConfig = (args, options, logger) => {
       process.exit(0)
     })
 }
+
 // set end of the work day
 const setEnd = (args, options, logger) => {
   const end = args.end || NOW
