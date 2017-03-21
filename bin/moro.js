@@ -89,6 +89,7 @@ prog
   .alias('c')
   .option('--day <duration>', COMMAND_DESCRIPTIONS.configDay, prog.FLOAT)
   .option('--break <duration>', COMMAND_DESCRIPTIONS.breakDuration, prog.INT)
+  .option('--format <pattern>', COMMAND_DESCRIPTIONS.configPattern, prog.STRING)
   .action(commands.setConfig)
 //
 // ////////////////////
