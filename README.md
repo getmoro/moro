@@ -12,8 +12,11 @@ Watch this screen recording to see moro at work: [link](https://asciinema.org/a/
 
 ## install
 ```bash
+
 npm install -g moro
+
 ```
+You need node version 4.8.0 or higher (we haven't tested lower versions)
 
 ## update
 ```bash
