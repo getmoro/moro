@@ -2,7 +2,7 @@
   "DB_FILE_MAIN" : ".moro-data.db",
   "DB_FILE_FOR_TESTS" : ".moro-tests.db",
   "TEXT": {
-    "about": "Moro is made to make your life easier. It's available for free. If you like Moro please consider donating to an NGO or humanitarian organization on our behalf.",
+    "about": "\n \n Moro is made to make your life easier. It's available for free. If you like Moro please consider donating to an NGO or humanitarian organization on our behalf.",
     "commands": {
       "default": "Track your work hours. Just say moro when you come to work, and say moro when you leave. It shows how long you have worked on that day!"
       ,
@@ -16,7 +16,8 @@
       "reportAll" : "shows reports for all days",
       "status" : "See how long you have worked until now",
       "clear" : "remove the database! Be careful :)",
-      "clearYes" : "you need to confirm before I remove everything",     "config" : "example: 'moro config --day 8' Sets  duration of day to 8, and moro config --break 45 sets the default break duration to 45",
+      "clearYes" : "you need to confirm before I remove everything",
+      "config" : "example: 'moro config --day 8' Sets  duration of day to 8, and moro config --break 45 sets the default break duration to 45, and moro config --format 'dd, YYYY-MM-DD' sets the report format of dates to 'Th, 2017-03-21' ",
       "configDay": "example: 'moro config --day 8' How many hours make a full day e.g 7.5",
       "configBreak": "example: 'moro config --break 45' Sets your proffered default break time to 45 minutes",
       "configPattern": "example: moro config --format 'YYYY-MM-DD' Sets the pattern for the date format in a report",
