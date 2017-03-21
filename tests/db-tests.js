@@ -13,6 +13,7 @@ import {
 // natives
 const path = require('path')
 const fs = require('fs')
+const moment = require('moment')
 
 // packages
 const osHomedir = require('os-homedir')
@@ -87,7 +88,7 @@ test('calculateWorkHours works', async t => {
   }
   const okResult = {
     date: '2017-03-11',
-    formattedWorkHours: '7 Hours and 55 Minutes',
+    workHours: moment.duration(moment('2017-03-11 17:10').diff(moment('2017-03-11 09:15'))),
     notes: []
   }
   await updateDatabase(options, knexForTestsInMemory)
@@ -104,8 +105,9 @@ test.serial('getFullReport outputs ok results', async t => {
     notes: [],
     start: '09:15'
   }
+
   const okResults = [ { date: '2017-03-11',
-    formattedWorkHours: '7 Hours and 55 Minutes',
+    workHours: moment.duration(moment('2017-03-11 17:10').diff(moment('2017-03-11 09:15'))),
     notes: [] } ]
 
   await updateDatabase(options, knexForTestsInMemory)
