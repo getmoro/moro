@@ -1,14 +1,10 @@
-# moro
-
-CLI tool for tracking work hours, with only one command. Without any arguments or stop/start buttons. No headaches. Very fast :D
+# Moro
+Command line tool for tracking work hours, as simple as it can get.
 
 [![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro)
 
 ## Demo
-![alt tag](https://media.giphy.com/media/3oKIPvntQ5Zk3SIYow/source.gif)
-
-## Screen recorded video tutorial
-Watch this screen recording to see moro at work: [link](https://asciinema.org/a/106792)
+![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
 
 ## install
 ```bash
@@ -24,10 +20,11 @@ npm update -g moro
 ```
 
 ## How it works?
-Short version:
+
+### Short version:
 When you start your work, you run $: moro. And when you are leaving, you run moro again. And it tells you how long you have worked.
 
-Long version:
+### Long version:
 
 The formula to calculate work hours is simple: time works end - time work starts - breaks = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
 
@@ -95,22 +92,17 @@ $ moro report --all
 ```
 
 ## Adding a note
-You can add a note to your workday.
+You can add one or more notes to your workday.
 ```bash
 $ moro note foo
 ```
+They'll appear in reports. You can for example use them to devide your time between different tasks.
+
 
 ## Clear data
 To flush your data
 ```bash
 $ moro clear --yes
-```
-
-## Why not do it by a one liner?
-Well I hear you. My colleague, Henri, gave me this:
-
-```bash
-echo 'You have worked:' $(echo 'scale=2;(' $(date -d 'now' +%s) - $(date -d "$(journalctl -t systemd-logind -b | grep 'Lid opened' | tail -n1 | awk '{print $1, $2, $3}')" +%s) ')' / 3600 | bc) 'hours'
 ```
 ## Configuration
 
@@ -122,7 +114,10 @@ moro.js config --format 'dd, YYYY-MM-DD'
 ```
 For more possible formats see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/)
 
-### Setting work day duration and break time default
+## Screen recorded video tutorial
+Watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792)
+
+## Setting work day duration and break time default
 In Finland a full work day is 7.5 hours, which is the default in moro. To change it use this:
 
 ```
@@ -135,6 +130,12 @@ Also the default break time can be changed from 30 minutes
 ```
 # to make default break 45 minutes
 moro config --break 45
+```
+## Why not do it by a one liner?
+Well I hear you! My colleague, Henri, gave me this:
+
+```bash
+echo 'You have worked:' $(echo 'scale=2;(' $(date -d 'now' +%s) - $(date -d "$(journalctl -t systemd-logind -b | grep 'Lid opened' | tail -n1 | awk '{print $1, $2, $3}')" +%s) ')' / 3600 | bc) 'hours'
 ```
 
 
@@ -158,6 +159,10 @@ Ther's a shell script that runs all the features and you can see the results in 
 ## what does moro mean?
 moro means hello in Finnish and in some areas especially in Tampere I've heard it a lot.
 
+# Please Respect our code of conduct
+It's in CODE_OF_CONDUCT.md
+
 ## Supporters
+I thank Futurice ([link](https://github.com/futurice/)) my employer for sponsoring this project trough its Spice program
 
 [![Supported by the Spice Program](https://github.com/futurice/spiceprogram/raw/gh-pages/assets/img/logo/chilicorn_with_text-180.png)](https://spiceprogram.org)
