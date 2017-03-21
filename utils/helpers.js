@@ -64,14 +64,15 @@ const printSingleDayReport = (record) => {
 }
 
 // full report of all days
-const printAllDaysReport = (records) => {
+const printAllDaysReport = (records, CONFIG = {}) => {
+  const pattern = CONFIG.DATE_FORMAT || 'YYYY-MM-DD'
   // instantiate beautiful table
   const table = new Table()
   records.forEach((record) => {
     const date = moment(record.date)
 
     const formattedRecord = {}
-    formattedRecord[date.format('dd, YYYY-MM-DD')] = formatWorkHours(record.workHours)
+    formattedRecord[date.format(pattern)] = formatWorkHours(record.workHours)
 
     table.push(formattedRecord)
 

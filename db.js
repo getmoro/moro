@@ -164,7 +164,7 @@ const calculateWorkHours = (date, knex) => (
   })
 )
 
-const getFullReport = (knex) => {
+const getFullReport = (knex, CONFIG = {}) => {
   return createTable(knex)
     .then(() => {
       return knex.select('date')
@@ -173,7 +173,7 @@ const getFullReport = (knex) => {
         .whereNotNull('end')
         .map((row) => calculateWorkHours(row.date, knex))
         .then((results) => {
-          helpers.printAllDaysReport(results)
+          helpers.printAllDaysReport(results, CONFIG)
           return (results)
         })
         .catch((err) => { console.error(err) })
