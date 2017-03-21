@@ -104,6 +104,15 @@ To flush your data
 ```bash
 $ moro clear --yes
 ```
+## Configuration
+
+To change the Date format for a report use a pattern
+
+```
+# this will change the output to 'Fr, 2017-03-17'
+moro.js config --format 'dd, YYYY-MM-DD'
+```
+For more possible formats see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/)
 
 ## Screen recorded video tutorial
 Watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792)
@@ -128,6 +137,7 @@ Well I hear you! My colleague, Henri, gave me this:
 ```bash
 echo 'You have worked:' $(echo 'scale=2;(' $(date -d 'now' +%s) - $(date -d "$(journalctl -t systemd-logind -b | grep 'Lid opened' | tail -n1 | awk '{print $1, $2, $3}')" +%s) ')' / 3600 | bc) 'hours'
 ```
+
 
 ## Contributing
 Yes please! Open an issue, or make a pull request!
