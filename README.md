@@ -7,6 +7,9 @@ Command line tool for tracking work hours, as simple as it can get.
 ## Demo
 ![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
 
+## Screen recorded video tutorial
+Watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792)
+
 ## install
 ```bash
 
@@ -105,6 +108,7 @@ To flush your data
 ```bash
 $ moro clear --yes
 ```
+
 ## Configuration
 
 To change the Date format for a report use a pattern
@@ -115,8 +119,6 @@ moro.js config --format 'dd, YYYY-MM-DD'
 ```
 For more possible formats see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/)
 
-## Screen recorded video tutorial
-Watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792)
 
 ## Setting work day duration and break time default
 In Finland a full work day is 7.5 hours, which is the default in moro. To change it use this:
