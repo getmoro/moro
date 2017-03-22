@@ -20,7 +20,10 @@ const sampleDayRecord = {
 
 const sampleFullReprotRecord = [{
   date: '2017-03-10',
-  workHours: moment('2017-03-10 7:55', 'YYYY-MM-DD HH:mm')
+  workHours: moment.duration(moment('2017-03-10 17:10').diff(moment('2017-03-10 09:15')))
+}, {
+  date: '2017-03-11',
+  workHours: moment.duration(moment('2017-03-11 17:10').diff(moment('2017-03-11 09:15')))
 }]
 
 test('singleDayReport runs without crashing', t => {
