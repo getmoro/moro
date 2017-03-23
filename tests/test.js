@@ -42,6 +42,7 @@ test('printAllDaysReport for two runs without crashing', t => {
 test('printAllDaysReport with week change runs without crashing', t => {
   const reprotRecord = [{date: '2017-03-09', workHours: diff('2017-03-09 09:15', '2017-03-09 17:10')},
     {date: '2017-03-10', workHours: diff('2017-03-10 09:15', '2017-03-10 17:10')},
-    {date: '2017-03-14', workHours: diff('2017-03-14 09:10', '2017-03-14 17:10')}]
+    {date: '2017-03-14', workHours: diff('2017-03-14 09:10', '2017-03-14 17:10')},
+    {date: '2017-03-15', workHours: diff('2017-03-15 09:10', '2017-03-15 17:10')}]
   t.pass(printAllDaysReport(reprotRecord))
 })
