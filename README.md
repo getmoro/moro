@@ -4,11 +4,12 @@ Command line tool for tracking work hours, as simple as it can get.
 
 [![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro) [![Downloads](https://img.shields.io/npm/dt/moro.svg)](https://npmjs.org/moro)
 [![Greenkeeper badge](https://badges.greenkeeper.io/omidfi/moro.svg)](https://greenkeeper.io/) [![Sponsored](https://img.shields.io/badge/chilicorn-sponsored-brightgreen.svg)](http://spiceprogram.org/oss-sponsorship/)
+
 ## Demo
 ![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
 
 ## Screen recorded video tutorial
-Watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792)
+moro is really simple but you can watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792) in 15 minutes.
 
 ## install
 ```bash
@@ -145,6 +146,9 @@ echo 'You have worked:' $(echo 'scale=2;(' $(date -d 'now' +%s) - $(date -d "$(j
 ## Contributing
 Yes please! Open an issue, or make a pull request!
 
+### Code of conduct
+Code is important but people are more important. If you like to contribute to moro please read and follow our code of conduct found in this file: CODE_OF_CONDUCT.md
+
 ### To run tests
 
 ```
@@ -161,9 +165,6 @@ Ther's a shell script that runs all the features and you can see the results in 
 
 ## what does moro mean?
 moro means hello in Finnish and in some areas especially in Tampere I've heard it a lot.
-
-# Please Respect our code of conduct
-It's in CODE_OF_CONDUCT.md
 
 ## Supporters
 I thank Futurice ([link](https://github.com/futurice/)) my employer for sponsoring this project trough its Spice program
