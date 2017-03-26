@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/omidfi/moro#readme",
   "dependencies": {
-    "caporal": "^0.3.0",
+    "caporal": "^0.4.0",
     "cli-table2": "^0.2.0",
     "jsonfile": "^2.4.0",
     "knex": "^0.12.7",
