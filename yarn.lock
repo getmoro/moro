@@ -698,16 +698,16 @@ camelcase@^2.0.0, camelcase@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
 
-caporal@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/caporal/-/caporal-0.3.0.tgz#bb8b56857244251c3298db9d1524fd2254989c84"
+caporal@^0.4.0:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/caporal/-/caporal-0.4.1.tgz#8fa8981b94ce349592b4ee77787abcc426d9420f"
   dependencies:
     bluebird "^3.4.7"
     chalk "^1.1.3"
     cli-table2 "^0.2.0"
     fast-levenshtein "^2.0.6"
     lodash.camelcase "^4.3.0"
-    minimist "^1.2.0"
+    micromist "^1.0.1"
     prettyjson "^1.2.1"
     tabtab "^2.2.2"
     winston "^2.3.1"
@@ -2386,6 +2386,12 @@ micromatch@^2.1.5, micromatch@^2.3.7:
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
 
+micromist@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/micromist/-/micromist-1.0.1.tgz#5b497dd50098250a57ba2f355e9497d8e2394877"
+  dependencies:
+    lodash.camelcase "^4.3.0"
+
 mime-db@~1.26.0:
   version "1.26.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.26.0.tgz#eaffcd0e4fc6935cf8134da246e2e6c35305adff"
@@ -2410,13 +2416,13 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-minimist@^1.1.0, minimist@^1.1.3, minimist@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
-
-minimist@~1.1.0:
+minimist@^1.1.0, minimist@^1.1.3, minimist@~1.1.0:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.1.3.tgz#3bedfd91a92d39016fcfaa1c681e8faa1a1efda8"
+
+minimist@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
 "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   version "0.5.1"
