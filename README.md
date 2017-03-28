@@ -135,6 +135,18 @@ Also the default break time can be changed from 30 minutes
 # to make default break 45 minutes
 moro config --break 45
 ```
+
+# Backup the data
+Moro uses a single database file to keep your data. Default location is in your home directory, and the file name is .moro-data.db. You can backup that file however you like.
+
+Easy way to back up is to move the moro database file into your DropBox folder and then use the following command to tell moro to use that database file:
+
+```
+moro config --database-path /home/GraceHopper/Dropbox/moro-data.db
+
+# This works on my linux machine :)
+```
+
 ## Why not do it by a one liner?
 Well I hear you! My colleague, Henri, gave me this:
 
@@ -164,7 +176,7 @@ Ther's a shell script that runs all the features and you can see the results in 
 ```
 
 ## what does moro mean?
-Moro means hello in Finnish. 
+Moro means hello in Finnish.
 
 ## Supporters
 I thank Futurice ([link](https://github.com/futurice/)) my employer for sponsoring this project trough its Spice program
