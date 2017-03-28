@@ -4,7 +4,7 @@
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "moro.js",
   "scripts": {
-    "test": "standard && ava"
+    "test": "standard && cross-env MORO_TEST_MODE='true' ava"
   },
   "ava": {
     "files": [
@@ -42,6 +42,7 @@
     "standard": "^9.0.1"
   },
   "devDependencies": {
-    "ava": "^0.18.2"
+    "ava": "^0.18.2",
+    "cross-env": "^3.2.4"
   }
 }
