@@ -16,7 +16,6 @@ const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
 const commands = require('../lib/commands.js')
 const helpers = require('../lib/utils/helpers.js')
 
-
 // All the possible commands and arguments:
 // moro
 // moro hi
