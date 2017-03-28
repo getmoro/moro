@@ -14,6 +14,7 @@ const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
 
 // importing all the commands
 const commands = require('../lib/commands.js')
+const helpers = require('../lib/utils/helpers.js')
 
 // All the possible commands and arguments:
 // moro
@@ -90,6 +91,7 @@ prog
   .option('--day <duration>', COMMAND_DESCRIPTIONS.configDay, prog.FLOAT)
   .option('--break <duration>', COMMAND_DESCRIPTIONS.breakDuration, prog.INT)
   .option('--format <pattern>', COMMAND_DESCRIPTIONS.configPattern, prog.STRING)
+  .option('--database-path [path]', COMMAND_DESCRIPTIONS.dbPath, helpers.pathValidator)
   .action(commands.setConfig)
 //
 // ////////////////////

@@ -7,19 +7,13 @@ import {
   getDateReport,
   getFullReport,
   removeDatabase,
-  calculateWorkHours
+  calculateWorkHours,
+  dbTestFile
 } from '../lib/db.js'
 
 // natives
-const path = require('path')
 const fs = require('fs')
 const moment = require('moment')
-
-// packages
-const osHomedir = require('os-homedir')
-
-// constants
-const { DB_FILE_FOR_TESTS } = require('../lib/constants.json')
 
 const knexForTestsInMemory = require('knex')({
   dialect: 'sqlite3',
@@ -32,26 +26,24 @@ const knexForTestsInMemory = require('knex')({
 const knexForTestsInFile = require('knex')({
   dialect: 'sqlite3',
   connection: {
-    filename: path.join(osHomedir(), DB_FILE_FOR_TESTS)
+    filename: dbTestFile
   },
   useNullAsDefault: true
 })
 
 test.serial('db file is created properly', async t => {
-  const dbFilePath = path.join(osHomedir(), DB_FILE_FOR_TESTS)
   await createTable(knexForTestsInFile)
-  const fileGotCreated = fs.existsSync(dbFilePath)
+  const fileGotCreated = fs.existsSync(dbTestFile)
   t.true(fileGotCreated)
 })
 
 test.serial('removeDatabase removes db file', async t => {
-  const dbFilePath = path.join(osHomedir(), DB_FILE_FOR_TESTS)
   try {
-    await removeDatabase(DB_FILE_FOR_TESTS)
+    await removeDatabase()
   } catch (e) {
     console.log(e)
   }
-  let fileGotRemoved = !fs.existsSync(dbFilePath)
+  const fileGotRemoved = !fs.existsSync(dbTestFile)
   t.true(fileGotRemoved)
 })
 
