@@ -29,6 +29,8 @@ const helpers = require('../lib/utils/helpers.js')
 // moro status
 // moro config --day 8.5
 // moro config --break 45
+// moro config --format 'ddd, MMM, DD'
+// moro config --database-path '/home/GraceHopeer/moro.db'
 // moro clear --yes
 prog
   // default command
