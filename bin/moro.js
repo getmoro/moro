@@ -24,6 +24,7 @@ const helpers = require('../lib/utils/helpers.js')
 // moro bye 17:30
 // moro break 32
 // moro break -32
+// moro clear --yes
 // moro report
 // moro report --all
 // moro status
@@ -31,7 +32,7 @@ const helpers = require('../lib/utils/helpers.js')
 // moro config --break 45
 // moro config --format 'ddd, MMM, DD'
 // moro config --database-path '/home/GraceHopeer/moro.db'
-// moro clear --yes
+
 prog
   // default command
   .version(VERSION)
