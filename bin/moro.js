@@ -92,7 +92,7 @@ prog
   .alias('c')
   .option('--day <duration>', COMMAND_DESCRIPTIONS.configDay, prog.FLOAT)
   .option('--break <duration>', COMMAND_DESCRIPTIONS.breakDuration, prog.INT)
-  .option('--format <pattern>', COMMAND_DESCRIPTIONS.configPattern, prog.STRING)
+  .option('--format <pattern>', COMMAND_DESCRIPTIONS.configPattern, helpers.formatValidator)
   .option('--database-path [path]', COMMAND_DESCRIPTIONS.dbPath, helpers.pathValidator)
   .action(commands.setConfig)
 //
