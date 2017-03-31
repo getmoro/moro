@@ -43,6 +43,6 @@
   },
   "devDependencies": {
     "ava": "^0.18.2",
-    "cross-env": "^3.2.4"
+    "cross-env": "^4.0.0"
   }
 }
