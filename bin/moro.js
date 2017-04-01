@@ -8,11 +8,14 @@ spinner.start()
 // packages
 const prog = require('caporal')
 
-// constants
+// ours
 const VERSION = require('../package.json').version
 const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
 
 // importing all the commands
+const configManager = require('../lib/utils/configManager.js')
+configManager.initConfigFile()
+
 const commands = require('../lib/commands.js')
 const helpers = require('../lib/utils/helpers.js')
 
