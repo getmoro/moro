@@ -7,9 +7,10 @@ import {
   getDateReport,
   getFullReport,
   removeDatabase,
-  calculateWorkHours,
-  dbTestFile
+  calculateWorkHours
 } from '../lib/db.js'
+
+import {dbTestFile} from '../lib/utils/configManager.js'
 
 // natives
 const fs = require('fs')
