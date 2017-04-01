@@ -1,12 +1,17 @@
 #!/usr/bin/env node
 'use strict'
 
-// ours
-const spinner = require('../lib/utils/spinner.js')
-spinner.start()
-
 // packages
 const prog = require('caporal')
+const chalk = require('chalk')
+
+// ours
+const spinner = require('../lib/utils/spinner.js')
+console.log(`
+ ${chalk.red('💙')}  Moro \\o/
+`)
+
+spinner.start()
 
 // ours
 const VERSION = require('../package.json').version
