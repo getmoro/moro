@@ -31,9 +31,9 @@ When you start your work, you run $: moro. And when you are leaving, you run mor
 
 ### Long version:
 
-The formula to calculate work hours is simple: time works end - time work starts - breaks = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
+The formula to calculate work hours is simple: time work ends - time work starts - breaks = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
 
-Moro just saves the three for each day and at the end of the day tells you how much you have worked. All data is saved on your computer and doesn't leave it.
+Moro just saves the tree for each day and at the end of the day tells you how much you have worked. All data is saved on your computer and doesn't leave it.
 
 1. when you come to work you say moro:
 ```bash
@@ -41,7 +41,7 @@ $: moro
 your start of the day is set at 9:00
 ...
 ```
-2. When you are about to leave work you say moro once more, and you find out how long you have worked!
+2. When you are about to leave the work you say moro once more, and you find out how long you have worked!
 ```
 $ moro
 
