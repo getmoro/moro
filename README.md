@@ -27,13 +27,13 @@ npm update -g moro
 ## How it works?
 
 ### Short version:
-When you start your work, you run $: moro. And when you are leaving, you run moro again. And it tells you how long you have worked.
+When you start your work day, you run $: moro. And when you are leaving, you run moro again. And it tells you how many hours you have worked.
 
 ### Long version:
 
-The formula to calculate work hours is simple: time works end - time work starts - breaks = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
+The formula to calculate work hours is simple: (time the work ends) - (time the work starts) - (breaks) = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
 
-Moro just saves the three for each day and at the end of the day tells you how much you have worked. All data is saved on your computer and doesn't leave it.
+Moro saves the three parameters, start, en, break,  for each day and at the end of the day tells you how many hours you have worked. All data is saved on your computer and doesn't leave it.
 
 1. when you come to work you say moro:
 ```bash
@@ -42,7 +42,8 @@ your start of the day is set at 9:00
 ...
 ```
 2. When you are about to leave work you say moro once more, and you find out how long you have worked!
-```
+
+```bash
 $ moro
 
 Your end of the day registered as  17:15
@@ -60,9 +61,10 @@ Your end of the day registered as  17:15
 ├────────────────┼────────────────────────┤
 │ Date           │ 2017-03-08             │
 └────────────────┴────────────────────────┘
+
 ```
 
-moro removes half an hour for the lunch time.
+moro subtracts 30 minutes for the lunch time by default.
 
 That's it! You know you have worked 7 hours and 30 minutes!
 
@@ -169,7 +171,7 @@ yarn run test
 
 ### Automated run script
 
-Ther's a shell script that runs all the features and you can see the results in terminal, to make sure things work
+There's a shell script that runs all the features and you can see the results in terminal, to make sure things work.
 
 ```
 ./tests/automated-script.sh
