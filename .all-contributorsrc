@@ -31,6 +31,15 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "fleischie",
+      "name": "Karl Fleischmann",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2211050?v=3",
+      "profile": "https://twitter.com/fleischie28",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
