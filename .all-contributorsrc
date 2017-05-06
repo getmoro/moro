@@ -20,6 +20,17 @@
         "review",
         "test"
       ]
+    },
+    {
+      "login": "mario-s",
+      "name": "Mario",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4089975?v=3",
+      "profile": "https://github.com/mario-s",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ]
 }
