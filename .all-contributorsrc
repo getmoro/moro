@@ -6,5 +6,20 @@
   ],
   "imageSize": 100,
   "commit": true,
-  "contributors": []
+  "contributors": [
+    {
+      "login": "omidfi",
+      "name": "Omid Hezaveh",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/7697632?v=3",
+      "profile": "http://omid.fi",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "doc",
+        "review",
+        "test"
+      ]
+    }
+  ]
 }
