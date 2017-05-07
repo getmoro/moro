@@ -36,7 +36,7 @@
     "cli-table2": "^0.2.0",
     "expand-home-dir": "^0.0.3",
     "fs-extra": "^2.1.2",
-    "jsonfile": "^2.4.0",
+    "jsonfile": "^3.0.0",
     "knex": "^0.12.7",
     "moment": "^2.17.1",
     "mz": "^2.6.0",
