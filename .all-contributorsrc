@@ -1,0 +1,72 @@
+{
+  "projectName": "moro",
+  "projectOwner": "omidfi",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "omidfi",
+      "name": "Omid Hezaveh",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/7697632?v=3",
+      "profile": "http://omid.fi",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "doc",
+        "review",
+        "test"
+      ]
+    },
+    {
+      "login": "mario-s",
+      "name": "Mario",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4089975?v=3",
+      "profile": "https://github.com/mario-s",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "fleischie",
+      "name": "Karl Fleischmann",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2211050?v=3",
+      "profile": "https://twitter.com/fleischie28",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "niloomotita",
+      "name": "Niloofar Motamed",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/12087554?v=3",
+      "profile": "https://niloofarmotamed.com",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Wolf-Rost",
+      "name": "Wolf-Rost",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/5592940?v=3",
+      "profile": "https://github.com/Wolf-Rost",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "heppu",
+      "name": "Henri Koski",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2776719?v=3",
+      "profile": "https://github.com/heppu",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ]
+}
