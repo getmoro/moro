@@ -10,9 +10,9 @@ Command line tool for tracking work hours, as simple as it can get.
 ![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
 
 ## Screen recorded video tutorial
-moro is really simple but you can watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792) in 15 minutes.
+Moro is really simple but you can watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792) in 15 minutes.
 
-## install
+## Install
 ```bash
 
 npm install -g moro
@@ -20,7 +20,7 @@ npm install -g moro
 ```
 You need node version 4.8.0 or higher (we haven't tested lower versions)
 
-## update
+## Update
 ```bash
 npm update -g moro
 ```
@@ -34,9 +34,9 @@ When you start your work day, you run `$: moro`. And when you are leaving, you r
 
 The formula to calculate work hours is simple: (time the work ends) - (time the work starts) - (breaks) = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
 
-Moro saves the three parameters, start, end, break,  for each day and at the end of the day tells you how many hours you have worked. All data is saved on your computer and doesn't leave it.
+Moro saves the three parameters, start, end, break, for each day and at the end of the day tells you how many hours you have worked. All data is saved on your computer and doesn't leave it.
 
-1. when you come to work you say moro:
+1. When you come to work you say moro:
 ```bash
 $: moro
 your start of the day is set at 9:00
@@ -47,7 +47,7 @@ your start of the day is set at 9:00
 ```bash
 $ moro
 
-Your end of the day registered as  17:15
+Your end of the day registered as 17:15
 
  Today looks like this:
 
@@ -65,22 +65,22 @@ Your end of the day registered as  17:15
 
 ```
 
-moro subtracts 30 minutes for the lunch time by default.
+Moro subtracts 30 minutes for the lunch time by default.
 
 That's it! You know you have worked 7 hours and 30 minutes!
 
 ### What if you forgot to say moro when you start or finish your day?
 If you forget to say moro in the morning, or when you're leaving, don't worry. You can do that later on the same day, but not tomorrow for example.
 
-To specify the start and end of your workday afterward moro has two commands: hi and bye
+To specify the start and end of your workday afterwards Moro has two commands: hi and bye.
 
-hi is for setting the start of the day, check the format of time HH:mm
+Hi is for setting the start of the day, check the format of time HH:mm
 
 ```bash
 $ moro hi 10:45
 ```
 
-bye is to set the end of your work day
+Bye is to set the end of your work day
 
 ```bash
 $ moro bye 15:56
@@ -93,7 +93,7 @@ You can also use break to set the total minutes of break. The default is 30 minu
 $ moro break 45
 ```
 
-to see all your registered hours:
+To see all your registered hours:
 
 ```bash
 $ moro report --all
@@ -118,7 +118,7 @@ $ moro clear --yes
 To change the Date format for a report use a pattern
 
 ```
-# this will change the output to 'Fr, 2017-03-17'
+# This will change the output to 'Fr, 2017-03-17'
 moro.js config --format 'dd, YYYY-MM-DD'
 ```
 For more possible formats see the [Moment.js documentation](https://momentjs.com/docs/#/displaying/format/)
@@ -128,7 +128,7 @@ For more possible formats see the [Moment.js documentation](https://momentjs.com
 In Finland a full work day is 7.5 hours, which is the default in moro. To change it use this:
 
 ```
-# for example to make it 6.5 hours
+# For example to make it 6.5 hours
 moro config --day 6.5
 ```
 
@@ -142,7 +142,7 @@ moro config --break 45
 # Backup the data
 Moro uses a single database file to keep your data. Default location is in your home directory, and the file name is .moro-data.db. You can backup that file however you like.
 
-Easy way to back up is to move the moro database file into your DropBox folder and then use the following command to tell moro to use that database file:
+Easy way to back up is to move the Moro database file into your DropBox folder and then use the following command to tell Moro to use that database file:
 
 ```
 moro config --database-path /home/GraceHopper/Dropbox/moro-data.db
@@ -162,7 +162,7 @@ echo 'You have worked:' $(echo 'scale=2;(' $(date -d 'now' +%s) - $(date -d "$(j
 Yes please! Open an issue, or make a pull request!
 
 ### Code of conduct
-Code is important but people are more important. If you like to contribute to moro please read and follow our code of conduct found in this file: CODE_OF_CONDUCT.md
+Code is important but people are more important. If you like to contribute to Moro please read and follow our code of conduct found in this file: CODE_OF_CONDUCT.md
 
 ### To run tests
 
@@ -178,7 +178,7 @@ There's a shell script that runs all the features and you can see the results in
 ./tests/automated-script.sh
 ```
 
-## what does moro mean?
+## What does moro mean?
 Moro means hello in Finnish.
 
 ## Supporters
