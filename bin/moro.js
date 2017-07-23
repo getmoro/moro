@@ -9,7 +9,7 @@ const updateNotifier = require('update-notifier');
 // ours
 const pkg = require('./package.json');
 updateNotifier({pkg}).notify();
-const spinner = require('../lib/utils/spinner.js')
+const spinner = require('../lib/utils/spinner.js');
 console.log(`
  ${chalk.red('💙')}  Moro \\o/
 `)
