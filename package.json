@@ -4,6 +4,7 @@
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "moro.js",
   "scripts": {
+    "precommit": "lint-staged",
     "test": "cross-env MORO_TEST_MODE='true' ava",
     "contributor:add": "all-contributors add",
     "contributor:generate": "all-contributors generate"
