@@ -4,7 +4,7 @@
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "moro.js",
   "scripts": {
-    "test": "standard && cross-env MORO_TEST_MODE='true' ava",
+    "test": "cross-env MORO_TEST_MODE='true' ava",
     "contributor:add": "all-contributors add",
     "contributor:generate": "all-contributors generate"
   },
@@ -43,7 +43,6 @@
     "ora": "^1.2.0",
     "os-homedir": "^1.0.2",
     "sqlite3": "^3.1.8",
-    "standard": "^10.0.0",
     "update-notifier": "2.2.0"
   },
   "devDependencies": {
