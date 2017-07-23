@@ -4,8 +4,11 @@
 // packages
 const prog = require('caporal')
 const chalk = require('chalk')
+const updateNotifier = require('update-notifier');
 
 // ours
+const pkg = require('./package.json');
+updateNotifier({pkg}).notify();
 const spinner = require('../lib/utils/spinner.js')
 console.log(`
  ${chalk.red('💙')}  Moro \\o/
@@ -13,8 +16,7 @@ console.log(`
 
 spinner.start()
 
-// ours
-const VERSION = require('../package.json').version
+const VERSION = pkg.version
 const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
 
 // importing all the commands
