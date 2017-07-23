@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 'use strict'
 
-// packages
+const pkg = require('../package.json')
+
+require('please-upgrade-node')(pkg)
+
 const prog = require('caporal')
 const chalk = require('chalk')
 const updateNotifier = require('update-notifier')
 
-// ours
-const pkg = require('../package.json')
 updateNotifier({ pkg }).notify()
 const spinner = require('../lib/utils/spinner.js')
 console.log(`
