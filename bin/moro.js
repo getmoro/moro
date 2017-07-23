@@ -4,8 +4,11 @@
 // packages
 const prog = require('caporal')
 const chalk = require('chalk')
+const updateNotifier = require('update-notifier')
 
 // ours
+const pkg = require('./package.json')
+updateNotifier({ pkg }).notify()
 const spinner = require('../lib/utils/spinner.js')
 console.log(`
  ${chalk.red('💙')}  Moro \\o/
@@ -13,8 +16,7 @@ console.log(`
 
 spinner.start()
 
-// ours
-const VERSION = require('../package.json').version
+const VERSION = pkg.version
 const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
 
 // importing all the commands
@@ -46,76 +48,84 @@ prog
   .version(VERSION)
   .description(COMMAND_DESCRIPTIONS.default)
   .action(commands.nextUndoneAction)
-//
-// ////////////////////
-// hi
-//
+  //
+  // ////////////////////
+  // hi
+  //
   .command('hi', COMMAND_DESCRIPTIONS.hi)
   .alias('h')
   .argument('[start]', COMMAND_DESCRIPTIONS.hiStart, /^\d\d:\d\d$/)
   .action(commands.setStart)
-//
-// ////////////////////
-// bye
-//
+  //
+  // ////////////////////
+  // bye
+  //
   .command('bye', COMMAND_DESCRIPTIONS.bye)
   .alias('b')
   .argument('[end]', COMMAND_DESCRIPTIONS.byeEnd, /^\d\d:\d\d$/)
   .action(commands.setEnd)
-//
-// ////////////////////
-// break
-//
+  //
+  // ////////////////////
+  // break
+  //
   .command('break', COMMAND_DESCRIPTIONS.break)
   .argument('<duration>', COMMAND_DESCRIPTIONS.breakDuration, /^[\d]+$/)
   .action(commands.setBreak)
-//
-// ////////////////////
-// // report
-//
+  //
+  // ////////////////////
+  // // report
+  //
   .command('report', COMMAND_DESCRIPTIONS.report)
   .alias('r')
   .option('--all', COMMAND_DESCRIPTIONS.reportAll)
   .action(commands.report)
-//
-// ////////////////////
-// // status
-//
+  //
+  // ////////////////////
+  // // status
+  //
   .command('status', COMMAND_DESCRIPTIONS.status)
   .alias('st')
   .action(commands.report)
-//
-// ////////////////////
-// clear
-//
+  //
+  // ////////////////////
+  // clear
+  //
   .command('clear', '')
   .option('--yes', 'you need to confirm before I remove everything')
   .action((args, options, logger) => {
     commands.clearData(args, options, logger, spinner)
   })
-//
-// ////////////////////
-// config
-//
+  //
+  // ////////////////////
+  // config
+  //
   .command('config', COMMAND_DESCRIPTIONS.config)
   .alias('c')
   .option('--day <duration>', COMMAND_DESCRIPTIONS.configDay, prog.FLOAT)
   .option('--break <duration>', COMMAND_DESCRIPTIONS.breakDuration, prog.INT)
-  .option('--format <pattern>', COMMAND_DESCRIPTIONS.configPattern, helpers.formatValidator)
-  .option('--database-path [path]', COMMAND_DESCRIPTIONS.dbPath, helpers.pathValidator)
+  .option(
+    '--format <pattern>',
+    COMMAND_DESCRIPTIONS.configPattern,
+    helpers.formatValidator
+  )
+  .option(
+    '--database-path [path]',
+    COMMAND_DESCRIPTIONS.dbPath,
+    helpers.pathValidator
+  )
   .action(commands.setConfig)
-//
-// ////////////////////
-// note
-//
+  //
+  // ////////////////////
+  // note
+  //
   .command('note', COMMAND_DESCRIPTIONS.note)
   .alias('n')
   .argument('[note...]', COMMAND_DESCRIPTIONS.noteNote)
   .action(commands.addNote)
-//
-// ////////////////////
-// about
-//
+  //
+  // ////////////////////
+  // about
+  //
   .command('about', COMMAND_DESCRIPTIONS.about)
   .alias('a')
   .action(commands.about)

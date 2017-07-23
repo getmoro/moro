@@ -4,7 +4,9 @@
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "moro.js",
   "scripts": {
-    "test": "standard && cross-env MORO_TEST_MODE='true' ava",
+    "format": "prettier-standard 'lib/**/*.js'",
+    "precommit": "lint-staged",
+    "test": "cross-env MORO_TEST_MODE='true' ava",
     "contributor:add": "all-contributors add",
     "contributor:generate": "all-contributors generate"
   },
@@ -31,23 +33,37 @@
   },
   "homepage": "https://github.com/omidfi/moro#readme",
   "dependencies": {
+    "bluebird": "3.5.0",
     "caporal": "0.4.1",
     "chalk": "^1.1.3",
     "cli-table2": "^0.2.0",
     "expand-home-dir": "^0.0.3",
     "fs-extra": "^2.1.2",
+    "husky": "0.14.3",
     "jsonfile": "^2.4.0",
     "knex": "^0.12.7",
+    "lint-staged": "4.0.2",
     "moment": "^2.17.1",
     "mz": "^2.6.0",
     "ora": "^1.2.0",
     "os-homedir": "^1.0.2",
+    "prettier-standard": "6.0.0",
     "sqlite3": "^3.1.8",
-    "standard": "^10.0.0"
+    "update-notifier": "2.2.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^4.3.0",
     "ava": "^0.19.0",
     "cross-env": "^4.0.0"
+  },
+  "lint-staged": {
+    "bin/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ],
+    "lib/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ]
   }
 }
