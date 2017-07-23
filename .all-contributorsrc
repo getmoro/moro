@@ -67,6 +67,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "olpeh",
+      "name": "Olavi Haapala",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6113341?v=3",
+      "profile": "https://twitter.com/0lpeh",
+      "contributions": [
+        "doc",
+        "bug"
+      ]
     }
   ]
 }
