@@ -13,9 +13,14 @@ Before opening an issue please first make sure:
 ```bash
 npm update -g moro
 ```
+## 
+If those don't fix the problem, please open up an issue. 
+  * node version
+  * possibly any error messages
+  * your operating system
+  * any screen shots?
 
-If those don't fix the problem, please open up an issue. Please include node version and error messages in your message. 
 
 # Asking for features
-Just go ahead and shoot your ideas in an issue :)
+Just go ahead and shoot your ideas in an issue :) 
 
