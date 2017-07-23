@@ -4,6 +4,7 @@
   "description": "Track work hours with a single command, no arguments, no buttons!",
   "main": "moro.js",
   "scripts": {
+    "format": "prettier-standard 'lib/**/*.js'",
     "precommit": "lint-staged",
     "test": "cross-env MORO_TEST_MODE='true' ava",
     "contributor:add": "all-contributors add",
@@ -55,15 +56,13 @@
     "cross-env": "^4.0.0"
   },
   "lint-staged": {
-    "linters": {
-      "lib/**/*.js": [
-        "prettier-standard",
-        "git add"
-      ],
-      "bin/**/*.js": [
-        "prettier-standard",
-        "git add"
-      ]
-    }
+    "bin/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ],
+    "lib/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ]
   }
 }
