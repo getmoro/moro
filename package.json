@@ -10,7 +10,9 @@
     "contributor:add": "all-contributors add",
     "contributor:generate": "all-contributors generate"
   },
-  "engines": { "node": ">=4" },
+  "engines": {
+    "node": ">=4"
+  },
   "ava": {
     "files": [
       "tests/*.js"
