@@ -2,8 +2,8 @@
 'use strict'
 
 // packages
-const prog = require('caporal')
-const chalk = require('chalk')
+const prog = require('caporal');
+const chalk = require('chalk');
 const updateNotifier = require('update-notifier');
 
 // ours
