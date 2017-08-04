@@ -3,7 +3,8 @@
 import test from 'ava'
 import {
   printSingleDayReport,
-  printAllDaysReport
+  printAllDaysReport,
+  printSearchResults
 } from '../lib/utils/helpers.js'
 
 const moment = require('moment')
@@ -39,4 +40,13 @@ test('printAllDaysReport with week change runs without crashing', t => {
     {date: '2017-03-14', workHours: diff('2017-03-14 09:10', '2017-03-14 17:10')},
     {date: '2017-03-15', workHours: diff('2017-03-15 09:10', '2017-03-15 17:10')}]
   t.pass(printAllDaysReport(reprotRecord))
+})
+
+test('printSearchResults runs without crashing', t => {
+  const searchResults = [
+    { date: '2017-08-04', createdat: '17:00', note: '#Workrelated' },
+    { date: '2017-08-04', createdat: '17:30', note: '#Workrelated' },
+    { date: '2017-08-04', createdat: '18:00', note: 'Other project #related' }
+  ]
+  t.pass(printSearchResults(searchResults))
 })
