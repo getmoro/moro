@@ -43,6 +43,7 @@ const helpers = require('../lib/utils/helpers.js')
 // moro config --break 45
 // moro config --format 'ddd, MMM, DD'
 // moro config --database-path '/home/GraceHopeer/moro.db'
+// moro search <search_command>
 
 prog
   // default command
@@ -115,6 +116,14 @@ prog
     helpers.pathValidator
   )
   .action(commands.setConfig)
+  //
+  // ////////////////////
+  // search
+  //
+  .command('search', COMMAND_DESCRIPTIONS.search)
+  .alias('s')
+  .argument('[term...]', COMMAND_DESCRIPTIONS.searchTerm)
+  .action(commands.search)
   //
   // ////////////////////
   // note

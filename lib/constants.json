@@ -23,7 +23,9 @@
       "configPattern": "example: moro config --format 'YYYY-MM-DD' Sets the pattern for the date format in a report",
       "dbPath": "example: moro config --database-path '/home/GraceHopper/moro.db' Sets the path to the database file. You can save your database in your dropbox to enjoy automatic backups!",
       "note": "optionally add notes about the task at hand",
-      "noteNote": "free form text about task at hand"
+      "noteNote": "free form text about task at hand",
+      "search": "search for notes",
+      "searchTerm": "search term to look for"
     }
   }
 }
