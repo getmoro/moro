@@ -6,6 +6,7 @@ import {
   updateDatabase,
   getDateReport,
   getFullReport,
+  getSearchTerm,
   removeDatabase,
   calculateWorkHours
 } from '../lib/db.js'
@@ -105,5 +106,41 @@ test.serial('getFullReport outputs ok results', async t => {
 
   await updateDatabase(options, knexForTestsInMemory)
   const results = await getFullReport(knexForTestsInMemory)
+  t.deepEqual(results, okResults)
+})
+
+test('getSearchTerm returns the desired note', async t => {
+  const record = {
+    breakDuration: 25,
+    date: '2017-08-04',
+    end: '17:35',
+    id: 1,
+    notes: [],
+    start: '09:15'
+  }
+  const note1 = {
+    date: '2017-08-04',
+    createdat: '17:00',
+    note: '#Workrelated',
+    action: 'addNote',
+  }
+  const note2 = {
+    date: '2017-08-04',
+    createdat: '17:30',
+    note: 'leisure',
+    action: 'addNote',
+  }
+
+  const okResults = [{
+    date: '2017-08-04',
+    createdat: '17:00',
+    note: '#Workrelated',
+  }]
+
+  await updateDatabase(record, knexForTestsInMemory)
+  await updateDatabase(note1, knexForTestsInMemory)
+  await updateDatabase(note2, knexForTestsInMemory)
+
+  const results = await getSearchTerm('related', knexForTestsInMemory)
   t.deepEqual(results, okResults)
 })
