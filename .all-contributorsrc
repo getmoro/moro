@@ -38,7 +38,9 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/2211050?v=3",
       "profile": "https://twitter.com/fleischie28",
       "contributions": [
-        "code"
+        "code",
+        "doc",
+        "test"
       ]
     },
     {
