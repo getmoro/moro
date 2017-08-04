@@ -106,6 +106,12 @@ $ moro note foo
 ```
 They'll appear in reports. You can for example use them to devide your time between different tasks.
 
+## Search for notes
+You can search for notes.
+```bash
+$ moro search foo
+```
+It will look for the search term in a case-insensitive inclusive match and format the data as a table.
 
 ## Clear data
 To flush your data
