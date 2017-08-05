@@ -10,6 +10,8 @@ pids
 *.pid
 *.seed
 
+# ternjs
+.tern-port
 # test temporary db
 tests/.moro-tests.db
 
