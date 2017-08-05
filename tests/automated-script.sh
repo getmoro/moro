@@ -59,6 +59,18 @@ echo 'Report all days'
 moro report --all
 echo 'ended'
 
+echo 'Take a note'
+moro note "# Testing moro"
+echo 'ended'
+
+echo 'Take a hyphened note'
+moro note "-5"
+echo 'ended'
+
+echo 'Searching for a note'
+moro search "#"
+echo 'ended'
+
 echo 'Let us clear the database if it exists'
 moro clear --yes
 echo 'ended'
