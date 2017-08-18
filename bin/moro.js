@@ -83,7 +83,7 @@ prog
   .action(commands.report)
   //
   // ////////////////////
-  // // status
+  // // status, same as report!
   //
   .command('status', COMMAND_DESCRIPTIONS.status)
   .alias('st')
