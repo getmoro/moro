@@ -7,7 +7,7 @@ Command line tool for tracking work hours, as simple as it can get.
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
 
 ## Demo
-![alt tag](https://media.giphy.com/media/3og0ITIo5hWI8gfrBm/source.gif)
+![alt tag]((https://user-images.githubusercontent.com/7697632/29446360-80950010-83f4-11e7-945f-9212fa6738ce.gif)
 
 ## Screen recorded video tutorial
 Moro is really simple but you can watch this screen recording to see all the features Moro has: [link](https://asciinema.org/a/106792) in 15 minutes.
