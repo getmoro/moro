@@ -33,8 +33,6 @@ When you start your work day, you run `$: moro`. And when you are leaving, you r
 Moro registers the first time as clock in, and the second one as clock out time, using your computer's time.
 
 ### Longer version:
-<details>
-<summary>Click to read more</summary>
 The formula to calculate work hours is simple: (time the work ends) - (time the work starts) - (breaks) = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
 
 Moro saves the three parameters, start, end, break, for each day and at the end of the day tells you how many hours you have worked. All data is saved on your computer and doesn't leave it.
@@ -158,8 +156,6 @@ moro config --database-path /home/GraceHopper/Dropbox/moro-data.db
 
 # This works on my linux machine :)
 ```
-</details>
-
 
 
 
