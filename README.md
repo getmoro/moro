@@ -25,13 +25,16 @@ You need node version 4.8.0 or higher (we haven't tested lower versions)
 npm update -g moro
 ```
 
-## How it works?
+## Usage
 
 ### Short version:
-When you start your work day, you run `$: moro`. And when you are leaving, you run moro again. And it tells you how many hours you have worked.
+When you start your work day, you run `$: moro`. And when you are leaving, you run moro again. And it tells you how many hours you have worked. 
 
-### Long version:
+Moro registers the first time as clock in, and the second one as clock out time, using your computer's time.
 
+### Longer version:
+<details>
+<summary>Click to read more</summary>
 The formula to calculate work hours is simple: (time the work ends) - (time the work starts) - (breaks) = work time, e.g. 17 - 9 - 1 = 7. However, it gets tricky when you don't remember when you came to work this morning. Or yesterday...
 
 Moro saves the three parameters, start, end, break, for each day and at the end of the day tells you how many hours you have worked. All data is saved on your computer and doesn't leave it.
@@ -54,9 +57,9 @@ Your end of the day registered as 17:15
 ┌────────────────┬────────────────────────┐
 │ Today          │ 7 Hours and 30 Minutes │
 ├────────────────┼────────────────────────┤
-│ Start          │ 09:15                  │
+│ Clock in       │ 09:15                  │
 ├────────────────┼────────────────────────┤
-│ End            │ 17:15                  │
+│ Clock out      │ 17:15                  │
 ├────────────────┼────────────────────────┤
 │ Break duration │ 30 minutes             │
 ├────────────────┼────────────────────────┤
@@ -155,6 +158,10 @@ moro config --database-path /home/GraceHopper/Dropbox/moro-data.db
 
 # This works on my linux machine :)
 ```
+</details>
+
+
+
 
 ## Why not do it by a one liner?
 Well I hear you! My colleague, Henri, gave me this:
