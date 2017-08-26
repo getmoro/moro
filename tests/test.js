@@ -1,5 +1,9 @@
 'use strict'
-
+/*
+ * Attention: let's add end-to-end tests instead of this!
+ * Check ./moro.tests.bats
+ *
+ */
 import test from 'ava'
 import {
   printSingleDayReport,
