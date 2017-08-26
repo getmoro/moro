@@ -34,7 +34,7 @@ Moro registers the first time as clock in, and the second one as clock out time,
 ### Longer version:
 If the above is not enough, there are 3 ways to learn everything about Moro if you like:
 
-  * Look at documentation
+  * Look at documentation: [link](https://github.com/omidfi/moro/blob/master/DOCUMENTATION.md)
   * run moro --help
   * Or check this screen recording: [link](https://asciinema.org/a/106792)
 
