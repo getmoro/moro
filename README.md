@@ -34,9 +34,25 @@ That's it! Moro prints on the screen how many hours you have worked.
 #### Learn more:
 If the above is not enough, there are 3 ways to learn all about Moro:
 
-  * run moro --help
-  * Look at documentation: [link](https://github.com/omidfi/moro/blob/master/DOCUMENTATION.md)
+  * Run `$: moro --help`
+  * See the documentation: [link](https://github.com/omidfi/moro/blob/master/DOCUMENTATION.md)
   * Or check this screen recording: [link](https://asciinema.org/a/106792)
+
+## Frequently Asked Questions (FAQ)
+
+<details>
+<summary>Click to open FAQ</summary>
+ 
+Q: How moro works with a single command? 
+A: moro takes the time from your computer on the fist time you run it and registers it as clock in time, the second time as clock out time, and after that it just shows the report of that day. 
+
+Q: What happens the third time I run moro? 
+A: Nothing, it just shows the report. 
+
+Q: I forgot to run moro in the morning, so my clock in time is not saved. Can I adjust it now? 
+A: yes!  for example, if you started work at 09:30 run `$: moro hi 09:30`
+
+</details>
 
 ## What does moro mean?
 Moro means hello in Finnish.
