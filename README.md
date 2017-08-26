@@ -26,16 +26,16 @@ npm update -g moro
 
 ## Usage
 
-### Short version:
-When you start your work day, you run `$: moro`. And when you are leaving, you run moro again. And it tells you how many hours you have worked.
+1. Run `$: moro` when starting your working day. Moro registers that time as your clock in. 
+2. Run `$: moro` when starting your working day. Moro Registers that as your clock out time.
 
-Moro registers the first time as clock in, and the second one as clock out time, using your computer's time.
+That's it! Moro prints on the screen how many hours you have worked.
 
-### Longer version:
-If the above is not enough, there are 3 ways to learn everything about Moro if you like:
+#### Learn more:
+If the above is not enough, there are 3 ways to learn all about Moro:
 
-  * Look at documentation: [link](https://github.com/omidfi/moro/blob/master/DOCUMENTATION.md)
   * run moro --help
+  * Look at documentation: [link](https://github.com/omidfi/moro/blob/master/DOCUMENTATION.md)
   * Or check this screen recording: [link](https://asciinema.org/a/106792)
 
 ## What does moro mean?
