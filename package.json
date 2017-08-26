@@ -6,7 +6,7 @@
   "scripts": {
     "format": "prettier-standard 'lib/**/*.js'",
     "precommit": "lint-staged",
-    "test": "cross-env MORO_TEST_MODE='true' ava",
+    "test": "cross-env MORO_TEST_MODE='true' ava && bats tests/end-to-end/moro.tests.bats",
     "contributor:add": "all-contributors add",
     "contributor:generate": "all-contributors generate"
   },
@@ -58,6 +58,8 @@
   "devDependencies": {
     "all-contributors-cli": "^4.3.0",
     "ava": "^0.19.0",
+    "bats": "0.4.2",
+    "bats-assert": "1.1.1",
     "cross-env": "^4.0.0"
   },
   "lint-staged": {
