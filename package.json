@@ -8,7 +8,8 @@
     "precommit": "lint-staged",
     "test": "cross-env MORO_TEST_MODE='true' ava && bats tests/end-to-end/moro.tests.bats",
     "contributor:add": "all-contributors add",
-    "contributor:generate": "all-contributors generate"
+    "contributor:generate": "all-contributors generate",
+    "postinstall": "opencollective postinstall"
   },
   "engines": {
     "node": ">=4"
@@ -48,6 +49,7 @@
     "lint-staged": "4.0.2",
     "moment": "^2.17.1",
     "mz": "^2.6.0",
+    "opencollective": "1.0.3",
     "ora": "^1.2.0",
     "os-homedir": "^1.0.2",
     "please-upgrade-node": "1.0.1",
@@ -71,5 +73,10 @@
       "prettier-standard",
       "git add"
     ]
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/moro",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
   }
 }
