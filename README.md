@@ -2,7 +2,7 @@
 
 Command line tool for tracking work hours, as simple as it can get.
 
-[![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro) [![Downloads](https://img.shields.io/npm/dt/moro.svg)](https://npmjs.org/moro)
+[![Backers on Open Collective](https://opencollective.com/moro/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/moro/sponsors/badge.svg)](#sponsors) [![Build Status](https://travis-ci.org/omidfi/moro.svg?branch=master)](https://travis-ci.org/omidfi/moro) [![Downloads](https://img.shields.io/npm/dt/moro.svg)](https://npmjs.org/moro)
 [![Greenkeeper badge](https://badges.greenkeeper.io/omidfi/moro.svg)](https://greenkeeper.io/) [![Sponsored](https://img.shields.io/badge/chilicorn-sponsored-brightgreen.svg?logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAA4AAAAPCAMAAADjyg5GAAABqlBMVEUAAAAzmTM3pEn%2FSTGhVSY4ZD43STdOXk5lSGAyhz41iz8xkz2HUCWFFhTFFRUzZDvbIB00Zzoyfj9zlHY0ZzmMfY0ydT0zjj92l3qjeR3dNSkoZp4ykEAzjT8ylUBlgj0yiT0ymECkwKjWqAyjuqcghpUykD%2BUQCKoQyAHb%2BgylkAyl0EynkEzmkA0mUA3mj86oUg7oUo8n0k%2FS%2Bw%2Fo0xBnE5BpU9Br0ZKo1ZLmFZOjEhesGljuzllqW50tH14aS14qm17mX9%2Bx4GAgUCEx02JySqOvpSXvI%2BYvp2orqmpzeGrQh%2Bsr6yssa2ttK6v0bKxMBy01bm4zLu5yry7yb29x77BzMPCxsLEzMXFxsXGx8fI3PLJ08vKysrKy8rL2s3MzczOH8LR0dHW19bX19fZ2dna2trc3Nzd3d3d3t3f39%2FgtZTg4ODi4uLj4%2BPlGxLl5eXm5ubnRzPn5%2Bfo6Ojp6enqfmzq6urr6%2Bvt7e3t7u3uDwvugwbu7u7v6Obv8fDz8%2FP09PT2igP29vb4%2BPj6y376%2Bu%2F7%2Bfv9%2Ff39%2Fv3%2BkAH%2FAwf%2FtwD%2F9wCyh1KfAAAAKXRSTlMABQ4VGykqLjVCTVNgdXuHj5Kaq62vt77ExNPX2%2Bju8vX6%2Bvr7%2FP7%2B%2FiiUMfUAAADTSURBVAjXBcFRTsIwHAfgX%2FtvOyjdYDUsRkFjTIwkPvjiOTyX9%2FAIJt7BF570BopEdHOOstHS%2BX0s439RGwnfuB5gSFOZAgDqjQOBivtGkCc7j%2B2e8XNzefWSu%2BsZUD1QfoTq0y6mZsUSvIkRoGYnHu6Yc63pDCjiSNE2kYLdCUAWVmK4zsxzO%2BQQFxNs5b479NHXopkbWX9U3PAwWAVSY%2FpZf1udQ7rfUpQ1CzurDPpwo16Ff2cMWjuFHX9qCV0Y0Ok4Jvh63IABUNnktl%2B6sgP%2BARIxSrT%2FMhLlAAAAAElFTkSuQmCC)](http://spiceprogram.org/oss-sponsorship)
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
 
@@ -85,3 +85,33 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+<a href="graphs/contributors"><img src="https://opencollective.com/moro/contributors.svg?width=890" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/moro#backer)]
+
+<a href="https://opencollective.com/moro#backers" target="_blank"><img src="https://opencollective.com/moro/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/moro#sponsor)]
+
+<a href="https://opencollective.com/moro/sponsor/0/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/1/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/2/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/3/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/4/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/5/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/6/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/7/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/8/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/moro/sponsor/9/website" target="_blank"><img src="https://opencollective.com/moro/sponsor/9/avatar.svg"></a>
+
+
