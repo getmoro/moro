@@ -23,7 +23,13 @@
     "tap": true,
     "powerAssert": false
   },
-  "keywords": ["time tracker", "time", "work hours", "productivity", "time tracking"],
+  "keywords": [
+    "time tracker",
+    "time",
+    "work hours",
+    "productivity",
+    "time tracking"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/omidfi/moro.git"
