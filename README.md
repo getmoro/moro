@@ -26,10 +26,15 @@ npm update -g moro
 
 ## Usage
 
-1. run `$: moro` when starting your working day. Moro registers that as your clock in time. 
-2. run `$: moro` when starting your working day. Moro Registers that as your clock out time.
+1. Run `moro hi` when starting your working day. Moro registers that time as your clock in time.
+2. Run `moro bye` when ending your working day. Moro Registers that time as your clock out time.
 
 That's it! Moro prints on the screen how many hours you have worked.
+
+Invoke `$:moro report` at any time to see how long you have worked on the current day.
+
+To see the full report of previous days run `moro report --all`.
+
 
 #### Learn more:
 Those two steps above should be all you need to know about Moro, but there are 3 ways to learn more:
@@ -42,14 +47,8 @@ Those two steps above should be all you need to know about Moro, but there are 3
 
 <details>
 <summary>Click to open FAQ</summary>
- 
-Q: How moro works with a single command? 
-A: moro takes the time from your computer on the fist time you run it and registers it as clock in time, the second time as clock out time, and after that it just shows the report of that day. 
 
-Q: What happens the third time I run moro? 
-A: Nothing, it just shows the report. 
-
-Q: I forgot to run moro in the morning, so my clock in time is not saved. Can I adjust it now? 
+Q: I forgot to run moro in the morning, so my clock in time is not saved. Can I adjust it now?
 A: yes!  for example, if you started work at 09:30 run `$: moro hi 09:30`
 
 </details>
