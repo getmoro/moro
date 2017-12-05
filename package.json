@@ -49,7 +49,7 @@
     "chalk": "^1.1.3",
     "cli-table2": "^0.2.0",
     "expand-home-dir": "^0.0.3",
-    "fs-extra": "^2.1.2",
+    "fs-extra": "^4.0.3",
     "husky": "0.14.3",
     "jsonfile": "^2.4.0",
     "knex": "^0.12.7",
