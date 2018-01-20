@@ -60,7 +60,7 @@
     "ora": "^1.2.0",
     "os-homedir": "^1.0.2",
     "please-upgrade-node": "1.0.1",
-    "prettier-standard": "6.0.0",
+    "prettier-standard": "8.0.0",
     "sqlite3": "3.1.13",
     "update-notifier": "2.2.0"
   },
