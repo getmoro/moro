@@ -50,7 +50,7 @@
     "cli-table2": "^0.2.0",
     "expand-home-dir": "^0.0.3",
     "fs-extra": "^2.1.2",
-    "husky": "0.14.3",
+    "husky": "0.15.0-rc.2",
     "jsonfile": "^2.4.0",
     "knex": "^0.12.7",
     "lint-staged": "4.0.2",
