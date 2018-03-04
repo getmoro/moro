@@ -23,7 +23,7 @@ You need node version 4.8.0 or higher (we haven't tested lower versions)
 
 ### No node on your machine?
 
-You can download the executable binary files from [releases page](https://github.com/omidfi/moro/releases)
+You can download the executable files from [releases page](https://github.com/omidfi/moro/releases) for Linux, Mac and Windows.
 
 
 
