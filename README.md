@@ -11,13 +11,21 @@ A command line tool for tracking work hours, as simple as it can get.
 
 
 ## Install
-```bash
 
+### If you have node and npm
+```bash
 npm install -g moro
 
 # yarn works too
+yarn global add  moro
 ```
 You need node version 4.8.0 or higher (we haven't tested lower versions)
+
+### No node on your machine?
+
+You can download the executable binary files from [releases page](https://github.com/omidfi/moro/releases)
+
+
 
 ## Update
 ```bash
