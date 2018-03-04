@@ -56,7 +56,7 @@ export MORO_TEST_MODE='true'
 @test "moro search should find the note" {
   run moro search Kathrine
   assert_success
-  assert_output_contains ' There are 1 search result:'
+  assert_output_contains 'There are 1 search result:'
 }
 
 # Done! let Moro continue a normal life
