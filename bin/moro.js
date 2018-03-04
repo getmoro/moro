@@ -10,7 +10,7 @@ const chalk = require('chalk')
 const updateNotifier = require('update-notifier')
 
 updateNotifier({ pkg }).notify()
-const spinner = require('../lib/utils/spinner.js')
+const spinner = require('../lib/utils/spinner.js').mainSpinner
 console.log(`
  ${chalk.red('💙')}  Moro \\o/
 `)
