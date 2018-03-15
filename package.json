@@ -59,7 +59,7 @@
     "ora": "1.4.0",
     "os-homedir": "^1.0.2",
     "please-upgrade-node": "3.0.1",
-    "sqlite3": "3.1.13",
+    "sqlite3": "4.0.0",
     "update-notifier": "2.3.0"
   },
   "devDependencies": {
