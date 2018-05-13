@@ -79,6 +79,16 @@
         "doc",
         "bug"
       ]
+    },
+    {
+      "login": "Flouss",
+      "name": "Walid Mani",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/15911342?v=4",
+      "profile": "https://github.com/Flouss",
+      "contributions": [
+        "code"
+      ]
     }
-  ]
+  ],
+  "repoType": "github"
 }
