@@ -48,14 +48,16 @@ export MORO_TEST_MODE='true'
 
   run moro break 45
   assert_success
-  assert_output_contains 'Break duration   │ 45 minutes'
+  assert_output_contains 'Break duration'
+  assert_output_contains '45 minutes'
 }
 
 @test "moro note should save a note with correct time" {
 
   run faketime '2020-01-01 16:00:00' moro note Talk about Kathrine Johnson, NASA mathematician
   assert_success
-  assert_output_contains ' Note [16:00]     │ Talk about Kathrine Johnson, NASA mathematician'
+  assert_output_contains 'Note [16:00]'
+  assert_output_contains 'Talk about Kathrine Johnson, NASA mathematician'
 }
 
 @test "moro search should find the note" {
