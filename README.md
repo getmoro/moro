@@ -19,7 +19,7 @@ npm install -g moro
 # yarn works too
 yarn global add  moro
 ```
-You need node version 4.8.0 or higher (we haven't tested lower versions)
+You need node version 6 or higher (we haven't tested lower versions)
 
 ### No node on your machine?
 
@@ -67,14 +67,25 @@ Moro means hello in Finnish.
 ## Contributing
 Open an issue, or make a pull request. We love contributions.
 
-### Code of conduct
-Code is important but people are more important. If you like to contribute to Moro please read and follow our code of conduct found in this file: CODE_OF_CONDUCT.md
+### Development
+Clone this repo, and then inside the folder run:
+
+```
+npm link
+```
+
+This will install moro globally but using the files inside the project folder. You can now change the files and run moro in your command line to see the effects.
 
 ### To run tests
 
 ```
 npm test
 ```
+
+
+## Code of conduct
+Code is important but people are more important. If you like to contribute to Moro please read and follow our code of conduct found in this file: CODE_OF_CONDUCT.md
+
 
 
 ## Supporters
