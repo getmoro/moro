@@ -54,7 +54,6 @@
     "knex": "^0.14.6",
     "lint-staged": "7.1.0",
     "moment": "^2.22.1",
-    "mz": "^2.7.0",
     "opencollective": "1.0.3",
     "ora": "2.1.0",
     "os-homedir": "^1.0.2",
