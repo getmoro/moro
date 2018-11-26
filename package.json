@@ -67,7 +67,7 @@
     "all-contributors-cli": "4.11.1",
     "ava": "0.25.0",
     "bats": "0.4.2",
-    "bats-assert": "1.1.1",
+    "bats-assert": "2.0.0",
     "cross-env": "5.1.5"
   },
   "lint-staged": {
