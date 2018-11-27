@@ -51,7 +51,7 @@
     "expand-home-dir": "0.0.3",
     "fs-extra": "6.0.1",
     "jsonfile": "4.0.0",
-    "knex": "0.14.6",
+    "knex": "0.16.0",
     "lint-staged": "7.1.0",
     "moment": "2.22.1",
     "opencollective": "1.0.3",
