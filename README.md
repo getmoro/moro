@@ -56,7 +56,7 @@ Those two steps above should be all you need to know about Moro, but there are 3
 <details>
 <summary>Click to open FAQ</summary>
 
-Q: I forgot to run moro in the morning, so my clock in time is not saved. Can I adjust it now?
+Q: I forgot to run moro in the morning, so my clock in time is not saved. Can I adjust it now?  
 A: yes!  for example, if you started work at 09:30 run `$: moro hi 09:30`
 
 </details>
