@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "prettier-standard": "8.0.1",
-    "husky": "0.14.3",
+    "husky": "1.2.1",
     "all-contributors-cli": "4.11.1",
     "ava": "0.25.0",
     "bats": "0.4.2",
