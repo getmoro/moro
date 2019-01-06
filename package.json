@@ -46,7 +46,7 @@
   "dependencies": {
     "bluebird": "3.5.1",
     "caporal": "0.10.0",
-    "chalk": "2.4.1",
+    "chalk": "2.4.2",
     "cli-table2": "0.2.0",
     "expand-home-dir": "0.0.3",
     "fs-extra": "6.0.1",
