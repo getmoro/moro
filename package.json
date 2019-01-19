@@ -62,7 +62,7 @@
     "update-notifier": "2.5.0"
   },
   "devDependencies": {
-    "prettier-standard": "8.0.1",
+    "prettier-standard": "9.0.0",
     "husky": "0.14.3",
     "all-contributors-cli": "4.11.1",
     "ava": "0.25.0",
