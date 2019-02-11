@@ -55,7 +55,7 @@
     "lint-staged": "7.1.0",
     "moment": "2.22.1",
     "opencollective": "1.0.3",
-    "ora": "2.1.0",
+    "ora": "3.1.0",
     "os-homedir": "1.0.2",
     "please-upgrade-node": "3.0.2",
     "sqlite3": "4.0.1",
