@@ -68,7 +68,7 @@
     "ava": "0.25.0",
     "bats": "0.4.2",
     "bats-assert": "1.1.1",
-    "cross-env": "5.1.5"
+    "cross-env": "5.2.1"
   },
   "lint-staged": {
     "bin/**/*.js": [
