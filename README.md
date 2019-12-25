@@ -19,7 +19,7 @@ npm install -g moro
 # yarn works too
 yarn global add  moro
 ```
-You need node version 6 or higher (we haven't tested lower versions)
+You need node version 10 or higher (we haven't tested lower versions)
 
 ### No node on your machine?
 
