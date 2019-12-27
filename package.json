@@ -51,8 +51,7 @@
     "expand-home-dir": "0.0.3",
     "fs-extra": "6.0.1",
     "jsonfile": "4.0.0",
-    "knex": "0.14.6",
-    "lint-staged": "7.1.0",
+    "knex": "0.20.4",
     "moment": "2.22.1",
     "opencollective": "1.0.3",
     "ora": "2.1.0",
@@ -62,13 +61,14 @@
     "update-notifier": "2.5.0"
   },
   "devDependencies": {
-    "prettier-standard": "8.0.1",
-    "husky": "0.14.3",
-    "all-contributors-cli": "4.11.1",
+    "all-contributors-cli": "6.11.2",
     "ava": "0.25.0",
     "bats": "0.4.2",
     "bats-assert": "1.1.1",
-    "cross-env": "5.1.5"
+    "cross-env": "5.1.5",
+    "husky": "0.14.3",
+    "lint-staged": "9.5.0",
+    "prettier-standard": "8.0.1"
   },
   "lint-staged": {
     "bin/**/*.js": [
