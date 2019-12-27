@@ -13,18 +13,30 @@ A command line tool for tracking work hours, as simple as it can get.
 ## Install
 
 ### If you have node and npm
+
+You need node version 10 or higher (we haven't tested lower versions)
+
+To install just type this into command line:
+
 ```bash
 npm install -g moro
 
-# yarn works too
+# or if you are using yarn, it works too
 yarn global add  moro
 ```
-You need node version 10 or higher (we haven't tested lower versions)
 
-### No node on your machine?
+You are done installing Moro!
 
-You can download the executable files from [releases page](https://github.com/albacoretuna/moro/releases) for Linux, Mac and Windows.
+### (alternative install method) Download the compiled binary file
+We recommend installing moro using npm but if you don't have node and npm on your machine, you can download the executable files from [releases page](https://github.com/albacoretuna/moro/releases) for Linux, Mac and Windows.
 
+Remember to copy ./lib/config.json to your home directory and rename it to
+
+```
+~/.moro-config.json
+```
+
+Then you can copy the downloaded executable file to your path, for example to /bin and start using moro just like the nomral installation. 
 
 
 ## Update
