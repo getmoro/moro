@@ -32,17 +32,17 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omidfi/moro.git"
+    "url": "git+https://github.com/albacoretuna/moro.git"
   },
   "bin": {
     "moro": "./bin/moro.js"
   },
-  "author": "Omid Hezaveh",
+  "author": "Nick Okapi and others",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/omidfi/moro/issues"
+    "url": "https://github.com/albacoretuna/moro/issues"
   },
-  "homepage": "https://github.com/omidfi/moro#readme",
+  "homepage": "https://github.com/albacoretuna/moro#readme",
   "dependencies": {
     "bluebird": "3.7.2",
     "caporal": "1.3.0",
