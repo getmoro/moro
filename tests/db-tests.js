@@ -18,7 +18,7 @@ const fs = require('fs')
 const moment = require('moment')
 
 const knexForTestsInMemory = require('knex')({
-  dialect: 'sqlite3',
+  client: 'sqlite3',
   connection: {
     filename: ''
   },
@@ -26,7 +26,7 @@ const knexForTestsInMemory = require('knex')({
 })
 
 const knexForTestsInFile = require('knex')({
-  dialect: 'sqlite3',
+  client: 'sqlite3',
   connection: {
     filename: dbTestFile
   },
