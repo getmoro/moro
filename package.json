@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "all-contributors-cli": "6.11.2",
-    "ava": "2.4.0",
+    "ava": "3.5.0",
     "bats": "1.1.0",
     "bats-assert": "2.0.0",
     "cross-env": "6.0.3",
