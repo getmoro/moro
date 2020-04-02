@@ -60,7 +60,7 @@
     "update-notifier": "4.0.0"
   },
   "devDependencies": {
-    "all-contributors-cli": "6.11.2",
+    "all-contributors-cli": "6.14.1",
     "ava": "2.4.0",
     "bats": "1.1.0",
     "bats-assert": "2.0.0",
