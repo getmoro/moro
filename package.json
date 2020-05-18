@@ -66,7 +66,7 @@
     "bats-assert": "2.0.0",
     "cross-env": "6.0.3",
     "husky": "3.1.0",
-    "lint-staged": "9.5.0",
+    "lint-staged": "10.2.3",
     "prettier-standard": "16.1.0"
   },
   "lint-staged": {
