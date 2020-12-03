@@ -1,4 +1,6 @@
 binary
+.DS_Store
+
 # Logs
 logs
 *.log
@@ -6,6 +8,7 @@ npm-debug.log*
 
 # backup files
 *.bak
+
 # Runtime data
 pids
 *.pid
