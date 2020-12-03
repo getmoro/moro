@@ -25,6 +25,7 @@ const configManager = require('../lib/utils/configManager.js')
 configManager.initConfigFile()
 
 const commands = require('../lib/commands.js')
+const communicate = require('../lib/communicate.js')
 const helpers = require('../lib/utils/helpers.js')
 
 // All the possible commands and arguments:
@@ -139,6 +140,12 @@ prog
   .command('about', COMMAND_DESCRIPTIONS.about)
   .alias('a')
   .action(commands.about)
+  // ////////////////////
+  // test server
+  //
+  .command('test', 'Test server...')
+  .alias('t')
+  .action(communicate.test)
 
 // let it begin!
 prog.parse(process.argv)
