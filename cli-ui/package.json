@@ -1,0 +1,85 @@
+{
+  "name": "moro",
+  "version": "5.1.0",
+  "description": "Track work hours with a single command, no arguments, no buttons!",
+  "main": "moro.js",
+  "scripts": {
+    "format": "prettier-standard 'lib/**/*.js'",
+    "precommit": "lint-staged",
+    "test": "cross-env MORO_TEST_MODE='true' ava && bats tests/end-to-end/moro.tests.bats",
+    "contributor:add": "all-contributors add",
+    "contributor:generate": "all-contributors generate"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "ava": {
+    "files": [
+      "tests/*.js"
+    ],
+    "concurrency": 5,
+    "failFast": true,
+    "tap": true,
+    "powerAssert": false
+  },
+  "keywords": [
+    "time tracker",
+    "time",
+    "work hours",
+    "productivity",
+    "time tracking"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albacoretuna/moro.git"
+  },
+  "bin": {
+    "moro": "./bin/moro.js"
+  },
+  "author": "Nick Okapi and others",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/albacoretuna/moro/issues"
+  },
+  "homepage": "https://github.com/albacoretuna/moro#readme",
+  "dependencies": {
+    "caporal": "1.4.0",
+    "chalk": "4.1.0",
+    "cli-table3": "0.6.0",
+    "expand-home-dir": "0.0.3",
+    "fs-extra": "9.0.1",
+    "jsonfile": "6.1.0",
+    "knex": "0.20.4",
+    "moment": "2.24.0",
+    "opencollective": "1.0.3",
+    "ora": "5.1.0",
+    "please-upgrade-node": "3.2.0",
+    "sqlite3": "4.1.1",
+    "update-notifier": "4.0.0"
+  },
+  "devDependencies": {
+    "all-contributors-cli": "6.11.2",
+    "ava": "2.4.0",
+    "bats": "1.1.0",
+    "bats-assert": "2.0.0",
+    "cross-env": "7.0.3",
+    "husky": "4.3.0",
+    "lint-staged": "9.5.0",
+    "prettier-standard": "16.1.0"
+  },
+  "lint-staged": {
+    "bin/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ],
+    "lib/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ]
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/moro",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
+  }
+}
