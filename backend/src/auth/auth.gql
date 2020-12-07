@@ -1,0 +1,10 @@
+type User {
+  _id: ObjectId
+  username: String
+  email: String
+  role: String @hasRole(role: "admin")
+}
+
+type Query {
+  user: User
+}
