@@ -140,12 +140,19 @@ prog
   .command('about', COMMAND_DESCRIPTIONS.about)
   .alias('a')
   .action(commands.about)
+  //
   // ////////////////////
   // test server
   //
   .command('test', 'Test server...')
   .alias('t')
   .action(communicate.test)
+  //
+  // ////////////////////
+  // sync
+  //
+  .command('sync', 'sync server...')
+  .action(communicate.sync)
 
 // let it begin!
 prog.parse(process.argv)
