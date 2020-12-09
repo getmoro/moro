@@ -31,6 +31,13 @@
       "noteNote": "free form note about task at hand",
       "search": "search for notes",
       "searchTerm": "search term to look for"
+    },
+    "sync": {
+      "syncing": "Syncing ",
+      "nothingToSyncPrefix": "Nothing to sync in ",
+      "insertLogTable": "Data inserted in log table",
+      "serverUnavailable": "Sync server is not available",
+      "allDone": "All sync job has been done."
     }
   }
 }
