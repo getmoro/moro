@@ -5,6 +5,6 @@ export interface ExpressRequest extends Request {
   user: any;
 }
 
-export interface ApolloContext extends ExpressContext {
+export interface ApolloExpressContext extends ExpressContext {
   req: ExpressRequest;
 }
