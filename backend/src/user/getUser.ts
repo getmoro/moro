@@ -1,3 +1,5 @@
-export const getUser = async (_: any, values: any, ctx: any): Promise<any> => {
+import { QueryResolvers } from "../graphql/resolvers-types";
+
+export const getUser: QueryResolvers["user"] = async (parent, args, ctx) => {
   return ctx.user;
 };

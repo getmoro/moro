@@ -4,7 +4,7 @@ import { prisma } from "./prisma";
 // This file will make apollo context available for resolvers
 
 export type ApolloContext = {
-  user: ApolloExpressContext["req"]["user"];
+  user: ApolloExpressContext["req"]["user"] | null;
   prisma: typeof prisma;
 };
 

@@ -1,4 +1,6 @@
-export const getUsers = async (_: any, { id }: any, ctx: any): Promise<any> => {
+import { QueryResolvers } from "../graphql/resolvers-types";
+
+export const getUsers: QueryResolvers["users"] = async (parent, args, ctx) => {
   const allUsers = await ctx.prisma.user.findMany({});
 
   return allUsers;

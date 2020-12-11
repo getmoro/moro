@@ -4,8 +4,8 @@ import resolvers from "./resolvers";
 import { schemaDirectives } from "./schemaDirectives";
 import { ApolloExpressContext } from "src/types";
 
-export const getApolloServer = (
-  context: (expressContext: ApolloExpressContext) => any
+export const getApolloServer = <T = any>(
+  context: (expressContext: ApolloExpressContext) => T
 ): ApolloServer =>
   new ApolloServer({
     typeDefs,
