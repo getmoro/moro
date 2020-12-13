@@ -24,8 +24,23 @@ Database is managed using [prisma](https://www.prisma.io/docs/).
 Database admin UI: http://localhost:8080/?pgsql=db  
 Prisma studio: npx prisma studio
 
+### DB Schema change
+
+tldr; In the dev environments:
+
+1. Make your db schema changes in `./prisma/schema.prisma`
+2. Run `npx prisma migrate dev --create-only --preview-feature` and provide a name for the migration. This will create a draft migration.  
+   Check the created migration (in `./prisma/migrations/`), make changes if needed.
+3. Run `npm run configure-db` (or `npx prisma migrate dev --preview-feature`) to apply changes.
+
+In production this would be different.
+
+Read more about [migration flows in Prisma docs](https://www.prisma.io/docs/concepts/components/prisma-migrate/prisma-migrate-flows/)
+
 ## Dev server
 
 ```
 npm start
 ```
+
+This will automatically run `npm run configure-db` from the npm `prestart` script to apply db changes if there is any.

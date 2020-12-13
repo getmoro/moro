@@ -52,3 +52,6 @@ jspm_packages
 
 # database
 data.db
+
+# backnd dotenv file
+backend/.env

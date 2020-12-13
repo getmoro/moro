@@ -1,5 +1,5 @@
 import { mergeResolvers } from "@graphql-tools/merge";
-import scalarsResolver from "./scalars/scalars.resolver";
 import userResolver from "../user/user.resolver";
+import projectResolver from "../project/project.resolver";
 
-export default mergeResolvers([scalarsResolver, userResolver]);
+export default mergeResolvers([userResolver, projectResolver]);

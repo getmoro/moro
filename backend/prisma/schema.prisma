@@ -22,5 +22,6 @@ model User {
   firstname String?
   lastname  String?
   username  String
+  password  String?
   projects  Project?
 }

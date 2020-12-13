@@ -1,8 +1,4 @@
-import {
-  GraphQLResolveInfo,
-  GraphQLScalarType,
-  GraphQLScalarTypeConfig,
-} from "graphql";
+import { GraphQLResolveInfo } from "graphql";
 import { ApolloContext } from "../server/apolloContext";
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -12,6 +8,10 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
   { [SubKey in K]: Maybe<T[SubKey]> };
+export type RequireFields<T, K extends keyof T> = {
+  [X in Exclude<keyof T, K>]?: T[X];
+} &
+  { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -19,7 +19,27 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  ObjectId: any;
+};
+
+export type Project = {
+  __typename?: "Project";
+  id?: Maybe<Scalars["Int"]>;
+  title?: Maybe<Scalars["String"]>;
+  createdAt?: Maybe<Scalars["String"]>;
+};
+
+export type Query = {
+  __typename?: "Query";
+  projects?: Maybe<Array<Maybe<Project>>>;
+  user?: Maybe<User>;
+  users?: Maybe<Array<Maybe<User>>>;
+};
+
+export type UserInput = {
+  email?: Maybe<Scalars["String"]>;
+  firstname?: Maybe<Scalars["String"]>;
+  lastname?: Maybe<Scalars["String"]>;
+  username?: Maybe<Scalars["String"]>;
 };
 
 export type User = {
@@ -29,12 +49,16 @@ export type User = {
   firstname?: Maybe<Scalars["String"]>;
   lastname?: Maybe<Scalars["String"]>;
   username?: Maybe<Scalars["String"]>;
+  projects?: Maybe<Array<Maybe<Project>>>;
 };
 
-export type Query = {
-  __typename?: "Query";
-  user?: Maybe<User>;
-  users?: Maybe<Array<Maybe<User>>>;
+export type Mutation = {
+  __typename?: "Mutation";
+  createUser?: Maybe<User>;
+};
+
+export type MutationCreateUserArgs = {
+  user?: Maybe<UserInput>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -156,21 +180,25 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  ObjectId: ResolverTypeWrapper<Scalars["ObjectId"]>;
-  User: ResolverTypeWrapper<User>;
+  Project: ResolverTypeWrapper<Project>;
   Int: ResolverTypeWrapper<Scalars["Int"]>;
   String: ResolverTypeWrapper<Scalars["String"]>;
   Query: ResolverTypeWrapper<{}>;
+  UserInput: UserInput;
+  User: ResolverTypeWrapper<User>;
+  Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  ObjectId: Scalars["ObjectId"];
-  User: User;
+  Project: Project;
   Int: Scalars["Int"];
   String: Scalars["String"];
   Query: {};
+  UserInput: UserInput;
+  User: User;
+  Mutation: {};
   Boolean: Scalars["Boolean"];
 }>;
 
@@ -192,10 +220,36 @@ export type HasRoleDirectiveResolver<
   Args = HasRoleDirectiveArgs
 > = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export interface ObjectIdScalarConfig
-  extends GraphQLScalarTypeConfig<ResolversTypes["ObjectId"], any> {
-  name: "ObjectId";
-}
+export type ProjectResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes["Project"] = ResolversParentTypes["Project"]
+> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  createdAt?: Resolver<
+    Maybe<ResolversTypes["String"]>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type QueryResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
+> = ResolversObject<{
+  projects?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Project"]>>>,
+    ParentType,
+    ContextType
+  >;
+  user?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType>;
+  users?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["User"]>>>,
+    ParentType,
+    ContextType
+  >;
+}>;
 
 export type UserResolvers<
   ContextType = ApolloContext,
@@ -210,25 +264,31 @@ export type UserResolvers<
   >;
   lastname?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  projects?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes["Project"]>>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type QueryResolvers<
+export type MutationResolvers<
   ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
+  ParentType extends ResolversParentTypes["Mutation"] = ResolversParentTypes["Mutation"]
 > = ResolversObject<{
-  user?: Resolver<Maybe<ResolversTypes["User"]>, ParentType, ContextType>;
-  users?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["User"]>>>,
+  createUser?: Resolver<
+    Maybe<ResolversTypes["User"]>,
     ParentType,
-    ContextType
+    ContextType,
+    RequireFields<MutationCreateUserArgs, never>
   >;
 }>;
 
 export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
-  ObjectId?: GraphQLScalarType;
-  User?: UserResolvers<ContextType>;
+  Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
 }>;
 
 /**

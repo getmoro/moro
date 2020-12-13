@@ -7,8 +7,10 @@
     "generate-types": "**.gql"
   },
   "scripts": {
+    "prestart": "npm run configure-db",
     "start": "nodemon ./src/server.ts & npm-watch",
-    "generate-types": "npx graphql-codegen"
+    "generate-types": "npx graphql-codegen",
+    "configure-db": "npx prisma migrate dev --preview-feature"
   },
   "keywords": [],
   "author": "Artingle",
@@ -23,7 +25,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
-    "graphql-scalar-objectid": "^0.1.2",
     "graphql-tools": "^7.0.2",
     "helmet": "^4.2.0"
   },

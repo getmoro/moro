@@ -1,7 +1,11 @@
 import { QueryResolvers } from "../graphql/resolvers-types";
 
-export const getUsers: QueryResolvers["users"] = async (parent, args, ctx) => {
-  const allUsers = await ctx.prisma.user.findMany({});
+export const getUsers: QueryResolvers["users"] = async (
+  parent,
+  args,
+  { prisma }
+) => {
+  const allUsers = await prisma.user.findMany({});
 
   return allUsers;
 };
