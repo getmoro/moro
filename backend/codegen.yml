@@ -1,0 +1,12 @@
+schema: "**.gql"
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+generates:
+  ./src/graphql/resolvers-types.ts:
+    config:
+      useIndexSignature: true
+      contextType: ../server/apolloContext#ApolloContext
+    plugins:
+      - typescript
+      - typescript-resolvers
