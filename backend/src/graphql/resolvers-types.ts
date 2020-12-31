@@ -36,20 +36,18 @@ export type Query = {
 };
 
 export type UserInput = {
-  email?: Maybe<Scalars["String"]>;
-  firstname?: Maybe<Scalars["String"]>;
-  lastname?: Maybe<Scalars["String"]>;
-  username?: Maybe<Scalars["String"]>;
+  email: Scalars["String"];
+  name?: Maybe<Scalars["String"]>;
+  username: Scalars["String"];
+  password?: Maybe<Scalars["String"]>;
 };
 
 export type User = {
   __typename?: "User";
   id?: Maybe<Scalars["Int"]>;
   email?: Maybe<Scalars["String"]>;
-  firstname?: Maybe<Scalars["String"]>;
-  lastname?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars["String"]>;
   username?: Maybe<Scalars["String"]>;
-  projects?: Maybe<Array<Maybe<Project>>>;
 };
 
 export type Mutation = {
@@ -58,7 +56,7 @@ export type Mutation = {
 };
 
 export type MutationCreateUserArgs = {
-  user?: Maybe<UserInput>;
+  user: UserInput;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -257,18 +255,8 @@ export type UserResolvers<
 > = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  firstname?: Resolver<
-    Maybe<ResolversTypes["String"]>,
-    ParentType,
-    ContextType
-  >;
-  lastname?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   username?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  projects?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes["Project"]>>>,
-    ParentType,
-    ContextType
-  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -280,7 +268,7 @@ export type MutationResolvers<
     Maybe<ResolversTypes["User"]>,
     ParentType,
     ContextType,
-    RequireFields<MutationCreateUserArgs, never>
+    RequireFields<MutationCreateUserArgs, "user">
   >;
 }>;
 

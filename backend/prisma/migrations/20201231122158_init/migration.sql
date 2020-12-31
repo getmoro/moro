@@ -11,9 +11,9 @@ CREATE TABLE "Project" (
 CREATE TABLE "User" (
 "id" SERIAL,
     "email" TEXT NOT NULL,
-    "firstname" TEXT,
-    "lastname" TEXT,
     "username" TEXT NOT NULL,
+    "name" TEXT,
+    "password" TEXT,
 
     PRIMARY KEY ("id")
 );
@@ -23,6 +23,9 @@ CREATE UNIQUE INDEX "Project.userId_unique" ON "Project"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User.username_unique" ON "User"("username");
 
 -- AddForeignKey
 ALTER TABLE "Project" ADD FOREIGN KEY("userId")REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

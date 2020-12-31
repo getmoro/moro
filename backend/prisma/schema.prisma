@@ -17,11 +17,10 @@ model Project {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  firstname String?
-  lastname  String?
-  username  String
-  password  String?
-  projects  Project?
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  username String   @unique
+  name     String?
+  password String?
+  projects Project?
 }
