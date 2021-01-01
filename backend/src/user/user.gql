@@ -1,7 +1,6 @@
 input UserInput {
   email: String!
   name: String
-  username: String!
   password: String
 }
 
@@ -9,7 +8,6 @@ type User {
   id: Int
   email: String
   name: String
-  username: String
 }
 
 type Query {

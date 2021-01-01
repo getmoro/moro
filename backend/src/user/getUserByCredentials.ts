@@ -3,11 +3,11 @@ import { prisma } from "../server/prisma";
 import bcrypt from "bcrypt";
 
 export const getUserByCredentials = async (
-  username: string,
+  email: string,
   password: string
 ): Promise<User | null> => {
   const user = await prisma.user.findUnique({
-    where: { username },
+    where: { email },
   });
 
   if (!user || !user.password) {

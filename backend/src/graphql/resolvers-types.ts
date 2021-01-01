@@ -38,7 +38,6 @@ export type Query = {
 export type UserInput = {
   email: Scalars["String"];
   name?: Maybe<Scalars["String"]>;
-  username: Scalars["String"];
   password?: Maybe<Scalars["String"]>;
 };
 
@@ -47,7 +46,6 @@ export type User = {
   id?: Maybe<Scalars["Int"]>;
   email?: Maybe<Scalars["String"]>;
   name?: Maybe<Scalars["String"]>;
-  username?: Maybe<Scalars["String"]>;
 };
 
 export type Mutation = {
@@ -256,7 +254,6 @@ export type UserResolvers<
   id?: Resolver<Maybe<ResolversTypes["Int"]>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
-  username?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
