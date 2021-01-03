@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 
 export type Props = {
@@ -19,7 +19,7 @@ const Image = styled.img`
   object-fit: cover;
 `;
 
-export const Avatar = (props: Props) => (
+export const Avatar: FC<Props> = (props) => (
   <Root>
     <Image src={props.image} />
   </Root>

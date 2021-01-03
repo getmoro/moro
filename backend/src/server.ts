@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
-import { startExpress } from "./server/express";
+import { startExpress } from './server/express';
 startExpress();

@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './GlobalStyles';
 import { theme } from './defaultTheme';
 
-export const Theme: FC<{}> = (props) => (
+export const Theme: FC<Record<string, never>> = (props) => (
   <ThemeProvider theme={theme}>
     <>
       <GlobalStyles />

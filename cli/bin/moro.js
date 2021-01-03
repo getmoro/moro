@@ -1,32 +1,32 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 
-const pkg = require('../package.json')
+const pkg = require('../package.json');
 
-require('please-upgrade-node')(pkg)
+require('please-upgrade-node')(pkg);
 
-const prog = require('caporal')
-const chalk = require('chalk')
-const updateNotifier = require('update-notifier')
+const prog = require('caporal');
+const chalk = require('chalk');
+const updateNotifier = require('update-notifier');
 
-updateNotifier({ pkg }).notify()
-const spinner = require('../lib/utils/spinner.js').mainSpinner
+updateNotifier({ pkg }).notify();
+const spinner = require('../lib/utils/spinner.js').mainSpinner;
 console.log(`
  ${chalk.red('💙')}  Moro \\o/
-`)
+`);
 
-spinner.start()
+spinner.start();
 
-const VERSION = pkg.version
-const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands
+const VERSION = pkg.version;
+const COMMAND_DESCRIPTIONS = require('../lib/constants.json').TEXT.commands;
 
 // importing all the commands
-const configManager = require('../lib/utils/configManager.js')
-configManager.initConfigFile()
+const configManager = require('../lib/utils/configManager.js');
+configManager.initConfigFile();
 
-const commands = require('../lib/commands.js')
-const communicate = require('../lib/communicate.js')
-const helpers = require('../lib/utils/helpers.js')
+const commands = require('../lib/commands.js');
+const communicate = require('../lib/communicate.js');
+const helpers = require('../lib/utils/helpers.js');
 
 // All the possible commands and arguments:
 // moro
@@ -96,7 +96,7 @@ prog
   .command('clear', '')
   .option('--yes', 'you need to confirm before I remove everything')
   .action((args, options, logger) => {
-    commands.clearData(args, options, logger, spinner)
+    commands.clearData(args, options, logger, spinner);
   })
   //
   // ////////////////////
@@ -109,13 +109,9 @@ prog
   .option(
     '--format <pattern>',
     COMMAND_DESCRIPTIONS.configPattern,
-    helpers.formatValidator
+    helpers.formatValidator,
   )
-  .option(
-    '--database-path [path]',
-    COMMAND_DESCRIPTIONS.dbPath,
-    helpers.pathValidator
-  )
+  .option('--database-path [path]', COMMAND_DESCRIPTIONS.dbPath, helpers.pathValidator)
   .action(commands.setConfig)
   //
   // ////////////////////
@@ -152,7 +148,7 @@ prog
   // sync
   //
   .command('sync', 'sync server...')
-  .action(communicate.sync)
+  .action(communicate.sync);
 
 // let it begin!
-prog.parse(process.argv)
+prog.parse(process.argv);

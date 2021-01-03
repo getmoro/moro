@@ -1,30 +1,30 @@
-const ora = require('ora')
+const ora = require('ora');
 const mainSpinner = ora({
   text: '',
   spinner: 'flip',
-  color: 'red'
-})
+  color: 'red',
+});
 
 const spinnerSucceed = (spinner, message) => {
   // for CI
   if (!spinner.enabled) {
-    console.log(message)
+    console.log(message);
   }
 
-  return spinner.succeed(message)
-}
+  return spinner.succeed(message);
+};
 
 const spinnerInfo = (spinner, message) => {
   // for CI
   if (!spinner.enabled) {
-    console.log(message)
+    console.log(message);
   }
 
-  return spinner.info(message)
-}
+  return spinner.info(message);
+};
 
 module.exports = {
   mainSpinner: mainSpinner,
   spinnerSucceed: spinnerSucceed,
-  spinnerInfo: spinnerInfo
-}
+  spinnerInfo: spinnerInfo,
+};

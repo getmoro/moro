@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 import { useForm } from 'react-hook-form';
-import { Button } from 'components/Button';
-import { TextField } from 'components/TextField';
+import { Button } from '../../components/Button';
+import { TextField } from '../../components/TextField';
 
 const Root = styled.div`
   display: flex;
@@ -44,10 +44,10 @@ export type Login = {
   password: string;
 };
 
-export const Login = () => {
+export const Login: FC = () => {
   const { handleSubmit, register, errors } = useForm<Login>();
 
-  const handleSignIn = (values: Login) => {
+  const handleSignIn = (values: Login): void => {
     console.log(values);
   };
 
@@ -55,9 +55,7 @@ export const Login = () => {
     <Root>
       <Form onSubmit={handleSubmit(handleSignIn)}>
         <Container>
-          <LogoContainer>
-            {/* <Logo /> */}
-          </LogoContainer>
+          <LogoContainer>{/* <Logo /> */}</LogoContainer>
           <TextField
             name="username"
             placeholder="username"

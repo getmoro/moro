@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { Reset as ResetStyles } from 'styled-reset';
 
@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const GlobalStyles = () => (
+export const GlobalStyles: FC<any> = () => (
   <>
     <ResetStyles />
     <GlobalStyle />

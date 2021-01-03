@@ -1,4 +1,4 @@
-schema: "**.gql"
+schema: '**.gql'
 hooks:
   afterAllFileWrite:
     - prettier --write

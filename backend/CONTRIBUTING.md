@@ -58,22 +58,22 @@ Sample:
 
 ```js
 var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
 var urlencoded = new URLSearchParams();
-urlencoded.append("email", "YOUR_EMAIL"); // Change this
-urlencoded.append("password", "YOUR_PASSWORD"); // Change this
+urlencoded.append('email', 'YOUR_EMAIL'); // Change this
+urlencoded.append('password', 'YOUR_PASSWORD'); // Change this
 
 var requestOptions = {
-  method: "POST",
+  method: 'POST',
   headers: myHeaders,
-  body: urlencoded,
+  body: urlencoded
 };
 
-fetch("http://localhost:3000/login", requestOptions)
-  .then((response) => response.json())
-  .then((result) =>
+fetch('http://localhost:3000/login', requestOptions)
+  .then(response => response.json())
+  .then(result =>
     console.log(`{ "Authorization": "Bearer ${result.token}" }`)
   ) // paste this to graphql playground http headers section
-  .catch((error) => console.log("error", error));
+  .catch(error => console.log('error', error));
 ```

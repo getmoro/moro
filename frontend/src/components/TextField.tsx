@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { ReactElement, ForwardedRef, forwardRef } from 'react';
 import styled from 'styled-components/macro';
 
 type Props = {
@@ -30,10 +30,13 @@ const Input = styled.input`
   overflow-wrap: anywhere;
 `;
 
-export const TextField = forwardRef<HTMLInputElement, Props>((props, ref) => {
+const TextFieldInnerComp = (
+  props: Props,
+  ref: ForwardedRef<HTMLInputElement>,
+): ReactElement => {
   const { onValueChange, ...rest } = props;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void =>
     onValueChange && onValueChange(event.target.value);
 
   return (
@@ -41,4 +44,6 @@ export const TextField = forwardRef<HTMLInputElement, Props>((props, ref) => {
       <Input ref={ref} onChange={onValueChange && handleChange} {...rest} />
     </Root>
   );
-});
+};
+
+export const TextField = forwardRef<HTMLInputElement, Props>(TextFieldInnerComp);
