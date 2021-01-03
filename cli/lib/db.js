@@ -197,30 +197,21 @@ const createLogTable = (knex) =>
     }
   });
 
-const getLastLogData = (knex, type) => {
-  return createLogTable(knex)
-    .then(() => {
-      return knex
+const getLastLogData = (knex, type) =>
+  createLogTable(knex)
+    .then(() =>
+      knex
         .select('*')
         .from('logs')
         .where({ type })
         .orderBy('lastLogId', 'desc')
         .limit(1)
-        .then((rows) => {
-          return rows;
-        })
-        .catch((e) => spinner.fail(`Errors in fetch - ${e}`));
-    })
+        .catch((e) => spinner.fail(`Errors in fetch - ${e}`)),
+    )
     .catch((e) => spinner.fail(`Errors in createLogTable - ${e}`));
-};
 
-const setLogData = (knex, data) => {
-  return createLogTable(knex)
-    .then(() => {
-      return knex.insert(data).into('logs');
-    })
-    .catch((err) => console.log(error));
-};
+const setLogData = (knex, data) =>
+  createLogTable(knex).then(() => knex.insert(data).into('logs'));
 
 module.exports = {
   createTable,

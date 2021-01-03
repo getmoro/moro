@@ -8,6 +8,18 @@ CREATE TABLE "Project" (
 );
 
 -- CreateTable
+CREATE TABLE "TimeRecord" (
+"id" SERIAL,
+    "date" TEXT NOT NULL,
+    "start" TEXT NOT NULL,
+    "end" TEXT NOT NULL,
+    "breakDuration" INTEGER NOT NULL,
+    "userId" INTEGER NOT NULL,
+
+    PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "User" (
 "id" SERIAL,
     "email" TEXT NOT NULL,
@@ -25,3 +37,6 @@ CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- AddForeignKey
 ALTER TABLE "Project" ADD FOREIGN KEY("userId")REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TimeRecord" ADD FOREIGN KEY("userId")REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

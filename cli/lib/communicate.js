@@ -1,78 +1,99 @@
 'use strict';
 
-const moment = require('moment');
 const axios = require('axios').default;
 const db = require('./db.js');
 const constants = require('./constants.json');
 
-const TODAY = moment().format('YYYY-MM-DD');
-const NOW = moment().format('HH:mm');
+const testServerStatus = () =>
+  axios.get(constants.PING_SERVER).then((res) => console.log(res.data));
 
-const test = (args, options, logger) => {
-  axios
-    .get(constants.SYNC_SERVER)
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .then(() => {
-      process.exit(0);
-    });
+const getLastLogDataOfType = (type) => db.getLastLogData(db.knex, type);
+
+const getItemsAfterLastLog = (type, lastLog) => {
+  const lastLogId = lastLog.length ? lastLog[0].id : 0;
+  console.log('lastLogId', lastLogId);
+  return db.getRowsAfter(db.knex, type, lastLogId);
 };
 
-const syncTable = (type) => {
-  return new Promise((resolve, reject) => {
-    axios
-      .post(constants.SYNC_SERVER)
-      .then((response) => {
-        console.log(response.data);
-        // check the 'log' table exists
-        db.getLastLogData(db.knex, type).then((lastLog) => {
-          // lastLog = Get last row of 'log' table
-          let lastLogId = 0;
-          if (lastLog.length) lastLogId = lastLog[0].id;
-          console.log(lastLogId);
-          // brings up items later than 'lastLog.date'
-          db.getRowsAfter(db.knex, type, lastLogId).then((recentLogs) => {
-            // send them to the server
-            if (recentLogs[recentLogs.length - 1]) {
-              console.log(constants.TEXT.sync.syncing + type + '...');
-              axios
-                .post(constants.SYNC_SERVER, { type, records: recentLogs })
-                .then((response) => {
-                  console.log(response.data);
-                  // save a new log in 'logs' table if successful
-                  db.setLogData(db.knex, {
-                    type,
-                    lastLogId: recentLogs[recentLogs.length - 1].id,
-                  }).then((result) => {
-                    console.log(constants.TEXT.sync.insertLogTable, result);
-                    resolve(type);
-                  });
-                });
-            } else {
-              console.log(constants.TEXT.sync.nothingToSyncPrefix + type);
-              resolve(type);
-            }
-          });
-        });
-      })
-      .catch((err) => {
-        console.log(constants.TEXT.sync.serverUnavailable);
-        reject(err);
-      });
+const sendItemsToServer = (type, timeRecords) => {
+  switch (type) {
+    case constants.TABLES.records:
+      return sendTimeRecordsToServer(type, timeRecords);
+
+    // TODO: Support sync notes
+    // case constants.TABLES.notes:
+    //   return sendNotesToServer(type, recentItems);
+  }
+};
+
+const sendTimeRecordsToServer = (type, timeRecords) => {
+  const query = `
+    mutation addTimeRecords($timeRecords:[TimeRecordInput!]!){
+      addTimeRecords(timeRecords:$timeRecords)
+    }
+  `;
+  const variables = {
+    timeRecords: timeRecords.map((record) => ({
+      date: record.date,
+      start: record.start,
+      end: record.end,
+      breakDuration: record.breakDuration,
+    })),
+  };
+
+  return axios.post(constants.SYNC_SERVER, JSON.stringify({ query, variables }), {
+    headers: { 'Content-Type': 'application/json' },
   });
 };
 
-const sync = (args, options, logger) => {
-  syncTable('records').then(() => {
-    syncTable('notes').then(() => {
-      console.log(constants.TEXT.sync.allDone);
-      process.exit(0);
-    });
+const saveSyncLog = (type, lastLogId) =>
+  db.setLogData(db.knex, {
+    type,
+    lastLogId,
   });
+
+const syncTable = async (type) => {
+  try {
+    await testServerStatus();
+    const lastSyncedLog = await getLastLogDataOfType(type);
+    console.log('lastSyncedLog', lastSyncedLog);
+    const recentItems = await getItemsAfterLastLog(type, lastSyncedLog);
+    console.log('recentItems', recentItems);
+    const lastItem = recentItems[recentItems.length - 1];
+    console.log('lastItem', lastItem);
+    if (lastItem) {
+      console.log(constants.TEXT.sync.syncing + type + '...');
+      await sendItemsToServer(type, recentItems);
+      console.log('lastItem.id', lastItem.id);
+      await saveSyncLog(type, lastItem.id);
+      console.log(constants.TEXT.sync.insertLogTable);
+    } else {
+      console.log(constants.TEXT.sync.nothingToSyncPrefix + type);
+    }
+  } catch (error) {
+    console.log(error);
+    process.exit(0);
+  }
+};
+
+const syncRecords = () => syncTable(constants.TABLES.records);
+
+const syncNotes = () => syncTable('notes');
+
+const syncFinish = () => {
+  console.log(constants.TEXT.sync.allDone);
+  process.exit(0);
+};
+
+const sync = async (args, options, logger) => {
+  await syncRecords();
+  // await syncNotes();
+  syncFinish();
+};
+
+const test = async () => {
+  await testServerStatus();
+  process.exit(0);
 };
 
 module.exports = {

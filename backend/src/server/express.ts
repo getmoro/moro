@@ -21,6 +21,9 @@ export const startExpress = (): void => {
     }),
   );
 
+  // server health check
+  app.get('/server-health', (req, res) => res.sendStatus(200));
+
   // attach apollo server to express
   getApolloServer(apolloContext).applyMiddleware({ app });
 
