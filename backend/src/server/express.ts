@@ -1,9 +1,9 @@
-import express from "express";
-import helmet from "helmet";
-import { getApolloServer } from "../graphql/graphqlServer";
-import { apolloContext } from "./apolloContext";
-import bodyParser from "body-parser";
-import { initPassport } from "./passport";
+import express from 'express';
+import helmet from 'helmet';
+import { getApolloServer } from '../graphql/graphqlServer';
+import { apolloContext } from './apolloContext';
+import bodyParser from 'body-parser';
+import { initPassport } from './passport';
 
 export const startExpress = (): void => {
   const app = express();
@@ -17,9 +17,8 @@ export const startExpress = (): void => {
   // some level of http security
   app.use(
     helmet({
-      contentSecurityPolicy:
-        process.env.NODE_ENV === "production" ? undefined : false,
-    })
+      contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
+    }),
   );
 
   // attach apollo server to express

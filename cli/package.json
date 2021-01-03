@@ -63,20 +63,7 @@
     "ava": "2.4.0",
     "bats": "1.1.0",
     "bats-assert": "2.0.0",
-    "cross-env": "7.0.3",
-    "husky": "4.3.0",
-    "lint-staged": "9.5.0",
-    "prettier-standard": "16.1.0"
-  },
-  "lint-staged": {
-    "bin/**/*.js": [
-      "prettier-standard",
-      "git add"
-    ],
-    "lib/**/*.js": [
-      "prettier-standard",
-      "git add"
-    ]
+    "cross-env": "7.0.3"
   },
   "collective": {
     "type": "opencollective",

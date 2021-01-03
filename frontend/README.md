@@ -63,20 +63,6 @@ import { Button, Props as ButtonProps } from 'components/button';
 
 Rather named exports than `default` export, unless there is a reason not to do so.
 
-### Imports
-
-Use absolute paths instead of relative path for imports. Even when files are next to each other but there is no meaning connection between them. (Because it simplifies refactoring)
-
-Like:
-
-```jsx
-// Instead of this:
-import { Button } from '../../components/button';
-
-// Rather this:
-import { Button } from 'components/button';
-```
-
 ### Tests
 
 Remember adding `data-testid`s to components!

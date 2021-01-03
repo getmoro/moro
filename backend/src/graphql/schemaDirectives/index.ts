@@ -1,3 +1,3 @@
-import authDirective from "./authDirective";
+import authDirective from './authDirective';
 
 export const schemaDirectives = { ...authDirective };

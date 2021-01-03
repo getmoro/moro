@@ -1,33 +1,33 @@
-import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
-import { Strategy as JWTstrategy, ExtractJwt } from "passport-jwt";
-import jwt from "jsonwebtoken";
-import { Express, RequestHandler } from "express";
-import { getUserByCredentials } from "../user/getUserByCredentials";
-import { User } from "../graphql/resolvers-types";
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as JWTstrategy, ExtractJwt } from 'passport-jwt';
+import jwt from 'jsonwebtoken';
+import { Express, RequestHandler } from 'express';
+import { getUserByCredentials } from '../user/getUserByCredentials';
+import { User } from '../graphql/resolvers-types';
 
-const JWT_SECRET = process.env.JWT_SECRET || "JWT_DARK_SECRET";
+const JWT_SECRET = process.env.JWT_SECRET || 'JWT_DARK_SECRET';
 const AUTH = {
-  login: "login",
-  jwt: "jwt",
+  login: 'login',
+  jwt: 'jwt',
 };
 
 passport.use(
   AUTH.login,
   new LocalStrategy(
     {
-      usernameField: "email",
-      passwordField: "password",
+      usernameField: 'email',
+      passwordField: 'password',
     },
     async (email, password, done) => {
       const user = await getUserByCredentials(email, password);
 
       if (!user) {
-        return done(null, false, { message: "Incorrect credentials" });
+        return done(null, false, { message: 'Incorrect credentials' });
       }
       return done(null, user);
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -43,8 +43,8 @@ passport.use(
       } catch (error) {
         done(error);
       }
-    }
-  )
+    },
+  ),
 );
 
 const addUserToAllRequests: RequestHandler = (req, res, next) => {
@@ -61,11 +61,11 @@ export const initPassport = (app: Express): void => {
   app.use(passport.initialize());
   app.use(addUserToAllRequests);
 
-  app.post("/login", async (req, res, next) => {
+  app.post('/login', async (req, res, next) => {
     passport.authenticate(AUTH.login, async (err, user, info) => {
       try {
         if (err || !user) {
-          const message = info.message ? info.message : "An error occurred";
+          const message = info.message ? info.message : 'An error occurred';
           return res.json({ success: false, message });
         }
 

@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
-import { UserInput } from "../graphql/resolvers-types";
+import bcrypt from 'bcrypt';
+import { UserInput } from '../graphql/resolvers-types';
 
 // more rounds means slower hashing but higher security
 const saltRounds = 10;

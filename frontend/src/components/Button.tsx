@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components/macro';
 
 export type Props = {
@@ -16,7 +16,7 @@ const Root = styled.button<Pick<Props, 'primary'>>`
     primary ? theme.color.primary : theme.color.secondary};
 `;
 
-export const Button = (props: Props) => {
+export const Button: FC<Props> = (props) => {
   const { label, ...rest } = props;
 
   return <Root {...rest}>{label}</Root>;

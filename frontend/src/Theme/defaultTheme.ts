@@ -16,7 +16,7 @@ export const theme = {
   },
   color: {
     primary: '#7CAC9A',
-    secondary: "#08415c",
+    secondary: '#08415c',
     warn: '#e26d5a',
     error: '#ff6361',
     text: '#fff',
@@ -37,5 +37,6 @@ export const theme = {
 type CustomTheme = typeof theme;
 
 declare module 'styled-components' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   export interface DefaultTheme extends CustomTheme {}
 }

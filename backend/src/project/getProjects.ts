@@ -1,5 +1,5 @@
-import { QueryResolvers } from "src/graphql/resolvers-types";
+import { QueryResolvers } from '../graphql/resolvers-types';
 
-export const getProjects: QueryResolvers["projects"] = (parent, args, ctx) => {
+export const getProjects: QueryResolvers['projects'] = () => {
   return [];
 };
