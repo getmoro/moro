@@ -1,14 +1,11 @@
 import { MutationResolvers } from "../graphql/resolvers-types";
+import { hashUserPassword } from "./hashUserPassword";
 
 export const createUser: MutationResolvers["createUser"] = async (
   parent,
-  args,
-  ctx
+  { user },
+  { prisma }
 ) => {
-  if (!args.user) throw new Error("Invalid Input");
-
-  const result = await ctx.prisma.user.create({ data: args.user as any });
-  console.log(result);
-
-  return args.user as any;
+  const data = await hashUserPassword(user);
+  return prisma.user.create({ data });
 };

@@ -1,17 +1,13 @@
 input UserInput {
-  email: String
-  firstname: String
-  lastname: String
-  username: String
+  email: String!
+  name: String
+  password: String
 }
 
 type User {
   id: Int
   email: String
-  firstname: String
-  lastname: String
-  username: String
-  projects: [Project]
+  name: String
 }
 
 type Query {
@@ -20,5 +16,5 @@ type Query {
 }
 
 type Mutation {
-  createUser(user: UserInput): User
+  createUser(user: UserInput!): User
 }

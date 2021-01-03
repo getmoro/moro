@@ -11,9 +11,8 @@ CREATE TABLE "Project" (
 CREATE TABLE "User" (
 "id" SERIAL,
     "email" TEXT NOT NULL,
-    "firstname" TEXT,
-    "lastname" TEXT,
-    "username" TEXT NOT NULL,
+    "name" TEXT,
+    "password" TEXT,
 
     PRIMARY KEY ("id")
 );
