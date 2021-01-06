@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/albacoretuna/moro#readme",
   "dependencies": {
-    "axios": "0.21.0",
+    "axios": "0.21.1",
     "caporal": "1.4.0",
     "chalk": "4.1.0",
     "cli-table3": "0.6.0",
