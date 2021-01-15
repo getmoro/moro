@@ -70,7 +70,7 @@ var requestOptions = {
   body: urlencoded
 };
 
-fetch('http://localhost:3000/login', requestOptions)
+fetch('http://localhost:4000/login', requestOptions)
   .then(response => response.json())
   .then(result =>
     console.log(`{ "Authorization": "Bearer ${result.token}" }`)

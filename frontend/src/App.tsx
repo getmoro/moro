@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Home, Login } from './pages';
 import { Theme } from './Theme';
 
-export const App: FC<any> = () => (
+export const App: FC = () => (
   <Theme>
     <Router>
       <Switch>

@@ -1,7 +1,7 @@
 schema: '**.gql'
 hooks:
   afterAllFileWrite:
-    - prettier --write
+    - npx prettier --write
 generates:
   ./src/graphql/resolvers-types.ts:
     config:
