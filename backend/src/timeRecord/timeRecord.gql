@@ -1,0 +1,24 @@
+input TimeRecordInput {
+  date: String!
+  start: String!
+  end: String!
+  breakDuration: Int!
+}
+
+type TimeRecord {
+  id: Int
+  date: String
+  start: String
+  end: String
+  breakDuration: Int
+  user: User
+  userId: Int
+}
+
+type Query {
+  timeRecords: [TimeRecord]
+}
+
+type Mutation {
+  addTimeRecords(timeRecords: [TimeRecordInput!]!): Boolean
+}

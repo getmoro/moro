@@ -1,7 +1,12 @@
 {
   "DB_FILE_MAIN": ".moro-data.db",
   "DB_FILE_FOR_TESTS": ".moro-tests.db",
-  "SYNC_SERVER": "http://localhost:3000/test",
+  "SYNC_SERVER": "http://localhost:3000/graphql",
+  "PING_SERVER": "http://localhost:3000/server-health",
+  "TABLES": {
+    "records": "records",
+    "notes": "notes"
+  },
   "TEXT": {
     "about": "If you like Moro please consider donating to an NGO or humanitarian organization on our behalf.\n",
     "addNoteSuccess": "Your note is added! see it in reports\\o/ ",

@@ -16,10 +16,21 @@ model Project {
   userId Int    @unique
 }
 
+model TimeRecord {
+  id            Int    @id @default(autoincrement())
+  date          String
+  start         String
+  end           String
+  breakDuration Int
+  user          User   @relation(fields: [userId], references: [id])
+  userId        Int
+}
+
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  name     String?
-  password String?
-  projects Project?
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  name        String?
+  password    String?
+  projects    Project?
+  timeRecords TimeRecord[]
 }

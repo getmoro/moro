@@ -27,8 +27,41 @@ export type Project = {
 export type Query = {
   __typename?: 'Query';
   projects?: Maybe<Array<Maybe<Project>>>;
+  timeRecords?: Maybe<Array<Maybe<TimeRecord>>>;
   user?: Maybe<User>;
   users?: Maybe<Array<Maybe<User>>>;
+};
+
+export type TimeRecordInput = {
+  date: Scalars['String'];
+  start: Scalars['String'];
+  end: Scalars['String'];
+  breakDuration: Scalars['Int'];
+};
+
+export type TimeRecord = {
+  __typename?: 'TimeRecord';
+  id?: Maybe<Scalars['Int']>;
+  date?: Maybe<Scalars['String']>;
+  start?: Maybe<Scalars['String']>;
+  end?: Maybe<Scalars['String']>;
+  breakDuration?: Maybe<Scalars['Int']>;
+  user?: Maybe<User>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addTimeRecords?: Maybe<Scalars['Boolean']>;
+  createUser?: Maybe<User>;
+};
+
+export type MutationAddTimeRecordsArgs = {
+  timeRecords: Array<TimeRecordInput>;
+};
+
+export type MutationCreateUserArgs = {
+  user: UserInput;
 };
 
 export type UserInput = {
@@ -42,15 +75,6 @@ export type User = {
   id?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-};
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  createUser?: Maybe<User>;
-};
-
-export type MutationCreateUserArgs = {
-  user: UserInput;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -158,10 +182,12 @@ export type ResolversTypes = ResolversObject<{
   Int: ResolverTypeWrapper<Scalars['Int']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
-  UserInput: UserInput;
-  User: ResolverTypeWrapper<User>;
+  TimeRecordInput: TimeRecordInput;
+  TimeRecord: ResolverTypeWrapper<TimeRecord>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  UserInput: UserInput;
+  User: ResolverTypeWrapper<User>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -170,10 +196,12 @@ export type ResolversParentTypes = ResolversObject<{
   Int: Scalars['Int'];
   String: Scalars['String'];
   Query: {};
-  UserInput: UserInput;
-  User: User;
+  TimeRecordInput: TimeRecordInput;
+  TimeRecord: TimeRecord;
   Mutation: {};
   Boolean: Scalars['Boolean'];
+  UserInput: UserInput;
+  User: User;
 }>;
 
 export type IsAuthenticatedDirectiveArgs = {};
@@ -213,8 +241,45 @@ export type QueryResolvers<
     ParentType,
     ContextType
   >;
+  timeRecords?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['TimeRecord']>>>,
+    ParentType,
+    ContextType
+  >;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
+}>;
+
+export type TimeRecordResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes['TimeRecord'] = ResolversParentTypes['TimeRecord']
+> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  start?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  end?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  breakDuration?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  userId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type MutationResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
+> = ResolversObject<{
+  addTimeRecords?: Resolver<
+    Maybe<ResolversTypes['Boolean']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationAddTimeRecordsArgs, 'timeRecords'>
+  >;
+  createUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationCreateUserArgs, 'user'>
+  >;
 }>;
 
 export type UserResolvers<
@@ -227,23 +292,12 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type MutationResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
-> = ResolversObject<{
-  createUser?: Resolver<
-    Maybe<ResolversTypes['User']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationCreateUserArgs, 'user'>
-  >;
-}>;
-
 export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
-  User?: UserResolvers<ContextType>;
+  TimeRecord?: TimeRecordResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 }>;
 
 /**
