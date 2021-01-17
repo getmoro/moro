@@ -22,6 +22,10 @@ export const startExpress = (): void => {
     });
   }
 
+  // passport needs these two:
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+
   // Extract user from JWT (Authorization header Bearer) as user in all requests
   app.use(
     expressJwt({
