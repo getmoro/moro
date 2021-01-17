@@ -63,6 +63,11 @@ import { Button, Props as ButtonProps } from 'components/button';
 
 Rather named exports than `default` export, unless there is a reason not to do so.
 
+### GraphQL
+
+Create your queries in the most related folder like `[name].qgl` and use the generated hook from `./src/graphql/hooks`.  
+Example: `register.gql` and `Register.tsx`.
+
 ### Tests
 
 Remember adding `data-testid`s to components!
@@ -88,5 +93,7 @@ End to end testings are done with [TEST TOOL] in the production build of the sof
 - React
 - typescript
 - styled-components
+- apollo-client
+- graphql-codegen
 - CRA
 - storybook
