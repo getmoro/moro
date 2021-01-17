@@ -1,22 +1,29 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home, Login, Dashboard } from './pages';
+import { ApolloProvider } from '@apollo/client';
+import { Home, Login, Register, Dashboard } from './pages';
 import { Theme } from './Theme';
+import { client } from './Graphql/client';
 
 export const App: FC = () => (
-  <Theme>
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/app">
-          <Dashboard />
-        </Route>
-      </Switch>
-    </Router>
-  </Theme>
+  <ApolloProvider client={client}>
+    <Theme>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/app">
+            <Dashboard />
+          </Route>
+        </Switch>
+      </Router>
+    </Theme>
+  </ApolloProvider>
 );

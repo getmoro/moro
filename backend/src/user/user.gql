@@ -4,10 +4,22 @@ input UserInput {
   password: String
 }
 
+input CredentialsInput {
+  email: String!
+  name: String
+  password: String
+}
+
 type User {
   id: Int
   email: String
   name: String
+}
+
+type AuthResult {
+  success: boolean
+  token: String
+  message: String
 }
 
 type Query {
@@ -17,4 +29,6 @@ type Query {
 
 type Mutation {
   createUser(user: UserInput!): User
+  register(user: UserInput!): AuthResult
+  login(credentials: CredentialsInput!): AuthResult
 }

@@ -1,14 +1,22 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components/macro';
-import useFetch from 'use-http';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import { TextField } from '../../components/TextField';
 import { Checkbox } from '../../components/Checkbox';
-import { emailRegex, SERVER_ADDRESS } from '../../utils/constants';
+import { emailRegex } from '../../utils/constants';
 import { useRememberMe } from '../../utils/hooks/useRememberMe';
 import { useToken } from '../../utils/hooks/useToken';
+import { gql, useMutation } from '@apollo/client';
+
+const REGISTER = gql`
+  mutation register($user: UserInput!) {
+    register(user: $user) {
+      token
+    }
+  }
+`;
 
 const Root = styled.div`
   display: flex;
@@ -38,34 +46,33 @@ const LogoContainer = styled.div`
   min-height: 8rem;
 `;
 
-const Copyright = styled.span`
-  color: #ddd;
-  text-align: center;
-`;
-
-type LoginType = {
+type RegisterType = {
+  name: string;
   email: string;
   password: string;
 };
 
-export const Login: FC = () => {
+export const Register: FC = () => {
   const history = useHistory();
-  const { post, loading, error } = useFetch(SERVER_ADDRESS);
-  const { handleSubmit, register, errors } = useForm<LoginType>();
+  const { handleSubmit, register, errors } = useForm<RegisterType>();
   const [message, setMessage] = useState<string | null>(null);
   const [remember, setRemember] = useRememberMe(false);
   const [, setToken] = useToken();
+  const [registerUser, { loading }] = useMutation(REGISTER, {
+    update(cache, { data }) {
+      if (data && data.register) {
+        if (data.register.success) {
+          setToken(data.register.token);
+          history.push('/app');
+        } else {
+          setMessage(data.register.message);
+        }
+      }
+    },
+  });
 
-  const handleSignIn = async (values: LoginType): Promise<void> => {
-    const result = await post('/login', values);
-    if (!result) {
-      setMessage('Unable to connect to Moro');
-    } else if (result.message) {
-      setMessage(result.message);
-    } else if (result.token) {
-      setToken(result.token);
-      history.push('/app');
-    }
+  const handleSignIn = (values: RegisterType): void => {
+    registerUser({ variables: { user: values } });
   };
 
   const handleRememberMe = (): void => setRemember(!remember);
@@ -76,10 +83,18 @@ export const Login: FC = () => {
         <Container>
           <LogoContainer>{/* <Logo /> */}</LogoContainer>
           <TextField
+            name="name"
+            placeholder="name"
+            ref={register({
+              required: 'Name is required to register',
+            })}
+          />
+          {errors.name && errors.name.message}
+          <TextField
             name="email"
             placeholder="email"
             ref={register({
-              required: 'Email is required to login',
+              required: 'Email is required to register',
               pattern: {
                 message: 'Email is not entered correctly',
                 value: emailRegex,
@@ -91,17 +106,16 @@ export const Login: FC = () => {
             name="password"
             type="password"
             placeholder="password"
-            ref={register({ required: 'Password is requried to login' })}
+            ref={register({ required: 'Password is requried to register' })}
           />
           {errors.password && errors.password.message}
           {/* <span>Forgot your password?</span> */}
           <Checkbox label="Remember me" onChange={handleRememberMe} checked={remember} />
         </Container>
         {message}
-        {error}
+        {/* {error} */}
         <Button type="submit" label="Sign in" disabled={loading} />
       </Form>
-      <Copyright>&copy; Moro 2020</Copyright>
     </Root>
   );
 };

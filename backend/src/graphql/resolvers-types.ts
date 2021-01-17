@@ -37,6 +37,12 @@ export type UserInput = {
   password?: Maybe<Scalars['String']>;
 };
 
+export type CredentialsInput = {
+  email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+};
+
 export type User = {
   __typename?: 'User';
   id?: Maybe<Scalars['Int']>;
@@ -44,13 +50,28 @@ export type User = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type Token = {
+  __typename?: 'Token';
+  token?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
+  register?: Maybe<Token>;
+  login?: Maybe<Token>;
 };
 
 export type MutationCreateUserArgs = {
   user: UserInput;
+};
+
+export type MutationRegisterArgs = {
+  user: UserInput;
+};
+
+export type MutationLoginArgs = {
+  credentials: CredentialsInput;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -159,7 +180,9 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
+  CredentialsInput: CredentialsInput;
   User: ResolverTypeWrapper<User>;
+  Token: ResolverTypeWrapper<Token>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 }>;
@@ -171,7 +194,9 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   Query: {};
   UserInput: UserInput;
+  CredentialsInput: CredentialsInput;
   User: User;
+  Token: Token;
   Mutation: {};
   Boolean: Scalars['Boolean'];
 }>;
@@ -227,6 +252,14 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type TokenResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes['Token'] = ResolversParentTypes['Token']
+> = ResolversObject<{
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MutationResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
@@ -237,12 +270,25 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateUserArgs, 'user'>
   >;
+  register?: Resolver<
+    Maybe<ResolversTypes['Token']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRegisterArgs, 'user'>
+  >;
+  login?: Resolver<
+    Maybe<ResolversTypes['Token']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationLoginArgs, 'credentials'>
+  >;
 }>;
 
 export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Token?: TokenResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 }>;
 

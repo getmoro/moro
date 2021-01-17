@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.3.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/react-calendar-heatmap": "^1.6.2",
     "@types/styled-components": "^5.1.4",
+    "graphql": "^15.4.0",
     "react": "^16.14.0",
     "react-calendar-heatmap": "^1.8.1",
     "react-dom": "^16.14.0",

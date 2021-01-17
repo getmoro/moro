@@ -20,7 +20,7 @@ passport.use(
       passwordField: 'password',
     },
     async (email, password, done) => {
-      const user = await getUserByCredentials(email, password);
+      const user = await getUserByCredentials({ email, password });
 
       if (!user) {
         return done(null, false, { message: 'Incorrect credentials' });
