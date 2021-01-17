@@ -50,16 +50,18 @@ export type User = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type Token = {
-  __typename?: 'Token';
+export type AuthResult = {
+  __typename?: 'AuthResult';
+  success?: Maybe<Scalars['Boolean']>;
   token?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
-  register?: Maybe<Token>;
-  login?: Maybe<Token>;
+  register?: Maybe<AuthResult>;
+  login?: Maybe<AuthResult>;
 };
 
 export type MutationCreateUserArgs = {
@@ -182,8 +184,7 @@ export type ResolversTypes = ResolversObject<{
   UserInput: UserInput;
   CredentialsInput: CredentialsInput;
   User: ResolverTypeWrapper<User>;
-  Token: ResolverTypeWrapper<Token>;
-  Mutation: ResolverTypeWrapper<{}>;
+  AuthResult: ResolverTypeWrapper<AuthResult>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Mutation: ResolverTypeWrapper<{}>;
 }>;
@@ -197,8 +198,7 @@ export type ResolversParentTypes = ResolversObject<{
   UserInput: UserInput;
   CredentialsInput: CredentialsInput;
   User: User;
-  Token: Token;
-  Mutation: {};
+  AuthResult: AuthResult;
   Boolean: Scalars['Boolean'];
   Mutation: {};
 }>;
@@ -236,11 +236,13 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TokenResolvers<
+export type AuthResultResolvers<
   ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Token'] = ResolversParentTypes['Token']
+  ParentType extends ResolversParentTypes['AuthResult'] = ResolversParentTypes['AuthResult']
 > = ResolversObject<{
+  success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -255,13 +257,13 @@ export type MutationResolvers<
     RequireFields<MutationCreateUserArgs, 'user'>
   >;
   register?: Resolver<
-    Maybe<ResolversTypes['Token']>,
+    Maybe<ResolversTypes['AuthResult']>,
     ParentType,
     ContextType,
     RequireFields<MutationRegisterArgs, 'user'>
   >;
   login?: Resolver<
-    Maybe<ResolversTypes['Token']>,
+    Maybe<ResolversTypes['AuthResult']>,
     ParentType,
     ContextType,
     RequireFields<MutationLoginArgs, 'credentials'>
@@ -272,7 +274,7 @@ export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
-  Token?: TokenResolvers<ContextType>;
+  AuthResult?: AuthResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 }>;
 
