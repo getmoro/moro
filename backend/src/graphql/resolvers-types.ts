@@ -39,25 +39,8 @@ export type UserInput = {
 
 export type CredentialsInput = {
   email: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
-};
-
-export type EmailInput = {
-  email: Scalars['String'];
-};
-
-export type NewPasswordInput = {
-  password: Scalars['String'];
-  token: Scalars['String'];
-};
-
-export enum AuthServices {
-  Google = 'GOOGLE',
-}
-
-export type SocialLoginInput = {
-  service: AuthServices;
-  token: Scalars['String'];
 };
 
 export type User = {
@@ -67,21 +50,16 @@ export type User = {
   name?: Maybe<Scalars['String']>;
 };
 
-export type AuthResult = {
-  __typename?: 'AuthResult';
-  success?: Maybe<Scalars['Boolean']>;
+export type Token = {
+  __typename?: 'Token';
   token?: Maybe<Scalars['String']>;
-  message?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
-  register?: Maybe<AuthResult>;
-  login?: Maybe<AuthResult>;
-  forgotPassword?: Maybe<AuthResult>;
-  resetPassword?: Maybe<AuthResult>;
-  validateSocialLogin?: Maybe<AuthResult>;
+  register?: Maybe<Token>;
+  login?: Maybe<Token>;
 };
 
 export type MutationCreateUserArgs = {
@@ -94,18 +72,6 @@ export type MutationRegisterArgs = {
 
 export type MutationLoginArgs = {
   credentials: CredentialsInput;
-};
-
-export type MutationForgotPasswordArgs = {
-  credentials: EmailInput;
-};
-
-export type MutationResetPasswordArgs = {
-  credentials: NewPasswordInput;
-};
-
-export type MutationValidateSocialLoginArgs = {
-  credentials: SocialLoginInput;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -215,12 +181,9 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
   CredentialsInput: CredentialsInput;
-  EmailInput: EmailInput;
-  NewPasswordInput: NewPasswordInput;
-  AuthServices: AuthServices;
-  SocialLoginInput: SocialLoginInput;
   User: ResolverTypeWrapper<User>;
-  AuthResult: ResolverTypeWrapper<AuthResult>;
+  Token: ResolverTypeWrapper<Token>;
+  Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Mutation: ResolverTypeWrapper<{}>;
 }>;
@@ -233,11 +196,9 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   UserInput: UserInput;
   CredentialsInput: CredentialsInput;
-  EmailInput: EmailInput;
-  NewPasswordInput: NewPasswordInput;
-  SocialLoginInput: SocialLoginInput;
   User: User;
-  AuthResult: AuthResult;
+  Token: Token;
+  Mutation: {};
   Boolean: Scalars['Boolean'];
   Mutation: {};
 }>;
@@ -275,13 +236,11 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type AuthResultResolvers<
+export type TokenResolvers<
   ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['AuthResult'] = ResolversParentTypes['AuthResult']
+  ParentType extends ResolversParentTypes['Token'] = ResolversParentTypes['Token']
 > = ResolversObject<{
-  success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -296,34 +255,16 @@ export type MutationResolvers<
     RequireFields<MutationCreateUserArgs, 'user'>
   >;
   register?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
+    Maybe<ResolversTypes['Token']>,
     ParentType,
     ContextType,
     RequireFields<MutationRegisterArgs, 'user'>
   >;
   login?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
+    Maybe<ResolversTypes['Token']>,
     ParentType,
     ContextType,
     RequireFields<MutationLoginArgs, 'credentials'>
-  >;
-  forgotPassword?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationForgotPasswordArgs, 'credentials'>
-  >;
-  resetPassword?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationResetPasswordArgs, 'credentials'>
-  >;
-  validateSocialLogin?: Resolver<
-    Maybe<ResolversTypes['AuthResult']>,
-    ParentType,
-    ContextType,
-    RequireFields<MutationValidateSocialLoginArgs, 'credentials'>
   >;
 }>;
 
@@ -331,7 +272,7 @@ export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
-  AuthResult?: AuthResultResolvers<ContextType>;
+  Token?: TokenResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 }>;
 

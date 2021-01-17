@@ -42,6 +42,12 @@ input SocialLoginInput {
   token: String! @stringLength(min: 0, max: 2000)
 }
 
+input CredentialsInput {
+  email: String!
+  name: String
+  password: String
+}
+
 type User {
   id: Int
   email: String
@@ -49,7 +55,7 @@ type User {
 }
 
 type AuthResult {
-  success: Boolean
+  success: boolean
   token: String
   message: String
 }
@@ -60,10 +66,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(user: UserInput!): User @hasPermissions(permissions: ["users.create"])
+  createUser(user: UserInput!): User
   register(user: UserInput!): AuthResult
   login(credentials: CredentialsInput!): AuthResult
-  forgotPassword(credentials: EmailInput!): AuthResult
-  resetPassword(credentials: NewPasswordInput!): AuthResult
-  validateSocialLogin(credentials: SocialLoginInput!): AuthResult
 }
