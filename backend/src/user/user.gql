@@ -17,7 +17,7 @@ type User {
 }
 
 type AuthResult {
-  success: boolean
+  success: Boolean
   token: String
   message: String
 }
