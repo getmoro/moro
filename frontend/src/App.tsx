@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home, Login } from './pages';
+import { Home, Login, Dashboard } from './pages';
 import { Theme } from './Theme';
 
 export const App: FC = () => (
@@ -12,6 +12,9 @@ export const App: FC = () => (
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/app">
+          <Dashboard />
         </Route>
       </Switch>
     </Router>

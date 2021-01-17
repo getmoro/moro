@@ -12,8 +12,17 @@ const Root = styled.button<Pick<Props, 'primary'>>`
   color: #fff;
   font-weight: bold;
   border: none;
-  background-color: ${({ theme, primary }) =>
-    primary ? theme.color.primary : theme.color.secondary};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  background-color: ${({ theme, primary, disabled }) => {
+    if (disabled) {
+      return theme.color.disabled;
+    }
+    if (primary) {
+      return theme.color.primary;
+    } else {
+      return theme.color.secondary;
+    }
+  }};
 `;
 
 export const Button: FC<Props> = (props) => {

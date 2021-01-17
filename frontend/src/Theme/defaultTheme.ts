@@ -17,6 +17,7 @@ export const theme = {
   color: {
     primary: '#7CAC9A',
     secondary: '#08415c',
+    disabled: '#c7c7c7',
     warn: '#e26d5a',
     error: '#ff6361',
     text: '#fff',
