@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { Home, Login, Register, Dashboard } from './pages';
 import { Theme } from './Theme';
-import { client } from './Graphql/client';
+import { client } from './graphql/client';
 
 export const App: FC = () => (
   <ApolloProvider client={client}>

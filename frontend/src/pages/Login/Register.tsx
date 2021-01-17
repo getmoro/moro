@@ -2,21 +2,13 @@ import React, { FC, useState } from 'react';
 import styled from 'styled-components/macro';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
+import { useRegisterMutation } from '../../graphql/hooks';
 import { Button } from '../../components/Button';
 import { TextField } from '../../components/TextField';
 import { Checkbox } from '../../components/Checkbox';
 import { emailRegex } from '../../utils/constants';
 import { useRememberMe } from '../../utils/hooks/useRememberMe';
 import { useToken } from '../../utils/hooks/useToken';
-import { gql, useMutation } from '@apollo/client';
-
-const REGISTER = gql`
-  mutation register($user: UserInput!) {
-    register(user: $user) {
-      token
-    }
-  }
-`;
 
 const Root = styled.div`
   display: flex;
@@ -58,13 +50,13 @@ export const Register: FC = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [remember, setRemember] = useRememberMe(false);
   const [, setToken] = useToken();
-  const [registerUser, { loading }] = useMutation(REGISTER, {
+  const [registerUser, { loading }] = useRegisterMutation({
     update(cache, { data }) {
       if (data && data.register) {
         if (data.register.success) {
           setToken(data.register.token);
           history.push('/app');
-        } else {
+        } else if (data.register.message) {
           setMessage(data.register.message);
         }
       }
