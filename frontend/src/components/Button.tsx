@@ -12,14 +12,24 @@ const Root = styled.button<Pick<Props, 'primary'>>`
   font-weight: bold;
   border: none;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  color: ${({ theme, primary, disabled }) => {
+    if (disabled) {
+      return theme.color.disabled;
+    }
+    if (primary) {
+      return '#FFF';
+    } else {
+      return theme.color.secondary;
+    }
+  }};
   background-color: ${({ theme, primary, disabled }) => {
     if (disabled) {
       return theme.color.disabled;
     }
     if (primary) {
-      return theme.color.primary;
-    } else {
       return theme.color.secondary;
+    } else {
+      return '#FFF';
     }
   }};
 `;

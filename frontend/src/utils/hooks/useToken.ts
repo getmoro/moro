@@ -6,6 +6,10 @@ type SetToken = (token: TokenType) => void;
 // typescript (or some other related package) has a bug that can't parse the array correctly, so we ended up with this bad type
 type UseToken = () => Array<any>;
 
+/*
+ * This hook will save the value of the JWT token we receive from the backend and we need it for the authentication.
+ */
+
 export const useToken: UseToken = () => {
   const [remember] = useRememberMe();
   const storage = remember ? localStorage : sessionStorage;

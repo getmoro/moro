@@ -44,8 +44,17 @@ input SocialLoginInput {
 
 input CredentialsInput {
   email: String!
-  name: String
   password: String
+}
+
+input EmailInput {
+  email: String!
+}
+
+input NewPasswordInput {
+  email: String!
+  password: String!
+  token: String!
 }
 
 type User {
@@ -69,4 +78,6 @@ type Mutation {
   createUser(user: UserInput!): User
   register(user: UserInput!): AuthResult
   login(credentials: CredentialsInput!): AuthResult
+  forgotPassword(credentials: EmailInput!): AuthResult
+  resetPassword(credentials: NewPasswordInput!): AuthResult
 }

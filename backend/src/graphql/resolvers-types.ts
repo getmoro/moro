@@ -39,8 +39,17 @@ export type UserInput = {
 
 export type CredentialsInput = {
   email: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+};
+
+export type EmailInput = {
+  email: Scalars['String'];
+};
+
+export type NewPasswordInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+  token: Scalars['String'];
 };
 
 export type User = {
@@ -62,6 +71,8 @@ export type Mutation = {
   createUser?: Maybe<User>;
   register?: Maybe<AuthResult>;
   login?: Maybe<AuthResult>;
+  forgotPassword?: Maybe<AuthResult>;
+  resetPassword?: Maybe<AuthResult>;
 };
 
 export type MutationCreateUserArgs = {
@@ -74,6 +85,14 @@ export type MutationRegisterArgs = {
 
 export type MutationLoginArgs = {
   credentials: CredentialsInput;
+};
+
+export type MutationForgotPasswordArgs = {
+  credentials: EmailInput;
+};
+
+export type MutationResetPasswordArgs = {
+  credentials: NewPasswordInput;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -183,6 +202,8 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
   CredentialsInput: CredentialsInput;
+  EmailInput: EmailInput;
+  NewPasswordInput: NewPasswordInput;
   User: ResolverTypeWrapper<User>;
   AuthResult: ResolverTypeWrapper<AuthResult>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -197,6 +218,8 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {};
   UserInput: UserInput;
   CredentialsInput: CredentialsInput;
+  EmailInput: EmailInput;
+  NewPasswordInput: NewPasswordInput;
   User: User;
   AuthResult: AuthResult;
   Boolean: Scalars['Boolean'];
@@ -267,6 +290,18 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationLoginArgs, 'credentials'>
+  >;
+  forgotPassword?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationForgotPasswordArgs, 'credentials'>
+  >;
+  resetPassword?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationResetPasswordArgs, 'credentials'>
   >;
 }>;
 

@@ -1,7 +1,4 @@
-import { TOKEN_TYPES } from '@prisma/client';
 import { MutationResolvers } from '../graphql/resolvers-types';
-import { TOKEN_EXPIRE_MINUTES } from '../utils/constants';
-import { getRecentTime } from '../utils/getRecentTime';
 import { createTokenFromUser } from './createTokenFromUser';
 import { hashUserPassword } from './hashUserPassword';
 
@@ -10,24 +7,19 @@ export const resetPassword: MutationResolvers['resetPassword'] = async (
   { credentials },
   { prisma },
 ) => {
-  // get the token row
+  // find the token, email combo
   const row = await prisma.token.findFirst({
-    where: {
-      token: credentials.token,
-      type: TOKEN_TYPES.RESET_PASSWORD,
-      resolved: false,
-      createdAt: {
-        gte: getRecentTime(TOKEN_EXPIRE_MINUTES), // token shouldn't be too old
-      },
-    },
-    select: { id: true, email: true },
-    orderBy: { createdAt: 'desc' }, // select last one, in case user received the same token before (by some chance)
+    where: { email: credentials.email, token: credentials.token, resolved: false },
+    select: { id: true, createdAt: true },
   });
 
   // check if it exists
   if (!row) {
     return { success: false, message: 'Incorrect request' };
   }
+
+  // check if token row is not old
+  console.log(row);
 
   // resolve the token to prevent reusing
   await prisma.token.update({
@@ -36,12 +28,10 @@ export const resetPassword: MutationResolvers['resetPassword'] = async (
   });
 
   // update user
-  const data = await hashUserPassword({
-    password: credentials.password,
-  });
+  const data = await hashUserPassword(credentials);
   const user = await prisma.user.update({
     where: {
-      email: row.email,
+      email: credentials.email,
     },
     data: {
       password: data.password,
@@ -50,6 +40,5 @@ export const resetPassword: MutationResolvers['resetPassword'] = async (
 
   // create jwt token for auth
   const token = createTokenFromUser(user);
-
   return { success: true, token };
 };

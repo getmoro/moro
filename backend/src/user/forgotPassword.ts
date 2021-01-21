@@ -1,63 +1,17 @@
-import { v4 as uuidv4 } from 'uuid';
+import { customAlphabet } from 'nanoid';
 import { TOKEN_TYPES } from '@prisma/client';
 import { MutationResolvers } from '../graphql/resolvers-types';
-import { getRecentTime } from '../utils/getRecentTime';
-import { CLIENT_ADDRESS, TOKEN_EXPIRE_MINUTES } from '../utils/constants';
+import { NUMBERS, TOKEN_SIZE } from '../utils/constants';
 
-const DAY = 24 * 60; // a day is 24h * 60min
-const ATTEMPTS_PER_DAY_LIMIT = 3;
+const makePasswordToken = customAlphabet(NUMBERS, TOKEN_SIZE);
 
 export const forgotPassword: MutationResolvers['forgotPassword'] = async (
   parent,
   { credentials },
   { prisma },
 ) => {
-  // get all forgot password requests in the past 24 hours
-  const recentTokenRows = await prisma.token.findMany({
-    where: {
-      email: credentials.email,
-      type: TOKEN_TYPES.RESET_PASSWORD,
-      resolved: false,
-      createdAt: {
-        gte: getRecentTime(DAY),
-      },
-    },
-    select: {
-      id: true,
-      token: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-  });
-
-  // this will protect the API from brute forcing for tokens on a single email
-  if (recentTokenRows.length >= ATTEMPTS_PER_DAY_LIMIT) {
-    return { success: false, message: 'Too many requests' };
-  }
-
-  const lastTokenRow = recentTokenRows.pop();
-
-  // don't sent new emails if user just requested one
-  if (lastTokenRow && lastTokenRow.updatedAt > getRecentTime(1)) {
-    return { success: true, message: 'Wait a minute before asking for a new email' };
-  }
-
-  // if recently used a valid token and there is still time to use it, email it again
-  if (lastTokenRow && lastTokenRow.createdAt > getRecentTime(TOKEN_EXPIRE_MINUTES / 2)) {
-    // update the token timestamp, to be able to check when we sent last email
-    await prisma.token.update({
-      where: { id: lastTokenRow.id },
-      data: { resolved: false },
-    });
-
-    // email the token
-    console.log(
-      'email resend: Reset password token: ',
-      `${CLIENT_ADDRESS}/resetPassword?token=${lastTokenRow.token}`,
-    );
-
-    return { success: true };
-  }
+  // check if recently used one
+  // prisma.token.find
 
   const user = await prisma.user.findUnique({
     where: { email: credentials.email },
@@ -65,12 +19,10 @@ export const forgotPassword: MutationResolvers['forgotPassword'] = async (
   });
 
   if (!user) {
-    // Here we are not going to send an email, but
-    // shouldn't tell user if the email was not exists to prevent identifiying registered emails by strangers
-    return { success: true };
+    return { success: false, message: 'Incorrect email' };
   }
 
-  const token = uuidv4();
+  const token = makePasswordToken();
   await prisma.token.create({
     data: {
       user: { connect: { email: credentials.email } },
@@ -79,11 +31,8 @@ export const forgotPassword: MutationResolvers['forgotPassword'] = async (
     },
   });
 
-  // email the reset password link
-  console.log(
-    'email: Reset password token: ',
-    `${CLIENT_ADDRESS}/resetPassword?token=${token}`,
-  );
+  // email the token
+  console.log('Reset password token: ', token);
 
   return { success: true };
 };

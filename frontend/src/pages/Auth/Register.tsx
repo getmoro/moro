@@ -6,8 +6,8 @@ import { Button } from '../../components/Button';
 import { TextField } from '../../components/TextField';
 import { Checkbox } from '../../components/Checkbox';
 import { emailRegex } from '../../utils/constants';
-import { useRememberMe } from '../../utils/rememberMe';
-import { setToken } from '../../utils/token';
+import { useRememberMe } from '../../utils/hooks/useRememberMe';
+import { useToken } from '../../utils/hooks/useToken';
 import { AuthContainer } from './AuthContainer';
 import { Link } from './Link';
 
@@ -19,18 +19,19 @@ export const Register: FC = () => {
   const password = useRef<string | null | undefined>(''); // to use form watch and get password field value to compare it with repeatPassword
   password.current = watch('password', '');
   const [remember, setRemember] = useRememberMe(false); // preserves rememberMe state in the localStorage
-  const [registerUserMutation, { loading, data }] = useRegisterMutation({
-    errorPolicy: 'all',
-  }); // request handler
+  const [, setToken] = useToken(); // preserves token in a persistant state
+  const [registerUserMutation, { loading, data }] = useRegisterMutation(); // request handler
 
   const handle = async (values: RegisterFormType): Promise<void> => {
     // remove repeatPassword from values that we sent in the request
     const { repeatPassword, ...user } = values;
     const { data } = await registerUserMutation({ variables: { user } });
     // if it was successful
-    if (data?.register?.success && data?.register?.token) {
-      setToken(data.register.token);
-      history.push('/app');
+    if (data && data.register) {
+      if (data.register.success) {
+        setToken(data.register.token);
+        history.push('/app');
+      }
     }
   };
 
