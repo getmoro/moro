@@ -28,6 +28,7 @@
     "graphql-tools": "^7.0.2",
     "helmet": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
+    "nanoid": "^3.1.20",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"

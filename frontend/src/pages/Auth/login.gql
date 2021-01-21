@@ -1,0 +1,7 @@
+mutation login($credentials: CredentialsInput!) {
+  login(credentials: $credentials) {
+    success
+    token
+    message
+  }
+}

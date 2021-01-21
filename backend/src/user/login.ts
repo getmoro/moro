@@ -2,7 +2,7 @@ import { MutationResolvers } from '../graphql/resolvers-types';
 import { createTokenFromUser } from './createTokenFromUser';
 import { getUserByCredentials } from './getUserByCredentials';
 
-export const register: MutationResolvers['login'] = async (parent, { credentials }) => {
+export const login: MutationResolvers['login'] = async (parent, { credentials }) => {
   const user = await getUserByCredentials(credentials);
 
   if (!user) {

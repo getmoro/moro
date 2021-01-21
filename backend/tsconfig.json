@@ -11,11 +11,8 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"],
-      "src/*": ["./src/*"]
+      "*": ["node_modules/*", "src/types/*"]
     }
-  },
-  "include": ["src/**/*"]
+  }
 }

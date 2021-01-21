@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
-import { Home, Login, Register, Dashboard } from './pages';
+import { Home, Login, Register, Dashboard, ForgotPassword, ResetPassword } from './pages';
 import { Theme } from './Theme';
 import { client } from './graphql/client';
 
@@ -18,6 +18,12 @@ export const App: FC = () => (
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/forgotPassword">
+            <ForgotPassword />
+          </Route>
+          <Route path="/resetPassword">
+            <ResetPassword />
           </Route>
           <Route path="/app">
             <Dashboard />

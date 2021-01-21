@@ -24,7 +24,7 @@
         "ignoreParameters": true
       }
     ],
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
     "react/function-component-definition": [
       "error",
       { "namedComponents": "arrow-function", "unnamedComponents": "arrow-function" }
