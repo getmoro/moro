@@ -10,9 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 export const GoogleLogin: FC = () => {
   const history = useHistory(); // used to redirect to app after login
-  const [validateMutation, { loading, data }] = useValidateSocialLoginMutation({
-    errorPolicy: 'all',
-  });
+  const [validateMutation, { loading, data }] = useValidateSocialLoginMutation();
 
   const handleSuccess = async (values: GoogleLoginResponse): Promise<void> => {
     if (values.tokenId) {
