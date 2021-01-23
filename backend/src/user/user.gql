@@ -19,6 +19,15 @@ input NewPasswordInput {
   token: String!
 }
 
+enum AuthServices {
+  GOOGLE
+}
+
+input SocialLoginInput {
+  service: AuthServices!
+  token: String!
+}
+
 type User {
   id: Int
   email: String
@@ -42,4 +51,5 @@ type Mutation {
   login(credentials: CredentialsInput!): AuthResult
   forgotPassword(credentials: EmailInput!): AuthResult
   resetPassword(credentials: NewPasswordInput!): AuthResult
+  validateSocialLogin(credentials: SocialLoginInput!): AuthResult
 }

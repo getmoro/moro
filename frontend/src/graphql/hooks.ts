@@ -50,6 +50,15 @@ export type NewPasswordInput = {
   token: Scalars['String'];
 };
 
+export enum AuthServices {
+  Google = 'GOOGLE',
+}
+
+export type SocialLoginInput = {
+  service: AuthServices;
+  token: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id?: Maybe<Scalars['Int']>;
@@ -71,6 +80,7 @@ export type Mutation = {
   login?: Maybe<AuthResult>;
   forgotPassword?: Maybe<AuthResult>;
   resetPassword?: Maybe<AuthResult>;
+  validateSocialLogin?: Maybe<AuthResult>;
 };
 
 export type MutationCreateUserArgs = {
@@ -91,6 +101,10 @@ export type MutationForgotPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   credentials: NewPasswordInput;
+};
+
+export type MutationValidateSocialLoginArgs = {
+  credentials: SocialLoginInput;
 };
 
 export type ForgotPasswordMutationVariables = Exact<{
@@ -131,6 +145,22 @@ export type RegisterMutation = { __typename?: 'Mutation' } & {
   register?: Maybe<
     { __typename?: 'AuthResult' } & Pick<AuthResult, 'success' | 'token' | 'message'>
   >;
+};
+
+export type ValidateSocialLoginMutationVariables = Exact<{
+  credentials: SocialLoginInput;
+}>;
+
+export type ValidateSocialLoginMutation = { __typename?: 'Mutation' } & {
+  validateSocialLogin?: Maybe<
+    { __typename?: 'AuthResult' } & Pick<AuthResult, 'success' | 'token' | 'message'>
+  >;
+};
+
+export type UserQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UserQuery = { __typename?: 'Query' } & {
+  user?: Maybe<{ __typename?: 'User' } & Pick<User, 'email' | 'name'>>;
 };
 
 export const ForgotPasswordDocument = gql`
@@ -319,3 +349,90 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<
   RegisterMutation,
   RegisterMutationVariables
 >;
+export const ValidateSocialLoginDocument = gql`
+  mutation validateSocialLogin($credentials: SocialLoginInput!) {
+    validateSocialLogin(credentials: $credentials) {
+      success
+      token
+      message
+    }
+  }
+`;
+export type ValidateSocialLoginMutationFn = Apollo.MutationFunction<
+  ValidateSocialLoginMutation,
+  ValidateSocialLoginMutationVariables
+>;
+
+/**
+ * __useValidateSocialLoginMutation__
+ *
+ * To run a mutation, you first call `useValidateSocialLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useValidateSocialLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [validateSocialLoginMutation, { data, loading, error }] = useValidateSocialLoginMutation({
+ *   variables: {
+ *      credentials: // value for 'credentials'
+ *   },
+ * });
+ */
+export function useValidateSocialLoginMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ValidateSocialLoginMutation,
+    ValidateSocialLoginMutationVariables
+  >,
+) {
+  return Apollo.useMutation<
+    ValidateSocialLoginMutation,
+    ValidateSocialLoginMutationVariables
+  >(ValidateSocialLoginDocument, baseOptions);
+}
+export type ValidateSocialLoginMutationHookResult = ReturnType<
+  typeof useValidateSocialLoginMutation
+>;
+export type ValidateSocialLoginMutationResult = Apollo.MutationResult<ValidateSocialLoginMutation>;
+export type ValidateSocialLoginMutationOptions = Apollo.BaseMutationOptions<
+  ValidateSocialLoginMutation,
+  ValidateSocialLoginMutationVariables
+>;
+export const UserDocument = gql`
+  query user {
+    user {
+      email
+      name
+    }
+  }
+`;
+
+/**
+ * __useUserQuery__
+ *
+ * To run a query within a React component, call `useUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserQuery(
+  baseOptions?: Apollo.QueryHookOptions<UserQuery, UserQueryVariables>,
+) {
+  return Apollo.useQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
+}
+export function useUserLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<UserQuery, UserQueryVariables>,
+) {
+  return Apollo.useLazyQuery<UserQuery, UserQueryVariables>(UserDocument, baseOptions);
+}
+export type UserQueryHookResult = ReturnType<typeof useUserQuery>;
+export type UserLazyQueryHookResult = ReturnType<typeof useUserLazyQuery>;
+export type UserQueryResult = Apollo.QueryResult<UserQuery, UserQueryVariables>;

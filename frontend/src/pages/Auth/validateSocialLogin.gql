@@ -1,0 +1,7 @@
+mutation validateSocialLogin($credentials: SocialLoginInput!) {
+  validateSocialLogin(credentials: $credentials) {
+    success
+    token
+    message
+  }
+}

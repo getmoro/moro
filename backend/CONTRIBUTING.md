@@ -47,33 +47,8 @@ This will automatically run `npm run configure-db` from the npm `prestart` scrip
 
 ### Authentication
 
-#### Local strategy
+#### Local
 
 Local strategy is using JWT token and Authorization Bearer header.
 
-Post email and password as `application/x-www-form-urlencoded` or `application/json` to `\login` and you will receive a token in a JSON response. Like: `{ "token": "JWTTOKEN" }`.  
-Then use the token for accessing secure grahpql nodes (or routes) by providing `Authorization: Bearer` in the request header like: `{ "Authorization": "Bearer JWTTOKEN" }`.
-
-Sample:
-
-```js
-var myHeaders = new Headers();
-myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
-
-var urlencoded = new URLSearchParams();
-urlencoded.append('email', 'YOUR_EMAIL'); // Change this
-urlencoded.append('password', 'YOUR_PASSWORD'); // Change this
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: urlencoded
-};
-
-fetch('http://localhost:4000/login', requestOptions)
-  .then(response => response.json())
-  .then(result =>
-    console.log(`{ "Authorization": "Bearer ${result.token}" }`)
-  ) // paste this to graphql playground http headers section
-  .catch(error => console.log('error', error));
-```
+Use Graphql login mutation and send required fields. (email, password) You will receive a token. Use the token for accessing secure grahpql nodes (or routes) by providing `Authorization: Bearer` in the request header like: `{ "authorization": "Bearer JWTTOKEN" }`.

@@ -52,6 +52,15 @@ export type NewPasswordInput = {
   token: Scalars['String'];
 };
 
+export enum AuthServices {
+  Google = 'GOOGLE',
+}
+
+export type SocialLoginInput = {
+  service: AuthServices;
+  token: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id?: Maybe<Scalars['Int']>;
@@ -73,6 +82,7 @@ export type Mutation = {
   login?: Maybe<AuthResult>;
   forgotPassword?: Maybe<AuthResult>;
   resetPassword?: Maybe<AuthResult>;
+  validateSocialLogin?: Maybe<AuthResult>;
 };
 
 export type MutationCreateUserArgs = {
@@ -93,6 +103,10 @@ export type MutationForgotPasswordArgs = {
 
 export type MutationResetPasswordArgs = {
   credentials: NewPasswordInput;
+};
+
+export type MutationValidateSocialLoginArgs = {
+  credentials: SocialLoginInput;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -204,6 +218,8 @@ export type ResolversTypes = ResolversObject<{
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
+  AuthServices: AuthServices;
+  SocialLoginInput: SocialLoginInput;
   User: ResolverTypeWrapper<User>;
   AuthResult: ResolverTypeWrapper<AuthResult>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -220,6 +236,7 @@ export type ResolversParentTypes = ResolversObject<{
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
+  SocialLoginInput: SocialLoginInput;
   User: User;
   AuthResult: AuthResult;
   Boolean: Scalars['Boolean'];
@@ -320,6 +337,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationResetPasswordArgs, 'credentials'>
+  >;
+  validateSocialLogin?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationValidateSocialLoginArgs, 'credentials'>
   >;
 }>;
 

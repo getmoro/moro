@@ -23,7 +23,13 @@ export const startExpress = (): void => {
   }
 
   // Extract user from JWT (Authorization header Bearer) as user in all requests
-  app.use(expressJwt({ secret: JWT_SECRET, algorithms: [JWT_ALGORITHM] }));
+  app.use(
+    expressJwt({
+      secret: JWT_SECRET,
+      algorithms: [JWT_ALGORITHM],
+      credentialsRequired: false, // because we don't want it to throw when the token doesn't exist in the request header (for example the login graphql query)
+    }),
+  );
 
   // some level of http security
   app.use(

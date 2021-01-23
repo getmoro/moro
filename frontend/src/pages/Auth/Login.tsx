@@ -10,6 +10,7 @@ import { setToken } from '../../utils/token';
 import { CredentialsInput, useLoginMutation } from '../../graphql/hooks';
 import { AuthContainer } from './AuthContainer';
 import { Link } from './Link';
+import { GoogleLogin } from './GoogleLogin';
 
 export const Login: FC = () => {
   const history = useHistory(); // used to redirect to app after login
@@ -32,6 +33,7 @@ export const Login: FC = () => {
 
   return (
     <AuthContainer onSubmit={handleSubmit(handle)}>
+      <GoogleLogin />
       <TextField
         name="email"
         placeholder="email"
