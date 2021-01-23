@@ -31,10 +31,7 @@
     "graphql-tools": "^7.0.2",
     "helmet": "^4.2.0",
     "jsonwebtoken": "^8.5.1",
-    "nanoid": "^3.1.20",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "nanoid": "^3.1.20"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.12.7",
@@ -46,9 +43,7 @@
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.9",
     "@types/express-jwt": "^6.0.0",
-    "@types/jest": "^26.0.20",
     "@types/node": "^14.14.11",
-    "@types/uuid": "^8.3.0",
     "concurrently": "^5.3.0",
     "jest": "^26.6.3",
     "ts-jest": "^26.4.4",
