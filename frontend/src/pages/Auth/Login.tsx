@@ -21,11 +21,9 @@ export const Login: FC = () => {
   const handle = async (values: CredentialsInput): Promise<void> => {
     const { data } = await loginUserMutation({ variables: { credentials: values } });
     // if it was successful
-    if (data && data.login) {
-      if (data.login.success && data.login.token) {
-        setToken(data.login.token);
-        history.push('/app');
-      }
+    if (data?.login?.success && data?.login?.token) {
+      setToken(data.login.token);
+      history.push('/app');
     }
   };
 

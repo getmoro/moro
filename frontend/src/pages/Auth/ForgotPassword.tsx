@@ -18,10 +18,8 @@ export const ForgotPassword: FC = () => {
   const handle = async (values: EmailInput): Promise<void> => {
     const { data } = await forgotPasswordMutation({ variables: { credentials: values } });
     // if it was successful
-    if (data && email.current && data.forgotPassword) {
-      if (data.forgotPassword.success) {
-        redirectToResetPasswordPage(email.current);
-      }
+    if (email.current && data?.forgotPassword?.success) {
+      redirectToResetPasswordPage(email.current);
     }
   };
 
