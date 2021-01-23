@@ -1,9 +1,9 @@
 import express from 'express';
 import helmet from 'helmet';
+import expressJwt from 'express-jwt';
 import { getApolloServer } from '../graphql/graphqlServer';
 import { apolloContext } from './apolloContext';
-import bodyParser from 'body-parser';
-import { initPassport } from './passport';
+import { JWT_SECRET } from '../utils/constants';
 
 export const startExpress = (): void => {
   const app = express();
@@ -22,11 +22,8 @@ export const startExpress = (): void => {
     });
   }
 
-  // passport needs these two:
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
-
-  initPassport(app);
+  // Extract user from JWT (Authorization header Bearer) as user in all requests
+  app.use(expressJwt({ secret: JWT_SECRET, algorithms: ['HS256'] }));
 
   // some level of http security
   app.use(

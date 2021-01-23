@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { User } from '@prisma/client';
 import { User as PublicUser } from '../graphql/resolvers-types';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'JWT_DARK_SECRET';
+import { JWT_SECRET } from '../utils/constants';
 
 export const createTokenFromUser = (user: User): string => {
   const body: PublicUser = {
@@ -10,5 +9,5 @@ export const createTokenFromUser = (user: User): string => {
     email: user.email,
     name: user.name,
   };
-  return jwt.sign({ user: body }, JWT_SECRET);
+  return jwt.sign(body, JWT_SECRET);
 };
