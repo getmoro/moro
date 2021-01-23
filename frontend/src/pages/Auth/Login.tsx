@@ -5,8 +5,8 @@ import { Button } from '../../components/Button';
 import { TextField } from '../../components/TextField';
 import { Checkbox } from '../../components/Checkbox';
 import { emailRegex } from '../../utils/constants';
-import { useRememberMe } from '../../utils/hooks/useRememberMe';
-import { useToken } from '../../utils/hooks/useToken';
+import { useRememberMe } from '../../utils/rememberMe';
+import { setToken } from '../../utils/token';
 import { CredentialsInput, useLoginMutation } from '../../graphql/hooks';
 import { AuthContainer } from './AuthContainer';
 import { Link } from './Link';
@@ -15,14 +15,13 @@ export const Login: FC = () => {
   const history = useHistory(); // used to redirect to app after login
   const { handleSubmit, register, errors } = useForm<CredentialsInput>(); // handles form values
   const [remember, setRemember] = useRememberMe(false); // preserves rememberMe state in the localStorage
-  const [, setToken] = useToken(); // preserves token in a persistant state
   const [loginUserMutation, { loading, data }] = useLoginMutation(); // request handler
 
   const handle = async (values: CredentialsInput): Promise<void> => {
     const { data } = await loginUserMutation({ variables: { credentials: values } });
     // if it was successful
     if (data && data.login) {
-      if (data.login.success) {
+      if (data.login.success && data.login.token) {
         setToken(data.login.token);
         history.push('/app');
       }

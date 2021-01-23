@@ -6,8 +6,8 @@ import { Button } from '../../components/Button';
 import { TextField } from '../../components/TextField';
 import { Checkbox } from '../../components/Checkbox';
 import { emailRegex } from '../../utils/constants';
-import { useRememberMe } from '../../utils/hooks/useRememberMe';
-import { useToken } from '../../utils/hooks/useToken';
+import { useRememberMe } from '../../utils/rememberMe';
+import { setToken } from '../../utils/token';
 import { AuthContainer } from './AuthContainer';
 import { Link } from './Link';
 
@@ -19,7 +19,6 @@ export const Register: FC = () => {
   const password = useRef<string | null | undefined>(''); // to use form watch and get password field value to compare it with repeatPassword
   password.current = watch('password', '');
   const [remember, setRemember] = useRememberMe(false); // preserves rememberMe state in the localStorage
-  const [, setToken] = useToken(); // preserves token in a persistant state
   const [registerUserMutation, { loading, data }] = useRegisterMutation(); // request handler
 
   const handle = async (values: RegisterFormType): Promise<void> => {
@@ -28,7 +27,7 @@ export const Register: FC = () => {
     const { data } = await registerUserMutation({ variables: { user } });
     // if it was successful
     if (data && data.register) {
-      if (data.register.success) {
+      if (data.register.success && data.register.token) {
         setToken(data.register.token);
         history.push('/app');
       }
