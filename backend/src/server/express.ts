@@ -3,7 +3,7 @@ import helmet from 'helmet';
 import expressJwt from 'express-jwt';
 import { getApolloServer } from '../graphql/graphqlServer';
 import { apolloContext } from './apolloContext';
-import { JWT_SECRET } from '../utils/constants';
+import { JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
 
 export const startExpress = (): void => {
   const app = express();
@@ -23,7 +23,7 @@ export const startExpress = (): void => {
   }
 
   // Extract user from JWT (Authorization header Bearer) as user in all requests
-  app.use(expressJwt({ secret: JWT_SECRET, algorithms: ['HS256'] }));
+  app.use(expressJwt({ secret: JWT_SECRET, algorithms: [JWT_ALGORITHM] }));
 
   // some level of http security
   app.use(
