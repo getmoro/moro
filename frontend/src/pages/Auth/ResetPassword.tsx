@@ -30,10 +30,8 @@ export const ResetPassword: FC = () => {
       variables: { credentials: { ...credentials, email } },
     });
     // if it was successful
-    if (data && data.resetPassword) {
-      if (data.resetPassword.success) {
-        history.push('/app');
-      }
+    if (data?.resetPassword?.success) {
+      history.push('/app');
     }
   };
 

@@ -26,11 +26,9 @@ export const Register: FC = () => {
     const { repeatPassword, ...user } = values;
     const { data } = await registerUserMutation({ variables: { user } });
     // if it was successful
-    if (data && data.register) {
-      if (data.register.success && data.register.token) {
-        setToken(data.register.token);
-        history.push('/app');
-      }
+    if (data?.register?.success && data?.register?.token) {
+      setToken(data.register.token);
+      history.push('/app');
     }
   };
 
