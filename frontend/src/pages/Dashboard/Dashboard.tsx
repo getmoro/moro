@@ -11,8 +11,8 @@ const Root = styled.div`
 `;
 
 export const Dashboard: FC = () => {
-  const { data } = useUserQuery();
-  console.log(data);
+  const { data, error } = useUserQuery();
+  console.log(data, error);
 
   return <Root>This is the dashboard</Root>;
 };

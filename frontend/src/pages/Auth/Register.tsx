@@ -19,7 +19,9 @@ export const Register: FC = () => {
   const password = useRef<string | null | undefined>(''); // to use form watch and get password field value to compare it with repeatPassword
   password.current = watch('password', '');
   const [remember, setRemember] = useRememberMe(false); // preserves rememberMe state in the localStorage
-  const [registerUserMutation, { loading, data }] = useRegisterMutation(); // request handler
+  const [registerUserMutation, { loading, data }] = useRegisterMutation({
+    errorPolicy: 'all',
+  }); // request handler
 
   const handle = async (values: RegisterFormType): Promise<void> => {
     // remove repeatPassword from values that we sent in the request

@@ -29,8 +29,14 @@ input EmailInput {
 }
 
 input NewPasswordInput {
+  email: String!
+    @stringLength(min: 0, max: 200)
+    @pattern(
+      regexp: "^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+      flags: "i"
+    )
   password: String! @stringLength(min: 8, max: 300)
-  token: String! @stringLength(min: 0, max: 50)
+  token: String! @stringLength(min: 6, max: 6)
 }
 
 enum AuthServices {
@@ -40,30 +46,6 @@ enum AuthServices {
 input SocialLoginInput {
   service: AuthServices!
   token: String! @stringLength(min: 0, max: 2000)
-}
-
-input CredentialsInput {
-  email: String!
-  password: String
-}
-
-input EmailInput {
-  email: String!
-}
-
-input NewPasswordInput {
-  email: String!
-  password: String!
-  token: String!
-}
-
-enum AuthServices {
-  GOOGLE
-}
-
-input SocialLoginInput {
-  service: AuthServices!
-  token: String!
 }
 
 type User {
@@ -84,7 +66,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(user: UserInput!): User
+  createUser(user: UserInput!): User @hasPermissions(permissions: ["users.create"])
   register(user: UserInput!): AuthResult
   login(credentials: CredentialsInput!): AuthResult
   forgotPassword(credentials: EmailInput!): AuthResult
