@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm run configure-db",
     "start": "concurrently --handle-input npm:watch-node npm:watch-graphql",
-    "watch-node": "nodemon ./src/server.ts",
+    "watch-node": "ts-node-dev --rs --exit-child ./src/server.ts",
     "watch-graphql": "graphql-codegen --watch 'src/**/*.gql'",
     "generate-types": "graphql-codegen",
     "configure-db": "npx prisma migrate dev --preview-feature"
@@ -18,6 +18,7 @@
     "@graphql-tools/load-files": "^6.2.5",
     "@graphql-tools/merge": "^6.2.6",
     "@prisma/client": "^2.13.0",
+    "@profusion/apollo-validation-directives": "^2.1.1",
     "apollo-server": "^2.19.0",
     "apollo-server-express": "^2.19.0",
     "bcrypt": "^5.0.0",
@@ -42,8 +43,8 @@
     "@types/express-jwt": "^6.0.0",
     "@types/node": "^14.14.11",
     "concurrently": "^5.3.0",
-    "nodemon": "^2.0.6",
     "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.2"
   }
 }

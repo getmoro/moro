@@ -13,7 +13,9 @@ export const ForgotPassword: FC = () => {
   const { handleSubmit, register, errors, watch } = useForm<EmailInput>(); // handles form values
   const email = useRef<string | null | undefined>(''); // to use form watch and get email field value to send it for ResetPassword component on the success redirect
   email.current = watch('email', '');
-  const [forgotPasswordMutation, { loading, data }] = useForgotPasswordMutation(); // request handler
+  const [forgotPasswordMutation, { loading, data }] = useForgotPasswordMutation({
+    errorPolicy: 'all',
+  }); // request handler
 
   const handle = async (values: EmailInput): Promise<void> => {
     const { data } = await forgotPasswordMutation({ variables: { credentials: values } });

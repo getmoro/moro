@@ -16,7 +16,9 @@ export const Login: FC = () => {
   const history = useHistory(); // used to redirect to app after login
   const { handleSubmit, register, errors } = useForm<CredentialsInput>(); // handles form values
   const [remember, setRemember] = useRememberMe(false); // preserves rememberMe state in the localStorage
-  const [loginUserMutation, { loading, data }] = useLoginMutation(); // request handler
+  const [loginUserMutation, { loading, data }] = useLoginMutation({
+    errorPolicy: 'all',
+  }); // request handler
 
   const handle = async (values: CredentialsInput): Promise<void> => {
     const { data } = await loginUserMutation({ variables: { credentials: values } });

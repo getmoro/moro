@@ -45,6 +45,8 @@ npm start
 
 This will automatically run `npm run configure-db` from the npm `prestart` script to apply db changes if there is any.
 
+KNOWN BUG: There is currently a bug in dev server that requires manual server restart when changing `.gql` files. Type rs in the console and press enter and it will restart the server.
+
 ### Authentication
 
 #### Local

@@ -17,7 +17,9 @@ export const ResetPassword: FC = () => {
   const { handleSubmit, register, errors, watch } = useForm<ResetPasswordFormType>(); // handles form values
   const password = useRef<string | null | undefined>(''); // to use form watch and get password field value to compare it with repeatPassword
   password.current = watch('password', '');
-  const [resetPasswordMutation, { loading, data }] = useResetPasswordMutation(); // request handler
+  const [resetPasswordMutation, { loading, data }] = useResetPasswordMutation({
+    errorPolicy: 'all',
+  }); // request handler
 
   const handle = async (values: ResetPasswordFormType): Promise<void> => {
     const { repeatPassword, ...credentials } = values;

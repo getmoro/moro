@@ -243,24 +243,6 @@ export type ResolversParentTypes = ResolversObject<{
   Mutation: {};
 }>;
 
-export type IsAuthenticatedDirectiveArgs = {};
-
-export type IsAuthenticatedDirectiveResolver<
-  Result,
-  Parent,
-  ContextType = ApolloContext,
-  Args = IsAuthenticatedDirectiveArgs
-> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type HasRoleDirectiveArgs = { role?: Maybe<Scalars['String']> };
-
-export type HasRoleDirectiveResolver<
-  Result,
-  Parent,
-  ContextType = ApolloContext,
-  Args = HasRoleDirectiveArgs
-> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
 export type ProjectResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['Project'] = ResolversParentTypes['Project']
@@ -359,15 +341,3 @@ export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
 export type IResolvers<ContextType = ApolloContext> = Resolvers<ContextType>;
-export type DirectiveResolvers<ContextType = ApolloContext> = ResolversObject<{
-  isAuthenticated?: IsAuthenticatedDirectiveResolver<any, any, ContextType>;
-  hasRole?: HasRoleDirectiveResolver<any, any, ContextType>;
-}>;
-
-/**
- * @deprecated
- * Use "DirectiveResolvers" root object instead. If you wish to get "IDirectiveResolvers", add "typesPrefix: I" to your config.
- */
-export type IDirectiveResolvers<
-  ContextType = ApolloContext
-> = DirectiveResolvers<ContextType>;
