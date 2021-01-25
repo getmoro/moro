@@ -91,17 +91,17 @@ const updateDatabase = (options, knex) => {
       // Database has been affected
       // Here we have to add a new log
       console.log('Db affected...');
-      setLogData(knex, {
-        action,
-        type: action === 'addNote' ? 'notes' : 'records',
-        realId: result[0],
+      const type = action === 'addNote' ? 'notes' : 'records'
+      return knex.select('*').from('records').where({ date }).then((result) => {
+        console.log('records checked for id >>', result);
+        return setLogData(knex, { action, type, dataId: result[0].id })
+        .then((result) => {
+          console.log('result', result);
+        })
       })
-      .then((result) => {
-        console.log('result', result);
-      })
-      .catch((err) => { console.log(err); })
+      // .catch((err) => { console.log(err); })
     })
-    .catch((err) => { console.log(err); })
+    // .catch((err) => { console.log(err); })
     // .catch(spinner.fail);
 };
 
@@ -203,24 +203,21 @@ const getRowsAfter = (knex, table, recordId) =>
 // Create a log table
 const createLogTable = (knex) => {
   console.log('Check if log Table exists...');
-  const exists = false;
-  // return knex.schema.hasTable('logs')
-  //   .then((exists) => {
-    //     return exists
-    if (!exists) {
-        console.log('exists >>', exists);
+  return knex.schema.hasTable('logs')
+    .then((exists) => {
+      if (!exists) {
         return knex.schema
           .createTable('logs', (table) => {
             table.increments('id');
             table.string('action');
             table.string('type');
-            table.integer('realId');
+            table.integer('dataId');
           })
           .catch((err) => { console.log('exists err', err) })
 
           // .catch((e) => spinner.fail(`Errors in createTable ${e}`));
       }
-    // })
+    })
     // .catch((err) => { console.log(err) })
 }
 
@@ -243,7 +240,7 @@ const setLogData = (knex, data) => {
   return createLogTable(knex)
     .then(() => {
       console.log('Finalize Log...');
-      // return knex.insert(data).into('logs')
+      return knex.insert(data).into('logs')
     })
     .catch((e) => { console.log(e);})
 }
