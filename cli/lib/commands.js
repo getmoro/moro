@@ -56,6 +56,7 @@ const setStart = (args, options, logger) => {
       return db
         .updateDatabase(payload, db.knex)
         .then(() => {
+          // Here we have to add a new edit log
           spinnerSucceed(spinner, `You clocked in at: ${start}\n\n`).start();
           helpers.shouldWorkUntil(start, config);
         })
@@ -85,6 +86,7 @@ const setBreak = (args, options, logger) => {
     .updateDatabase(payload, db.knex)
     .catch(spinner.fail)
     .then(() => {
+      // Here we have to add a new edit log
       report();
     });
 };
@@ -180,6 +182,7 @@ const setEnd = (args, options, logger) => {
     action: 'setEnd',
   };
   return db.updateDatabase(payload, db.knex).then(() => {
+    // Here we have to add a new edit log
     report();
   });
 };
@@ -209,7 +212,10 @@ const addNote = (args, options, logger) => {
       };
       return db
         .updateDatabase(payload, db.knex)
-        .then(() => report())
+        .then(() => {
+          // Here we have to add a new edit log
+          report()
+        })
         .catch(spinner.fail)
         .finally(() => {
           spinnerSucceed(spinner, constants.TEXT.addNoteSuccess).start();

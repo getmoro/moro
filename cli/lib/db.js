@@ -82,10 +82,27 @@ const updateDatabase = (options, knex) => {
         }
       } else {
         // date doesn't exist, insert it
+        if (action === 'addNote')
+          throw 'Add the start time first'
         return knex.insert({ date, start, end, breakDuration }).into('records');
       }
     })
-    .catch(spinner.fail);
+    .then((result) => {
+      // Database has been affected
+      // Here we have to add a new log
+      console.log('Db affected...');
+      const type = action === 'addNote' ? 'notes' : 'records'
+      return knex.select('*').from('records').where({ date }).then((result) => {
+        console.log('records checked for id >>', result);
+        return setLogData(knex, { action, type, dataId: result[0].id })
+        .then((result) => {
+          console.log('result', result);
+        })
+      })
+      // .catch((err) => { console.log(err); })
+    })
+    // .catch((err) => { console.log(err); })
+    // .catch(spinner.fail);
 };
 
 // gets data for a single day
@@ -184,18 +201,25 @@ const getRowsAfter = (knex, table, recordId) =>
     .catch(spinner.fail);
 
 // Create a log table
-const createLogTable = (knex) =>
-  knex.schema.hasTable('logs').then((exists) => {
-    if (!exists) {
-      return knex.schema
-        .createTable('logs', (table) => {
-          table.increments('id');
-          table.string('type');
-          table.integer('lastLogId');
-        })
-        .catch((e) => spinner.fail(`Errors in createTable ${e}`));
-    }
-  });
+const createLogTable = (knex) => {
+  console.log('Check if log Table exists...');
+  return knex.schema.hasTable('logs')
+    .then((exists) => {
+      if (!exists) {
+        return knex.schema
+          .createTable('logs', (table) => {
+            table.increments('id');
+            table.string('action');
+            table.string('type');
+            table.integer('dataId');
+          })
+          .catch((err) => { console.log('exists err', err) })
+
+          // .catch((e) => spinner.fail(`Errors in createTable ${e}`));
+      }
+    })
+    // .catch((err) => { console.log(err) })
+}
 
 const getLastLogData = (knex, type) =>
   createLogTable(knex)
@@ -208,14 +232,21 @@ const getLastLogData = (knex, type) =>
         .limit(1)
         .catch((e) => spinner.fail(`Errors in fetch - ${e}`)),
     )
-    .catch((e) => spinner.fail(`Errors in createLogTable - ${e}`));
+    .catch((e) => spinner.fail(`Errors in createTable - ${e}`));
 
-const setLogData = (knex, data) =>
-  createLogTable(knex).then(() => knex.insert(data).into('logs'));
+const setLogData = (knex, data) => {
+  console.log('Set log data...');
+  console.log(data);
+  return createLogTable(knex)
+    .then(() => {
+      console.log('Finalize Log...');
+      return knex.insert(data).into('logs')
+    })
+    .catch((e) => { console.log(e);})
+}
 
 module.exports = {
   createTable,
-  createLogTable,
   getDateReport,
   updateDatabase,
   getLastLogData,
