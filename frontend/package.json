@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "graphql": "^15.4.0",
+    "qs": "^6.9.6",
     "react": "^16.14.0",
     "react-calendar-heatmap": "^1.8.1",
     "react-dom": "^16.14.0",
