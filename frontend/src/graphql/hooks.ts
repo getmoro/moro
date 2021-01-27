@@ -45,7 +45,6 @@ export type EmailInput = {
 };
 
 export type NewPasswordInput = {
-  email: Scalars['String'];
   password: Scalars['String'];
   token: Scalars['String'];
 };
@@ -123,7 +122,7 @@ export type ResetPasswordMutationVariables = Exact<{
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & {
   resetPassword?: Maybe<
-    { __typename?: 'AuthResult' } & Pick<AuthResult, 'success' | 'message'>
+    { __typename?: 'AuthResult' } & Pick<AuthResult, 'success' | 'message' | 'token'>
   >;
 };
 
@@ -217,6 +216,7 @@ export const ResetPasswordDocument = gql`
     resetPassword(credentials: $credentials) {
       success
       message
+      token
     }
   }
 `;

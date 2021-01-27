@@ -18,10 +18,6 @@ export const getFailedAttemptsCount = async (
       result = await prisma.loginFailedAttempt.findUnique(findQuery);
       break;
 
-    case ATTEMPT_TYPES.RESET_PASSWORD:
-      result = await prisma.resetPasswordFailedAttempt.findUnique(findQuery);
-      break;
-
     default:
       throw new Error('Wrong attempt type');
   }

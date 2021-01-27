@@ -6,12 +6,12 @@ import { emailRegex } from '../../utils/constants';
 import { EmailInput, useForgotPasswordMutation } from '../../graphql/hooks';
 import { AuthContainer } from './AuthContainer';
 import { Link } from './Link';
-import { useRedirectToResetPasswordPage } from './useResetPasswordRouter';
+import { useRedirectToEmailSentPage } from './useEmailSentRouter';
 
 export const ForgotPassword: FC = () => {
-  const redirectToResetPasswordPage = useRedirectToResetPasswordPage(); // used to redirect to ResetPassword component after submit and sending email as a location state
+  const redirectToResEmailSent = useRedirectToEmailSentPage(); // used to redirect to EmailSent component after submit and sending email as a location state
   const { handleSubmit, register, errors, watch } = useForm<EmailInput>(); // handles form values
-  const email = useRef<string | null | undefined>(''); // to use form watch and get email field value to send it for ResetPassword component on the success redirect
+  const email = useRef<string | null | undefined>(''); // to use form watch and get email field value to send it for EmailSent component on the success redirect
   email.current = watch('email', '');
   const [forgotPasswordMutation, { loading, data }] = useForgotPasswordMutation({
     errorPolicy: 'all',
@@ -21,7 +21,7 @@ export const ForgotPassword: FC = () => {
     const { data } = await forgotPasswordMutation({ variables: { credentials: values } });
     // if it was successful
     if (email.current && data?.forgotPassword?.success) {
-      redirectToResetPasswordPage(email.current);
+      redirectToResEmailSent(email.current);
     }
   };
 

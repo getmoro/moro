@@ -47,7 +47,6 @@ export type EmailInput = {
 };
 
 export type NewPasswordInput = {
-  email: Scalars['String'];
   password: Scalars['String'];
   token: Scalars['String'];
 };

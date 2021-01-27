@@ -1,18 +1,22 @@
 import React, { FC, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
+import { parse } from 'qs';
 import { Button } from '../../components/Button';
 import { TextField } from '../../components/TextField';
 import { NewPasswordInput, useResetPasswordMutation } from '../../graphql/hooks';
 import { AuthContainer } from './AuthContainer';
 import { Link } from './Link';
-import { useResetPasswordLocationState } from './useResetPasswordRouter';
+import { setToken } from '../../utils/token';
 
-type ResetPasswordFormType = Omit<NewPasswordInput, 'email'> & { repeatPassword: string };
+type ResetPasswordFormType = Omit<NewPasswordInput, 'token'> & { repeatPassword: string };
 
 export const ResetPassword: FC = () => {
   const history = useHistory(); // used to redirect to app after successful password reset
-  const email = useResetPasswordLocationState(); // forgotPasword page will redirect users to here and sends the entered email as a location state. We need this to send it to the server.
+
+  // get token from location
+  const { search } = useLocation();
+  const { token } = parse(search.replace('?', '')) as { token: string };
 
   const { handleSubmit, register, errors, watch } = useForm<ResetPasswordFormType>(); // handles form values
   const password = useRef<string | null | undefined>(''); // to use form watch and get password field value to compare it with repeatPassword
@@ -23,47 +27,33 @@ export const ResetPassword: FC = () => {
 
   const handle = async (values: ResetPasswordFormType): Promise<void> => {
     const { repeatPassword, ...credentials } = values;
-    if (!email) {
+    if (!token) {
       // this actually always exists, because we would redirect user to forgetPassword otherwise
       return;
     }
 
     const { data } = await resetPasswordMutation({
-      variables: { credentials: { ...credentials, email } },
+      variables: { credentials: { ...credentials, token } },
     });
     // if it was successful
-    if (data?.resetPassword?.success) {
+    if (data?.resetPassword?.success && data.resetPassword.token) {
+      setToken(data.resetPassword.token);
       history.push('/app');
     }
   };
 
-  if (!email) {
-    // if user came from somewhere other than forgotPassword page, we can't reset their password
-    return <Redirect to="/forgotPassword" />;
+  if (!token) {
+    // if user came from somewhere other than the actual email, just probably wrong address
+    return <Redirect to="/" />;
   }
 
   return (
     <AuthContainer onSubmit={handleSubmit(handle)}>
       <TextField
-        name="token"
-        placeholder="token"
-        ref={register({
-          maxLength: {
-            value: 6,
-            message: 'Token is a six digit number',
-          },
-          minLength: {
-            value: 6,
-            message: 'Token is a six digit number',
-          },
-        })}
-      />
-      {errors.token?.message}
-      <TextField
         name="password"
         type="password"
         placeholder="password"
-        ref={register({ required: 'Password is requried to register' })}
+        ref={register({ required: 'Password is requried' })}
       />
       {errors.password?.message}
       <TextField
@@ -76,7 +66,7 @@ export const ResetPassword: FC = () => {
       />
       {errors.repeatPassword?.message}
       {data?.resetPassword?.message}
-      <Button type="submit" label="Recover account" disabled={loading} primary />
+      <Button type="submit" label="Reset password" disabled={loading} primary />
       <Link to={'/forgotPassword'}>Try another email address</Link>
       <Link to={'/login'}>Login</Link>
       <Link to={'/register'}>Not a user? Create account</Link>
