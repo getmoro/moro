@@ -41,18 +41,8 @@ model Token {
 
 model LoginFailedAttempt {
   id         Int      @id @default(autoincrement())
-  user       User     @relation(fields: [email], references: [email])
-  email      String   @unique
-  count      Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @default(now()) @updatedAt
-}
-
-model ResetPasswordFailedAttempt {
-  id         Int      @id @default(autoincrement())
-  user       User     @relation(fields: [email], references: [email])
-  email      String   @unique
-  count      Int
+  email      String
+  resolved   Boolean
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
 }

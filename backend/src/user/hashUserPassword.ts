@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 const saltRounds = 10;
 
 interface IObjectWithPassword {
-  password: string;
+  password?: string | null;
 }
 
 export const hashUserPassword = async <T extends IObjectWithPassword>(
