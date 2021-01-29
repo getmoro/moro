@@ -1,9 +1,8 @@
 import jwt from 'jsonwebtoken';
-import { User } from '@prisma/client';
 import { User as PublicUser } from '../graphql/resolvers-types';
 import { JWT_SECRET, JWT_ALGORITHM } from '../utils/constants';
 
-export const createTokenFromUser = (user: User): string => {
+export const createTokenFromUser = <T extends PublicUser>(user: T): string => {
   const body: PublicUser = {
     id: user.id,
     email: user.email,
