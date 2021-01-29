@@ -57,7 +57,7 @@ Use Graphql login mutation and send required fields. (email, password) You will 
 
 ## Tests
 
-To run unit tests:
+To run tests:
 
 Use the alternative docker compose file to fire up the db:
 
