@@ -54,3 +54,15 @@ KNOWN BUG: There is currently a bug in dev server that requires manual server re
 Local strategy is using JWT token and Authorization Bearer header.
 
 Use Graphql login mutation and send required fields. (email, password) You will receive a token. Use the token for accessing secure grahpql nodes (or routes) by providing `Authorization: Bearer` in the request header like: `{ "authorization": "Bearer JWTTOKEN" }`.
+
+## Tests
+
+To run unit tests:
+
+Use the alternative docker compose file to fire up the db:
+
+```
+docker-compose -f docker-compose.tests.yml up -d
+```
+
+Run `npm run test`

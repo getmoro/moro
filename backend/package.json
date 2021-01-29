@@ -10,7 +10,8 @@
     "watch-graphql": "graphql-codegen --watch 'src/**/*.gql'",
     "generate-types": "graphql-codegen",
     "configure-db": "npx prisma migrate dev --preview-feature",
-    "test": "jest --env=node --colors test --watch"
+    "pretest": "npm run configure-db",
+    "test": "jest --env=node --watch"
   },
   "keywords": [],
   "author": "Artingle",
