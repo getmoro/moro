@@ -7,8 +7,18 @@ const login = resolverHelper(loginResolver);
 describe('login', () => {
   const user = { email: 'test@test.test', name: 'Test', password: 'testtest' };
   beforeEach(async () => {
+    // make user to test
     const data = await hashUserPassword(user);
     await prisma.user.create({ data });
+
+    // make another test user, just to be sure nothing is mixed up
+    const anotherUser = {
+      email: 'anothertest@test.test',
+      name: 'Some Test',
+      password: 'tsetest',
+    };
+    const anotherData = await hashUserPassword(anotherUser);
+    await prisma.user.create({ data: anotherData });
   });
   afterEach(async () => {
     await prisma.user.deleteMany();

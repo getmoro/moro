@@ -11,7 +11,7 @@
     "generate-types": "graphql-codegen",
     "configure-db": "npx prisma migrate dev --preview-feature",
     "pretest": "npm run configure-db",
-    "test": "jest --env=node --watch"
+    "test": "jest --env=node --watch --runInBand"
   },
   "keywords": [],
   "author": "Artingle",
