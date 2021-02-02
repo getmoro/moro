@@ -6,13 +6,11 @@ describe('createTokenFromUser', () => {
   it('creates token correctly', () => {
     const token = createTokenFromUser({
       id: 1,
-      email: 'test@test.test',
-      name: 'Test',
     });
 
     const tokenDecryptedKeys = Object.keys(jwt.verify(token, JWT_SECRET)).sort();
 
-    expect(tokenDecryptedKeys).toEqual(['email', 'iat', 'id', 'name']);
+    expect(tokenDecryptedKeys).toEqual(['iat', 'id']);
   });
 
   it('does not include extra fields', () => {
@@ -25,6 +23,6 @@ describe('createTokenFromUser', () => {
 
     const tokenDecryptedKeys = Object.keys(jwt.verify(token, JWT_SECRET)).sort();
 
-    expect(tokenDecryptedKeys).toEqual(['email', 'iat', 'id', 'name']);
+    expect(tokenDecryptedKeys).toEqual(['iat', 'id']);
   });
 });

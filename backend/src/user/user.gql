@@ -9,6 +9,18 @@ input UserInput {
   password: String @stringLength(min: 8, max: 300)
 }
 
+input AdminUserInput {
+  id: Int!
+  email: String
+    @stringLength(min: 0, max: 200)
+    @pattern(
+      regexp: "^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+      flags: "i"
+    )
+  name: String @stringLength(min: 0, max: 200)
+  accessList: [String!]
+}
+
 input CredentialsInput {
   email: String!
     @stringLength(min: 0, max: 200)
@@ -46,6 +58,7 @@ type User {
   id: Int
   email: String
   name: String
+  accessList: [String]
 }
 
 type AuthResult {
@@ -61,6 +74,7 @@ type Query {
 
 type Mutation {
   createUser(user: UserInput!): User @hasPermissions(permissions: ["users.create"])
+  updateUser(user: AdminUserInput!): User @hasPermissions(permissions: ["users.update"])
   register(user: UserInput!): AuthResult
   login(credentials: CredentialsInput!): AuthResult
   forgotPassword(credentials: EmailInput!): AuthResult

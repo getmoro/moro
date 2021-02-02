@@ -15,7 +15,7 @@ export const apolloContext = ({ req }: ApolloExpressContext): ApolloContext => (
   user: req.user,
   isAuthenticated: () => !!req.user,
   checkMissingPermissions: (neededPermissions) => {
-    console.log(neededPermissions);
+    console.log(neededPermissions, req.user);
     // get user permissions
     // subtract perm from user permissions
     // return missing permissions list

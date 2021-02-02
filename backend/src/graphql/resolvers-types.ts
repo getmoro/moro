@@ -17,6 +17,14 @@ export type Scalars = {
   Float: number;
 };
 
+export type Query = {
+  __typename?: 'Query';
+  getAccessList: Array<Scalars['String']>;
+  projects?: Maybe<Array<Maybe<Project>>>;
+  user?: Maybe<User>;
+  users?: Maybe<Array<Maybe<User>>>;
+};
+
 export type Project = {
   __typename?: 'Project';
   id?: Maybe<Scalars['Int']>;
@@ -24,17 +32,17 @@ export type Project = {
   createdAt?: Maybe<Scalars['String']>;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  projects?: Maybe<Array<Maybe<Project>>>;
-  user?: Maybe<User>;
-  users?: Maybe<Array<Maybe<User>>>;
-};
-
 export type UserInput = {
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+};
+
+export type AdminUserInput = {
+  id: Scalars['Int'];
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  accessList?: Maybe<Array<Scalars['String']>>;
 };
 
 export type CredentialsInput = {
@@ -65,6 +73,7 @@ export type User = {
   id?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  accessList?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type AuthResult = {
@@ -77,6 +86,7 @@ export type AuthResult = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
+  updateUser?: Maybe<User>;
   register?: Maybe<AuthResult>;
   login?: Maybe<AuthResult>;
   forgotPassword?: Maybe<AuthResult>;
@@ -86,6 +96,10 @@ export type Mutation = {
 
 export type MutationCreateUserArgs = {
   user: UserInput;
+};
+
+export type MutationUpdateUserArgs = {
+  user: AdminUserInput;
 };
 
 export type MutationRegisterArgs = {
@@ -209,11 +223,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
+  Query: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Project: ResolverTypeWrapper<Project>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  Query: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
+  AdminUserInput: AdminUserInput;
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
@@ -227,11 +242,12 @@ export type ResolversTypes = ResolversObject<{
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
+  Query: {};
+  String: Scalars['String'];
   Project: Project;
   Int: Scalars['Int'];
-  String: Scalars['String'];
-  Query: {};
   UserInput: UserInput;
+  AdminUserInput: AdminUserInput;
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
@@ -240,6 +256,20 @@ export type ResolversParentTypes = ResolversObject<{
   AuthResult: AuthResult;
   Boolean: Scalars['Boolean'];
   Mutation: {};
+}>;
+
+export type QueryResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
+> = ResolversObject<{
+  getAccessList?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  projects?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Project']>>>,
+    ParentType,
+    ContextType
+  >;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
 }>;
 
 export type ProjectResolvers<
@@ -252,19 +282,6 @@ export type ProjectResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type QueryResolvers<
-  ContextType = ApolloContext,
-  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
-> = ResolversObject<{
-  projects?: Resolver<
-    Maybe<Array<Maybe<ResolversTypes['Project']>>>,
-    ParentType,
-    ContextType
-  >;
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
-  users?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
-}>;
-
 export type UserResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
@@ -272,6 +289,11 @@ export type UserResolvers<
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  accessList?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['String']>>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -294,6 +316,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationCreateUserArgs, 'user'>
+  >;
+  updateUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateUserArgs, 'user'>
   >;
   register?: Resolver<
     Maybe<ResolversTypes['AuthResult']>,
@@ -328,8 +356,8 @@ export type MutationResolvers<
 }>;
 
 export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
-  Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Project?: ProjectResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   AuthResult?: AuthResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;

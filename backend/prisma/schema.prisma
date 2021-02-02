@@ -17,11 +17,12 @@ model Project {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  name     String?
-  password String?
-  projects Project?
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String?
+  password   String?
+  projects   Project?
+  accessList String[]
 }
 
 enum TOKEN_TYPES {

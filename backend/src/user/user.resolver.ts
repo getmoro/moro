@@ -7,6 +7,7 @@ import { login } from './login';
 import { forgotPassword } from './forgotPassword';
 import { resetPassword } from './resetPassword';
 import { validateSocialLogin } from './validateSocialLogin';
+import { updateUser } from './updateUser';
 
 const resolver: Resolvers = {
   Query: {
@@ -20,6 +21,7 @@ const resolver: Resolvers = {
     forgotPassword,
     resetPassword,
     validateSocialLogin,
+    updateUser,
   },
 };
 

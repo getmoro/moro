@@ -15,6 +15,14 @@ export type Scalars = {
   Float: number;
 };
 
+export type Query = {
+  __typename?: 'Query';
+  getAccessList: Array<Scalars['String']>;
+  projects?: Maybe<Array<Maybe<Project>>>;
+  user?: Maybe<User>;
+  users?: Maybe<Array<Maybe<User>>>;
+};
+
 export type Project = {
   __typename?: 'Project';
   id?: Maybe<Scalars['Int']>;
@@ -22,17 +30,17 @@ export type Project = {
   createdAt?: Maybe<Scalars['String']>;
 };
 
-export type Query = {
-  __typename?: 'Query';
-  projects?: Maybe<Array<Maybe<Project>>>;
-  user?: Maybe<User>;
-  users?: Maybe<Array<Maybe<User>>>;
-};
-
 export type UserInput = {
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+};
+
+export type AdminUserInput = {
+  id: Scalars['Int'];
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  accessList?: Maybe<Array<Scalars['String']>>;
 };
 
 export type CredentialsInput = {
@@ -63,6 +71,7 @@ export type User = {
   id?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  accessList?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type AuthResult = {
@@ -75,6 +84,7 @@ export type AuthResult = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
+  updateUser?: Maybe<User>;
   register?: Maybe<AuthResult>;
   login?: Maybe<AuthResult>;
   forgotPassword?: Maybe<AuthResult>;
@@ -84,6 +94,10 @@ export type Mutation = {
 
 export type MutationCreateUserArgs = {
   user: UserInput;
+};
+
+export type MutationUpdateUserArgs = {
+  user: AdminUserInput;
 };
 
 export type MutationRegisterArgs = {
