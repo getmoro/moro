@@ -1,5 +1,6 @@
 import { ApolloExpressContext } from '../types';
 import { prisma } from './prisma';
+import { checkMissingPermissions } from '../user/permissions/checkMissingPermissions';
 
 // This file will make apollo context available for resolvers
 
@@ -14,12 +15,5 @@ export const apolloContext = ({ req }: ApolloExpressContext): ApolloContext => (
   prisma,
   user: req.user,
   isAuthenticated: () => !!req.user,
-  checkMissingPermissions: (neededPermissions) => {
-    console.log(neededPermissions, req.user);
-    // get user permissions
-    // subtract perm from user permissions
-    // return missing permissions list
-
-    return [];
-  },
+  checkMissingPermissions: checkMissingPermissions(req.user),
 });

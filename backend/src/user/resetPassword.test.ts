@@ -4,7 +4,7 @@ import { prisma } from '../server/prisma';
 import { TOKEN_EXPIRE_MINUTES } from '../utils/constants';
 import { resetPassword as resetPasswordResolver } from './resetPassword';
 import { hashUserPassword } from './hashUserPassword';
-import { createFakeToken } from './createFakeToken';
+import { createFakeToken } from './utils/createFakeToken';
 const resetPassword = resolverHelper(resetPasswordResolver);
 
 describe('resetPassword', () => {

@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
-import { AuthServices } from '../graphql/resolvers-types';
+import { AuthServices } from '../../graphql/resolvers-types';
 import {
   GoogleTokenInfoResponse,
   TokenValidator,
   UserContent,
   ValidateTokenByService,
-} from './types';
+} from '../types';
 
 const googleTokenValidator: TokenValidator = (token) =>
   fetch('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=' + token)

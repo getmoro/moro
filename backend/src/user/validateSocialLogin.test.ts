@@ -3,7 +3,7 @@ import { AuthServices } from '../graphql/resolvers-types';
 import { prisma } from '../server/prisma';
 import { validateSocialLogin as validateSocialLoginResolver } from './validateSocialLogin';
 const validateSocialLogin = resolverHelper(validateSocialLoginResolver);
-jest.mock('./getTokenValidator');
+jest.mock('./utils/getTokenValidator');
 
 describe('validateSocialLogin', () => {
   afterEach(async () => {

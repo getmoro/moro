@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE "User" ADD COLUMN     "accessList" TEXT[];
+ALTER TABLE "User" ADD COLUMN     "permissions" TEXT[];

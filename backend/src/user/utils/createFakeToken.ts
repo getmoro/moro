@@ -1,6 +1,6 @@
 import { Token, TOKEN_TYPES } from '@prisma/client';
-import { prisma } from '../server/prisma';
-import { getRecentTime } from '../utils/getRecentTime';
+import { prisma } from '../../server/prisma';
+import { getRecentTime } from '../../utils/getRecentTime';
 
 // helper function for resetPassword
 export const createFakeToken = (

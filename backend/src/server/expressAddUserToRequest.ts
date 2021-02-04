@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import { ExpressRequest } from '../types';
-import { getUserById } from '../user/getUserById';
+import { getUserById } from '../user/utils/getUserById';
 
 export const expressAddUserToRequest: RequestHandler = async (
   req,

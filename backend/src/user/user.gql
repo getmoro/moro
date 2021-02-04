@@ -18,7 +18,7 @@ input AdminUserInput {
       flags: "i"
     )
   name: String @stringLength(min: 0, max: 200)
-  accessList: [String!]
+  permissions: [String!]
 }
 
 input CredentialsInput {
@@ -58,7 +58,7 @@ type User {
   id: Int
   email: String
   name: String
-  accessList: [String]
+  permissions: [String]
 }
 
 type AuthResult {
@@ -68,6 +68,7 @@ type AuthResult {
 }
 
 type Query {
+  getAllPermissions: [String!]!
   user: User @auth
   users: [User] @hasPermissions(permissions: ["users.read"])
 }
