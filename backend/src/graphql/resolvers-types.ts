@@ -37,6 +37,29 @@ export type UserInput = {
   password?: Maybe<Scalars['String']>;
 };
 
+export type CredentialsInput = {
+  email: Scalars['String'];
+  password?: Maybe<Scalars['String']>;
+};
+
+export type EmailInput = {
+  email: Scalars['String'];
+};
+
+export type NewPasswordInput = {
+  password: Scalars['String'];
+  token: Scalars['String'];
+};
+
+export enum AuthServices {
+  Google = 'GOOGLE',
+}
+
+export type SocialLoginInput = {
+  service: AuthServices;
+  token: Scalars['String'];
+};
+
 export type User = {
   __typename?: 'User';
   id?: Maybe<Scalars['Int']>;
@@ -44,13 +67,45 @@ export type User = {
   name?: Maybe<Scalars['String']>;
 };
 
+export type AuthResult = {
+  __typename?: 'AuthResult';
+  success?: Maybe<Scalars['Boolean']>;
+  token?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
+  register?: Maybe<AuthResult>;
+  login?: Maybe<AuthResult>;
+  forgotPassword?: Maybe<AuthResult>;
+  resetPassword?: Maybe<AuthResult>;
+  validateSocialLogin?: Maybe<AuthResult>;
 };
 
 export type MutationCreateUserArgs = {
   user: UserInput;
+};
+
+export type MutationRegisterArgs = {
+  user: UserInput;
+};
+
+export type MutationLoginArgs = {
+  credentials: CredentialsInput;
+};
+
+export type MutationForgotPasswordArgs = {
+  credentials: EmailInput;
+};
+
+export type MutationResetPasswordArgs = {
+  credentials: NewPasswordInput;
+};
+
+export type MutationValidateSocialLoginArgs = {
+  credentials: SocialLoginInput;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -159,9 +214,15 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
+  CredentialsInput: CredentialsInput;
+  EmailInput: EmailInput;
+  NewPasswordInput: NewPasswordInput;
+  AuthServices: AuthServices;
+  SocialLoginInput: SocialLoginInput;
   User: ResolverTypeWrapper<User>;
-  Mutation: ResolverTypeWrapper<{}>;
+  AuthResult: ResolverTypeWrapper<AuthResult>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Mutation: ResolverTypeWrapper<{}>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -171,28 +232,15 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   Query: {};
   UserInput: UserInput;
+  CredentialsInput: CredentialsInput;
+  EmailInput: EmailInput;
+  NewPasswordInput: NewPasswordInput;
+  SocialLoginInput: SocialLoginInput;
   User: User;
-  Mutation: {};
+  AuthResult: AuthResult;
   Boolean: Scalars['Boolean'];
+  Mutation: {};
 }>;
-
-export type IsAuthenticatedDirectiveArgs = {};
-
-export type IsAuthenticatedDirectiveResolver<
-  Result,
-  Parent,
-  ContextType = ApolloContext,
-  Args = IsAuthenticatedDirectiveArgs
-> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
-
-export type HasRoleDirectiveArgs = { role?: Maybe<Scalars['String']> };
-
-export type HasRoleDirectiveResolver<
-  Result,
-  Parent,
-  ContextType = ApolloContext,
-  Args = HasRoleDirectiveArgs
-> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type ProjectResolvers<
   ContextType = ApolloContext,
@@ -227,6 +275,16 @@ export type UserResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type AuthResultResolvers<
+  ContextType = ApolloContext,
+  ParentType extends ResolversParentTypes['AuthResult'] = ResolversParentTypes['AuthResult']
+> = ResolversObject<{
+  success?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MutationResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
@@ -237,12 +295,43 @@ export type MutationResolvers<
     ContextType,
     RequireFields<MutationCreateUserArgs, 'user'>
   >;
+  register?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationRegisterArgs, 'user'>
+  >;
+  login?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationLoginArgs, 'credentials'>
+  >;
+  forgotPassword?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationForgotPasswordArgs, 'credentials'>
+  >;
+  resetPassword?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationResetPasswordArgs, 'credentials'>
+  >;
+  validateSocialLogin?: Resolver<
+    Maybe<ResolversTypes['AuthResult']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationValidateSocialLoginArgs, 'credentials'>
+  >;
 }>;
 
 export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  AuthResult?: AuthResultResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
 }>;
 
@@ -251,15 +340,3 @@ export type Resolvers<ContextType = ApolloContext> = ResolversObject<{
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
  */
 export type IResolvers<ContextType = ApolloContext> = Resolvers<ContextType>;
-export type DirectiveResolvers<ContextType = ApolloContext> = ResolversObject<{
-  isAuthenticated?: IsAuthenticatedDirectiveResolver<any, any, ContextType>;
-  hasRole?: HasRoleDirectiveResolver<any, any, ContextType>;
-}>;
-
-/**
- * @deprecated
- * Use "DirectiveResolvers" root object instead. If you wish to get "IDirectiveResolvers", add "typesPrefix: I" to your config.
- */
-export type IDirectiveResolvers<
-  ContextType = ApolloContext
-> = DirectiveResolvers<ContextType>;

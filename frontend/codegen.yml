@@ -1,0 +1,13 @@
+schema: '../backend/**/*.gql'
+documents: ['src/**/*.gql', 'src/**/*.ts', 'src/**/*.tsx']
+hooks:
+  afterAllFileWrite:
+    - npx prettier --write
+generates:
+  ./src/graphql/hooks.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true

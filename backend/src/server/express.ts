@@ -1,18 +1,35 @@
 import express from 'express';
 import helmet from 'helmet';
+import expressJwt from 'express-jwt';
 import { getApolloServer } from '../graphql/graphqlServer';
 import { apolloContext } from './apolloContext';
-import bodyParser from 'body-parser';
-import { initPassport } from './passport';
+import { JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
 
 export const startExpress = (): void => {
   const app = express();
 
-  // passport needs these two:
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+  // allow local frontend to send requests
+  if (process.env.ALLOW_ORIGIN || process.env.NODE_ENV !== 'production') {
+    app.use((req, res, next) => {
+      res.header('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN || '*');
+      res.header(
+        'Access-Control-Allow-Headers',
+        'Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With',
+      );
+      res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      res.header('Access-Control-Allow-Credentials', 'true');
+      next();
+    });
+  }
 
-  initPassport(app);
+  // Extract user from JWT (Authorization header Bearer) as user in all requests
+  app.use(
+    expressJwt({
+      secret: JWT_SECRET,
+      algorithms: [JWT_ALGORITHM],
+      credentialsRequired: false, // because we don't want it to throw when the token doesn't exist in the request header (for example the login graphql query)
+    }),
+  );
 
   // some level of http security
   app.use(

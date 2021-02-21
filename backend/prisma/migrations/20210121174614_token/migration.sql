@@ -1,0 +1,18 @@
+-- CreateEnum
+CREATE TYPE "public"."TOKEN_TYPES" AS ENUM ('RESET_PASSWORD');
+
+-- CreateTable
+CREATE TABLE "Token" (
+"id" SERIAL,
+    "email" TEXT NOT NULL,
+    "token" TEXT NOT NULL,
+    "type" "TOKEN_TYPES" NOT NULL,
+    "resolved" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Token" ADD FOREIGN KEY("email")REFERENCES "User"("email") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -1,7 +1,45 @@
 input UserInput {
   email: String!
-  name: String
-  password: String
+    @stringLength(min: 0, max: 200)
+    @pattern(
+      regexp: "^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+      flags: "i"
+    )
+  name: String @stringLength(min: 0, max: 200)
+  password: String @stringLength(min: 8, max: 300)
+}
+
+input CredentialsInput {
+  email: String!
+    @stringLength(min: 0, max: 200)
+    @pattern(
+      regexp: "^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+      flags: "i"
+    )
+  password: String @stringLength(min: 8, max: 300)
+}
+
+input EmailInput {
+  email: String!
+    @stringLength(min: 0, max: 200)
+    @pattern(
+      regexp: "^(([^<>()[\\]\\\\.,;:\\s@\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"
+      flags: "i"
+    )
+}
+
+input NewPasswordInput {
+  password: String! @stringLength(min: 8, max: 300)
+  token: String! @stringLength(min: 0, max: 50)
+}
+
+enum AuthServices {
+  GOOGLE
+}
+
+input SocialLoginInput {
+  service: AuthServices!
+  token: String! @stringLength(min: 0, max: 2000)
 }
 
 type User {
@@ -10,11 +48,22 @@ type User {
   name: String
 }
 
+type AuthResult {
+  success: Boolean
+  token: String
+  message: String
+}
+
 type Query {
-  user: User
-  users: [User]
+  user: User @auth
+  users: [User] @hasPermissions(permissions: ["users.read"])
 }
 
 type Mutation {
-  createUser(user: UserInput!): User
+  createUser(user: UserInput!): User @hasPermissions(permissions: ["users.create"])
+  register(user: UserInput!): AuthResult
+  login(credentials: CredentialsInput!): AuthResult
+  forgotPassword(credentials: EmailInput!): AuthResult
+  resetPassword(credentials: NewPasswordInput!): AuthResult
+  validateSocialLogin(credentials: SocialLoginInput!): AuthResult
 }

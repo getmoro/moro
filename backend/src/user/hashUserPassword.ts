@@ -1,10 +1,15 @@
 import bcrypt from 'bcrypt';
-import { UserInput } from '../graphql/resolvers-types';
 
 // more rounds means slower hashing but higher security
 const saltRounds = 10;
 
-export const hashUserPassword = async (user: UserInput): Promise<UserInput> => {
+type ObjectWithPassword = {
+  password?: string | null;
+};
+
+export const hashUserPassword = async <T extends ObjectWithPassword>(
+  user: T,
+): Promise<T> => {
   if (user.password) {
     const hashedPassword = await bcrypt.hash(user.password, saltRounds);
     return { ...user, password: hashedPassword };

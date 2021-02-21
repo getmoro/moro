@@ -7,13 +7,31 @@ export type Props = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Root = styled.button<Pick<Props, 'primary'>>`
-  line-height: 48px;
-  border-radius: 24px;
-  color: #fff;
+  line-height: ${({ theme }) => theme.size.x5l};
+  border-radius: ${({ theme }) => theme.size.x5l};
   font-weight: bold;
   border: none;
-  background-color: ${({ theme, primary }) =>
-    primary ? theme.color.primary : theme.color.secondary};
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  color: ${({ theme, primary, disabled }) => {
+    if (disabled) {
+      return theme.color.disabled;
+    }
+    if (primary) {
+      return '#FFF';
+    } else {
+      return theme.color.secondary;
+    }
+  }};
+  background-color: ${({ theme, primary, disabled }) => {
+    if (disabled) {
+      return theme.color.disabled;
+    }
+    if (primary) {
+      return theme.color.secondary;
+    } else {
+      return '#FFF';
+    }
+  }};
 `;
 
 export const Button: FC<Props> = (props) => {

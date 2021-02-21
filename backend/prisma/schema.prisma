@@ -23,3 +23,26 @@ model User {
   password String?
   projects Project?
 }
+
+enum TOKEN_TYPES {
+  RESET_PASSWORD
+}
+
+model Token {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [email], references: [email])
+  email      String
+  token      String
+  type       TOKEN_TYPES
+  resolved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+}
+
+model LoginFailedAttempt {
+  id         Int      @id @default(autoincrement())
+  email      String
+  resolved   Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+}

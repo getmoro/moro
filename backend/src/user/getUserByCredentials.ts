@@ -1,11 +1,12 @@
-import { User } from '../graphql/resolvers-types';
-import { prisma } from '../server/prisma';
 import bcrypt from 'bcrypt';
+import { User } from '@prisma/client';
+import { prisma } from '../server/prisma';
+import { CredentialsInput } from '../graphql/resolvers-types';
 
-export const getUserByCredentials = async (
-  email: string,
-  password: string,
-): Promise<User | null> => {
+export const getUserByCredentials = async ({
+  email,
+  password,
+}: CredentialsInput): Promise<User | null> => {
   const user = await prisma.user.findUnique({
     where: { email },
   });

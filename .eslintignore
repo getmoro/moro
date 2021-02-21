@@ -1,2 +1,3 @@
 /backend/src/graphql/resolvers-types.ts
 /frontend/src/serviceWorker.js
+/frontend/src/graphql/hooks.ts

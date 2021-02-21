@@ -1,0 +1,7 @@
+mutation register($user: UserInput!) {
+  register(user: $user) {
+    success
+    token
+    message
+  }
+}
