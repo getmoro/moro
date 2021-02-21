@@ -1,7 +1,7 @@
 import { resolverHelper } from '../graphql/resolverHelper';
 import { prisma } from '../server/prisma';
 import { TOKEN_EXPIRE_MINUTES } from '../utils/constants';
-import { createFakeToken } from './createFakeToken';
+import { createFakeToken } from './utils/createFakeToken';
 import { hashUserPassword } from './hashUserPassword';
 import { forgotPassword as forgotPasswordResolver } from './forgotPassword';
 const forgotPassword = resolverHelper(forgotPasswordResolver);

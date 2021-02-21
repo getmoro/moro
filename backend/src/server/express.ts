@@ -4,6 +4,7 @@ import expressJwt from 'express-jwt';
 import { getApolloServer } from '../graphql/graphqlServer';
 import { apolloContext } from './apolloContext';
 import { JWT_ALGORITHM, JWT_SECRET } from '../utils/constants';
+import { expressAddUserToRequest } from './expressAddUserToRequest';
 
 export const startExpress = (): void => {
   const app = express();
@@ -22,7 +23,7 @@ export const startExpress = (): void => {
     });
   }
 
-  // Extract user from JWT (Authorization header Bearer) as user in all requests
+  // Extract user id from JWT (Authorization header Bearer) as user in all requests
   app.use(
     expressJwt({
       secret: JWT_SECRET,
@@ -30,6 +31,9 @@ export const startExpress = (): void => {
       credentialsRequired: false, // because we don't want it to throw when the token doesn't exist in the request header (for example the login graphql query)
     }),
   );
+
+  // get user by user id from the db and put it in the express request (req.user)
+  app.use(expressAddUserToRequest);
 
   // some level of http security
   app.use(

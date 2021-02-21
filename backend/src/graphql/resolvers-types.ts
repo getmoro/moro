@@ -26,6 +26,7 @@ export type Project = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllPermissions: Array<Scalars['String']>;
   projects?: Maybe<Array<Maybe<Project>>>;
   user?: Maybe<User>;
   users?: Maybe<Array<Maybe<User>>>;
@@ -35,6 +36,13 @@ export type UserInput = {
   email: Scalars['String'];
   name?: Maybe<Scalars['String']>;
   password?: Maybe<Scalars['String']>;
+};
+
+export type AdminUserInput = {
+  id: Scalars['Int'];
+  email?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  permissions?: Maybe<Array<Scalars['String']>>;
 };
 
 export type CredentialsInput = {
@@ -65,6 +73,7 @@ export type User = {
   id?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
+  permissions?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 export type AuthResult = {
@@ -77,6 +86,7 @@ export type AuthResult = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<User>;
+  updateUser?: Maybe<User>;
   register?: Maybe<AuthResult>;
   login?: Maybe<AuthResult>;
   forgotPassword?: Maybe<AuthResult>;
@@ -86,6 +96,10 @@ export type Mutation = {
 
 export type MutationCreateUserArgs = {
   user: UserInput;
+};
+
+export type MutationUpdateUserArgs = {
+  user: AdminUserInput;
 };
 
 export type MutationRegisterArgs = {
@@ -214,6 +228,7 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   UserInput: UserInput;
+  AdminUserInput: AdminUserInput;
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
@@ -232,6 +247,7 @@ export type ResolversParentTypes = ResolversObject<{
   String: Scalars['String'];
   Query: {};
   UserInput: UserInput;
+  AdminUserInput: AdminUserInput;
   CredentialsInput: CredentialsInput;
   EmailInput: EmailInput;
   NewPasswordInput: NewPasswordInput;
@@ -256,6 +272,7 @@ export type QueryResolvers<
   ContextType = ApolloContext,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = ResolversObject<{
+  getAllPermissions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   projects?: Resolver<
     Maybe<Array<Maybe<ResolversTypes['Project']>>>,
     ParentType,
@@ -272,6 +289,11 @@ export type UserResolvers<
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  permissions?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['String']>>>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -294,6 +316,12 @@ export type MutationResolvers<
     ParentType,
     ContextType,
     RequireFields<MutationCreateUserArgs, 'user'>
+  >;
+  updateUser?: Resolver<
+    Maybe<ResolversTypes['User']>,
+    ParentType,
+    ContextType,
+    RequireFields<MutationUpdateUserArgs, 'user'>
   >;
   register?: Resolver<
     Maybe<ResolversTypes['AuthResult']>,

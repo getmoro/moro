@@ -7,11 +7,14 @@ import { login } from './login';
 import { forgotPassword } from './forgotPassword';
 import { resetPassword } from './resetPassword';
 import { validateSocialLogin } from './validateSocialLogin';
+import { updateUser } from './updateUser';
+import { getAllPermissions } from './permissions/getAllPermissions';
 
 const resolver: Resolvers = {
   Query: {
     user: getUser,
     users: getUsers,
+    getAllPermissions,
   },
   Mutation: {
     createUser,
@@ -20,6 +23,7 @@ const resolver: Resolvers = {
     forgotPassword,
     resetPassword,
     validateSocialLogin,
+    updateUser,
   },
 };
 

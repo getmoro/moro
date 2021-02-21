@@ -1,7 +1,7 @@
 import { MutationResolvers } from '../graphql/resolvers-types';
 import { createTokenFromUser } from './createTokenFromUser';
 import { getOrMakeUser } from './getOrMakeUser';
-import { getTokenValidator } from './getTokenValidator';
+import { getTokenValidator } from './utils/getTokenValidator';
 
 export const validateSocialLogin: MutationResolvers['validateSocialLogin'] = async (
   parent,
