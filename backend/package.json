@@ -21,7 +21,7 @@
     "@graphql-tools/merge": "^6.2.6",
     "@prisma/client": "^2.13.0",
     "@profusion/apollo-validation-directives": "^2.1.1",
-    "apollo-server": "^2.19.0",
+    "apollo-server": "^2.25.4",
     "apollo-server-express": "^2.19.0",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
