@@ -50,7 +50,7 @@
     "expand-home-dir": "0.0.3",
     "fs-extra": "9.0.1",
     "jsonfile": "6.1.0",
-    "knex": "0.20.4",
+    "knex": "2.4.0",
     "moment": "2.24.0",
     "opencollective": "1.0.3",
     "ora": "5.1.0",
