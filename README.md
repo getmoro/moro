@@ -1,4 +1,4 @@
-# Moro
+# Moro (DEPRECATED / USE AT YOUR OWN RISK)
 
 A command line tool for tracking work hours, as simple as it can get.
 
